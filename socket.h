@@ -44,6 +44,16 @@ typedef int SOCKET;
 #define close closesocket
 #endif
 
+namespace {
+inline int get_error() {
+#ifdef _WIN
+	return WSAGetLastError();
+#else
+	return errno;
+#endif
+}
+}
+
 typedef unsigned long IpAddress_t;
 
 enum SocketState_t { NONE, INIT, CONNECTED };
@@ -59,16 +69,6 @@ class Sock {
 	bool ws_init() const;
 	bool ws_stop() const;
 #endif
-
-	inline int get_error() const {
-#ifdef _WIN
-		return WSAGetLastError();
-#else
-		return errno;
-#endif
-	}
-
-	bool hostname_to_ip(const std::string& host, std::vector<IpAddress_t>& ret) const;
 
 public:
 	Sock();

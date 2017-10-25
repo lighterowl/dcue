@@ -14,6 +14,30 @@
 #include <exception>
 #include <stdexcept>
 
+namespace {
+bool hostname_to_ip(const std::string& host, std::vector<IpAddress_t>& ret) {
+	//apparently gethostbyname is kinda deprecated now but it's still oh so simple
+	const HOSTENT* host_list = gethostbyname(host.c_str());
+
+	// gethostbyname() failed?
+	if(host_list == NULL) {
+		const int last_error = get_error();
+		std::cerr << "gethostbyname() failed. Error code: " << last_error << std::endl;
+		return false;
+	}
+
+	// Check if host has at least one IP entry
+	if(host_list->h_addr_list[0]) {
+		for(size_t i = 0; host_list->h_addr_list[i] != 0; ++i) {
+			ret.push_back((*((IpAddress_t*)host_list->h_addr_list[i])));
+		}
+		return true;
+	}
+	std::cerr << "Failed to find an IP for the host" << std::endl;
+	return false;
+}
+}
+
 Sock::Sock() {
 	state = NONE;
 	s = INVALID_SOCKET;
@@ -71,28 +95,6 @@ bool Sock::ws_stop() const {
 	return true;
 }
 #endif
-
-bool Sock::hostname_to_ip(const std::string& host, std::vector<IpAddress_t>& ret) const {
-	//apparently gethostbyname is kinda deprecated now but it's still oh so simple
-	const HOSTENT* host_list = gethostbyname(host.c_str());
-
-	// gethostbyname() failed?
-	if(host_list == NULL) {
-		const int last_error = get_error();
-		std::cerr << "gethostbyname() failed. Error code: " << last_error << std::endl;
-		return false;
-	}
-
-	// Check if host has at least one IP entry
-	if(host_list->h_addr_list[0]) {
-		for(size_t i = 0; host_list->h_addr_list[i] != 0; ++i) {
-			ret.push_back((*((IpAddress_t*)host_list->h_addr_list[i])));
-		}
-		return true;
-	}
-	std::cerr << "Failed to find an IP for the host" << std::endl;
-	return false;
-}
 
 bool Sock::sconnect(const std::string& address, const unsigned short port) {
 	s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);

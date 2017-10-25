@@ -19,7 +19,7 @@ class DiscogsApiRequest {
 protected:
 	HttpResponse res;
 
-	 inline bool success() {
+	 inline bool success() const {
 		if(res.status == OK) {
 			return true;
 		}
