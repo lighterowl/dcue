@@ -16,23 +16,10 @@
 #include <vector>
 #include <ctime>
 
-#ifdef _CPP11
 #include <unordered_map>
-#else
-#include <map>
-#endif
 
-#ifdef _CPP11
 typedef std::unordered_map<std::string, std::string> string_map;
-#else
-typedef std::map<std::string, std::string> string_map;
-#endif
-
-#ifdef _REALCPP
 typedef std::tm Tm_t;
-#else
-typedef struct tm Tm_t;
-#endif
 
 struct Track {
 	std::string artist;

@@ -10,17 +10,6 @@
 #ifndef _DEFS_H
 #define _DEFS_H
 
-//C++ options -- recommended: define both _CPP11 and _REALCPP
-
-#ifndef DISABLECPP11
-//_CPP11 enables C++11 features
-//currently we don't make extensive use of C++11 but we do use a couple of stdlib enhancements that should really have been in C++ already
-#define _CPP11
-#endif
-//_REALCPP forces strict C++-only code
-//disables dependence on archaic C artefacts like prepending type names with "struct"
-#define _REALCPP
-
 //should be a pretty exhaustive check for Windows
 #if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__) || defined(_WIN64)
 #define _WIN

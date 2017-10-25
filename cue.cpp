@@ -213,11 +213,7 @@ void CueBuilder::write_file(const Cue& c, const unsigned disc) {
 	filename += ".cue";
 
 	std::ofstream out;
-#ifndef _CPP11
-	out.open(filename.c_str(), std::ios::binary|std::ios::out);
-#else
 	out.open(filename, std::ios::binary|std::ios::out);
-#endif
 	if(!out.is_open()) {
 		throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
 	}

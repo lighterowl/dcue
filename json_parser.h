@@ -12,6 +12,7 @@
 
 #include "defs.h"
 #include "string_utility.h"
+#include "support_types.h"
 
 #include <string>
 #include <vector>
@@ -19,18 +20,6 @@
 #include <utility>
 #include <cstring>
 #include <cctype>
-
-#ifdef _CPP11
-#include <unordered_map>
-#else
-#include <map>
-#endif
-
-#ifdef _CPP11
-typedef std::unordered_map<std::string, std::string> string_map;
-#else
-typedef std::map<std::string, std::string> string_map;
-#endif
 
 class JsonParser {
 	static bool is_pointless(const std::string& s);
