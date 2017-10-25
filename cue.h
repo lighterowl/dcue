@@ -40,10 +40,6 @@ public:
   void add_track_index(const unsigned minutes, const unsigned seconds,
                        const unsigned frames);
   void add_filename(const std::string& name);
-  void add_pregap_index(const unsigned minutes, const unsigned seconds,
-                        const unsigned frames);
-  void add_artificial_pregap(const unsigned minutes, const unsigned seconds,
-                             const unsigned frames);
   void add_indent();
   const std::string& get_output() const;
 };

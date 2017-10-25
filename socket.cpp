@@ -150,22 +150,6 @@ bool Sock::sread(std::string& out, const size_t buffer_length) {
   return true;
 }
 
-bool Sock::sread_to_end(std::string& out) {
-  if (state != CONNECTED) {
-    return false;
-  }
-  out = "";
-  std::string temp;
-  while (sread(temp)) {
-    if (!temp.empty()) {
-      out += temp;
-    } else {
-      break;
-    }
-  }
-  return true;
-}
-
 bool Sock::swrite(std::string& msg, const int max_attempts) {
   if (state != CONNECTED) {
     return false;

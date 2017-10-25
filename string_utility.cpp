@@ -11,21 +11,6 @@
 
 #include <cctype>
 
-void explode_by_first_of(const std::string& text, const std::string& separator,
-                         std::vector<std::string>& results) {
-  std::string::size_type found;
-  std::string copy(text);
-  do {
-    found = copy.find_first_of(separator);
-    if (found > 0) {
-      results.push_back(copy.substr(0, found));
-    }
-    copy = text.substr(found + 1);
-  } while (found != std::string::npos);
-
-  return;
-}
-
 void explode(const std::string& text, const std::string& separator,
              std::vector<std::string>& results) {
   std::string::size_type found;

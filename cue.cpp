@@ -129,19 +129,6 @@ void Cue::add_filename(const std::string& name) {
   out += LINE_END;
 }
 
-void Cue::add_pregap_index(const unsigned minutes, const unsigned seconds,
-                           const unsigned frames) {
-  const std::string index = "00";
-  add_index(index, minutes, seconds, frames);
-}
-
-void Cue::add_artificial_pregap(const unsigned minutes, const unsigned seconds,
-                                const unsigned frames) {
-  out += "PREGAP ";
-  add_generic_time(minutes, seconds, frames);
-  out += LINE_END;
-}
-
 void Cue::add_indent() {
   out += "\t";
 }

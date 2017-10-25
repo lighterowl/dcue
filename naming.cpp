@@ -29,11 +29,6 @@ void NamingFacets::reverse_artist_the(std::string& out) {
   }
 }
 
-void NamingFacets::name_facets(std::string& out) {
-  // stub
-  out = out; // literally just to shut up /Wall in VC++
-}
-
 void NamingFacets::artist_facets(std::string& out) {
   remove_artist_number(out);
   reverse_artist_the(out);
