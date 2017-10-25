@@ -18,6 +18,18 @@
 #include <stdexcept>
 #include <ctime>
 
+namespace {
+std::string sanitise_string(const std::string& str) {
+	auto out = str;
+	replace_string(out, "\\u2019", "\'");
+	replace_string(out, "\\u2026", "...");
+	replace_string(out, "\\\"", "\'");
+	replace_char(out, '\\', "-");
+	replace_char(out, '/', "-");
+	return out;
+}
+}
+
 time_t tm_to_time_t(const Tm_t& t) {
 	time_t ret = 0;
 	ret += t.tm_sec;
@@ -131,16 +143,6 @@ void Cue::add_indent() {
 }
 
 const std::string& Cue::get_output() const {
-	return out;
-}
-
-std::string CueBuilder::sanitise_string(const std::string& str) {
-	std::string out = str;
-	replace_string(out, "\\u2019", "\'");
-	replace_string(out, "\\u2026", "...");
-	replace_string(out, "\\\"", "\'");
-	replace_char(out, '\\', "-");
-	replace_char(out, '/', "-");
 	return out;
 }
 

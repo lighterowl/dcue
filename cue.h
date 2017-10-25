@@ -46,7 +46,6 @@ public:
 class CueBuilder {
 	CueSheet cuesheet;
 
-	std::string sanitise_string(const std::string& str);
 	void build();
 	void write_file(const Cue& c, const unsigned disc = 0);
 
