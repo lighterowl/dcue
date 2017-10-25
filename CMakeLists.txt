@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.1)
+
+project(dcue CXX)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(dcue
+  cue.cpp
+  dcue.cpp
+  discogs.cpp
+  filename_utility.cpp
+  http.cpp
+  json_parser.cpp
+  main.cpp
+  naming.cpp
+  socket.cpp
+  string_utility.cpp)

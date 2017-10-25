@@ -85,7 +85,7 @@ bool Sock::hostname_to_ip(const std::string& host, std::vector<IpAddress_t>& ret
 
 	// Check if host has at least one IP entry
 	if(host_list->h_addr_list[0]) {
-		for(size_t i = 0; host_list->h_addr_list[i] != '\0'; ++i) {
+		for(size_t i = 0; host_list->h_addr_list[i] != 0; ++i) {
 			ret.push_back((*((IpAddress_t*)host_list->h_addr_list[i])));
 		}
 		return true;
