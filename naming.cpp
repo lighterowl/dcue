@@ -12,29 +12,29 @@
 #include <cctype>
 
 void NamingFacets::remove_artist_number(std::string& out) {
-	const std::string::size_type out_size = out.size();
-	if(out[out_size - 1] == ')' && std::isdigit(out[out_size - 2])) {
-		const std::string::size_type bracket = out.find_last_of("(");
-		if(bracket != std::string::npos) {
-			out.erase(bracket - 1);
-		}
-	}
+  const std::string::size_type out_size = out.size();
+  if (out[out_size - 1] == ')' && std::isdigit(out[out_size - 2])) {
+    const std::string::size_type bracket = out.find_last_of("(");
+    if (bracket != std::string::npos) {
+      out.erase(bracket - 1);
+    }
+  }
 }
 
 void NamingFacets::reverse_artist_the(std::string& out) {
-	const std::string::size_type out_size = out.size();
-	if(out_size > 5 && out.substr(out_size - 5) == ", The") {
-		out.erase(out_size - 5);
-		out = "The " + out;
-	}
+  const std::string::size_type out_size = out.size();
+  if (out_size > 5 && out.substr(out_size - 5) == ", The") {
+    out.erase(out_size - 5);
+    out = "The " + out;
+  }
 }
 
 void NamingFacets::name_facets(std::string& out) {
-	//stub
-	out = out; //literally just to shut up /Wall in VC++
+  // stub
+  out = out; // literally just to shut up /Wall in VC++
 }
 
 void NamingFacets::artist_facets(std::string& out) {
-	remove_artist_number(out);
-	reverse_artist_the(out);
+  remove_artist_number(out);
+  reverse_artist_the(out);
 }

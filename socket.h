@@ -17,20 +17,20 @@
 
 #ifdef _WIN
 #define _WINSOCKAPI_
-#include <windows.h>
 #include <windef.h>
+#include <windows.h>
 #include <winsock2.h>
 #else
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <cerrno>
-#include <netinet/in.h>
-#include <netinet/tcp.h>
 #include <arpa/inet.h>
-#include <unistd.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <netdb.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 
 #ifndef _WIN
@@ -39,7 +39,7 @@
 typedef struct hostent HOSTENT;
 typedef int SOCKET;
 #else
-//version 2.0
+// version 2.0
 #define WS_VERSION 0x02
 #define close closesocket
 #endif
@@ -47,9 +47,9 @@ typedef int SOCKET;
 namespace {
 inline int get_error() {
 #ifdef _WIN
-	return WSAGetLastError();
+  return WSAGetLastError();
 #else
-	return errno;
+  return errno;
 #endif
 }
 }
@@ -59,27 +59,27 @@ typedef unsigned long IpAddress_t;
 enum SocketState_t { NONE, INIT, CONNECTED };
 
 class Sock {
-	const static size_t BUFFER_LENGTH = 1024;
-	const static int MAX_ATTEMPTS = 20;
-	SOCKET s;
-	SocketState_t state;
+  const static size_t BUFFER_LENGTH = 1024;
+  const static int MAX_ATTEMPTS = 20;
+  SOCKET s;
+  SocketState_t state;
 
 #ifdef _WIN
-	//unfortunate initialisation of winsock
-	bool ws_init() const;
-	bool ws_stop() const;
+  // unfortunate initialisation of winsock
+  bool ws_init() const;
+  bool ws_stop() const;
 #endif
 
 public:
-	Sock();
-	~Sock();
+  Sock();
+  ~Sock();
 
-	bool sconnect(const std::string& address, const unsigned short port);
-	bool sread(std::string& out, const size_t buffer_length = BUFFER_LENGTH);
-	bool sread_to_end(std::string& out);
-	bool swrite(std::string& msg, const int max_attempts = MAX_ATTEMPTS);
-	bool swrite(const char* msg, const int max_attempts = MAX_ATTEMPTS);
-	bool sdisconnect();
+  bool sconnect(const std::string& address, const unsigned short port);
+  bool sread(std::string& out, const size_t buffer_length = BUFFER_LENGTH);
+  bool sread_to_end(std::string& out);
+  bool swrite(std::string& msg, const int max_attempts = MAX_ATTEMPTS);
+  bool swrite(const char* msg, const int max_attempts = MAX_ATTEMPTS);
+  bool sdisconnect();
 };
 
 #endif

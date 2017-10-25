@@ -10,20 +10,21 @@
 #ifndef _DCUE_H
 #define _DCUE_H
 
-#include "defs.h"
-#include "json_parser.h"
-#include "discogs.h"
 #include "cue.h"
+#include "defs.h"
+#include "discogs.h"
+#include "filename_utility.h"
+#include "json_parser.h"
+#include "naming.h"
 #include "string_utility.h"
 #include "support_types.h"
-#include "naming.h"
-#include "filename_utility.h"
 
 #include <string>
 
 class DCue {
 public:
-	static void generate(const std::string& id, const std::string& filename, const bool is_master = false);
+  static void generate(const std::string& id, const std::string& filename,
+                       const bool is_master = false);
 };
 
 // inline void echo_map_debug(string_map& sm) {

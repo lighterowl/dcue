@@ -12,9 +12,9 @@
 
 #include "defs.h"
 
+#include <ctime>
 #include <string>
 #include <vector>
-#include <ctime>
 
 #include <unordered_map>
 
@@ -22,41 +22,41 @@ typedef std::unordered_map<std::string, std::string> string_map;
 typedef std::tm Tm_t;
 
 struct Track {
-	std::string artist;
-	std::string title;
-	struct tm length;
-	unsigned position;
+  std::string artist;
+  std::string title;
+  struct tm length;
+  unsigned position;
 
-	inline bool operator>(const Track& rhs) const {
-		return this->position > rhs.position;
-	}
+  inline bool operator>(const Track& rhs) const {
+    return this->position > rhs.position;
+  }
 
-	inline bool operator<(const Track& rhs) const {
-		return this->position < rhs.position;
-	}
+  inline bool operator<(const Track& rhs) const {
+    return this->position < rhs.position;
+  }
 
-	Track() : artist(""), title(""), position(0) {
-		length.tm_min = 0;
-		length.tm_sec = 0;
-	}
+  Track() : artist(""), title(""), position(0) {
+    length.tm_min = 0;
+    length.tm_sec = 0;
+  }
 };
 
 struct Disc {
-	std::vector<Track> tracks;
+  std::vector<Track> tracks;
 };
 
 struct Album {
-	std::vector<Disc> discs;
-	std::string year;
-	std::string genre;
-	std::string title;
-	std::string album_artist;
+  std::vector<Disc> discs;
+  std::string year;
+  std::string genre;
+  std::string title;
+  std::string album_artist;
 };
 
 struct CueSheet {
-	Album album;
-	std::string comment;
-	std::string filename;
+  Album album;
+  std::string comment;
+  std::string filename;
 };
 
 #endif

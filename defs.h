@@ -10,8 +10,9 @@
 #ifndef _DEFS_H
 #define _DEFS_H
 
-//should be a pretty exhaustive check for Windows
-#if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__) || defined(_WIN64)
+// should be a pretty exhaustive check for Windows
+#if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) ||                \
+    defined(__MINGW32__) || defined(__BORLANDC__) || defined(_WIN64)
 #define _WIN
 #endif
 
@@ -20,7 +21,7 @@
 #define HTTP_VERSION "HTTP/1.1"
 #define COMMENT "DCue v" VERSION
 
-//can probably be changed to "\n" on linux but there's no actual need to
+// can probably be changed to "\n" on linux but there's no actual need to
 #define LINE_END "\r\n"
 
 #endif

@@ -10,27 +10,25 @@
 #include "filename_utility.h"
 
 std::string basename(const std::string& fn) {
-	const std::string::size_type pos = fn.find_last_of("\\/") + 1;
-	std::string basename;
-	if(pos != std::string::npos) {
-		basename = fn.substr(pos, fn.find_last_of(".") - pos);
-	}
-	else {
-		basename = fn.substr(0, fn.find_last_of("."));
-	}
-	return basename;
+  const std::string::size_type pos = fn.find_last_of("\\/") + 1;
+  std::string basename;
+  if (pos != std::string::npos) {
+    basename = fn.substr(pos, fn.find_last_of(".") - pos);
+  } else {
+    basename = fn.substr(0, fn.find_last_of("."));
+  }
+  return basename;
 }
 
 std::string extension(const std::string& fn) {
-	return fn.substr(fn.find_last_of(".") + 1);
+  return fn.substr(fn.find_last_of(".") + 1);
 }
 
 std::string path(const std::string& fn) {
-	const std::string::size_type pos = fn.find_last_of("\\/") + 1;
-	if(pos != std::string::npos) {
-		return fn.substr(0, pos);
-	}
-	else {
-		return "";
-	}
+  const std::string::size_type pos = fn.find_last_of("\\/") + 1;
+  if (pos != std::string::npos) {
+    return fn.substr(0, pos);
+  } else {
+    return "";
+  }
 }

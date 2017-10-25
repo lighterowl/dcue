@@ -11,8 +11,8 @@
 #define _HTTP_H
 
 #include "defs.h"
-#include "string_utility.h"
 #include "socket.h"
+#include "string_utility.h"
 
 #include <string>
 #include <vector>
@@ -20,24 +20,25 @@
 enum HttpStatus_t { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
 
 struct HttpHeader {
-	std::string name;
-	std::string value;
+  std::string name;
+  std::string value;
 };
 
 struct HttpResponse {
-	HttpStatus_t status;
-	std::vector<HttpHeader> headers;
-	std::string body;
+  HttpStatus_t status;
+  std::vector<HttpHeader> headers;
+  std::string body;
 };
 
 class HttpGet {
-	std::vector<HttpHeader> headers;
-	std::string resource;
+  std::vector<HttpHeader> headers;
+  std::string resource;
 
 public:
-	void add_header(const std::string& name, const std::string& value);
-	void set_resource(const std::string& res);
-	bool send(const std::string& hostname, const unsigned short port, HttpResponse& out) const;
+  void add_header(const std::string& name, const std::string& value);
+  void set_resource(const std::string& res);
+  bool send(const std::string& hostname, const unsigned short port,
+            HttpResponse& out) const;
 };
 
 #endif

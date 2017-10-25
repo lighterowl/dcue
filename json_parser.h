@@ -14,25 +14,31 @@
 #include "string_utility.h"
 #include "support_types.h"
 
-#include <string>
-#include <vector>
 #include <algorithm>
-#include <utility>
-#include <cstring>
 #include <cctype>
+#include <cstring>
+#include <string>
+#include <utility>
+#include <vector>
 
 class JsonParser {
-	static bool is_pointless(const std::string& s);
-	static void prepare_object(std::string& text);
-	static void try_push_back(std::string text, std::vector<std::string>& results);
-	static std::string::size_type eat_string(const std::string& cur, std::string::size_type pos);
-	static std::string::size_type eat_object(const std::string& cur, std::string::size_type pos, const bool array = false);
+  static bool is_pointless(const std::string& s);
+  static void prepare_object(std::string& text);
+  static void try_push_back(std::string text,
+                            std::vector<std::string>& results);
+  static std::string::size_type eat_string(const std::string& cur,
+                                           std::string::size_type pos);
+  static std::string::size_type eat_object(const std::string& cur,
+                                           std::string::size_type pos,
+                                           const bool array = false);
 
 public:
-	static void parse_object(std::string text, string_map& kvs);
-	static void break_string_array(std::string& text, std::vector<std::string>& results);
-	static void break_object_array(std::string& text, std::vector<std::string>& results);
-	static void break_array(std::string& text, std::vector<std::string>& results);
+  static void parse_object(std::string text, string_map& kvs);
+  static void break_string_array(std::string& text,
+                                 std::vector<std::string>& results);
+  static void break_object_array(std::string& text,
+                                 std::vector<std::string>& results);
+  static void break_array(std::string& text, std::vector<std::string>& results);
 };
 
 #endif

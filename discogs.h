@@ -17,23 +17,23 @@
 
 class DiscogsApiRequest {
 protected:
-	HttpResponse res;
+  HttpResponse res;
 
-	 inline bool success() const {
-		if(res.status == OK) {
-			return true;
-		}
-		return false;
-	}
+  inline bool success() const {
+    if (res.status == OK) {
+      return true;
+    }
+    return false;
+  }
 
 public:
-	bool send(const std::string&, std::string&);
+  bool send(const std::string&, std::string&);
 };
-
 
 class DiscogsReleaseRequest : public DiscogsApiRequest {
 public:
-	bool send(const std::string& rel_id, std::string& out, const bool is_master = false);
+  bool send(const std::string& rel_id, std::string& out,
+            const bool is_master = false);
 };
 
 #endif
