@@ -16,6 +16,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 enum HttpStatus_t { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
 
@@ -30,11 +31,17 @@ struct HttpResponse {
   std::string body;
 };
 
+struct CurlDeleter {
+  void operator()(void*) const;
+};
+
 class HttpGet {
   std::vector<HttpHeader> headers;
   std::string resource;
+  std::unique_ptr<void, CurlDeleter> curl;
 
 public:
+  HttpGet();
   void add_header(const std::string& name, const std::string& value);
   void set_resource(const std::string& res);
   bool send(const std::string& hostname, const unsigned short port,

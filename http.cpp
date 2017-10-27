@@ -8,6 +8,18 @@
 // *******************************************************************
 
 #include "http.h"
+#include <curl/curl.h>
+
+namespace {
+struct CurlInit {
+  CurlInit() { ::curl_global_init(CURL_GLOBAL_DEFAULT); }
+  ~CurlInit() { ::curl_global_cleanup(); }
+};
+
+const CurlInit c;
+}
+
+HttpGet::HttpGet():curl(::curl_easy_init()) {}
 
 void HttpGet::add_header(const std::string& name, const std::string& value) {
   HttpHeader h;
@@ -98,4 +110,9 @@ bool HttpGet::send(const std::string& hostname, const unsigned short port,
 
   s.sdisconnect();
   return true;
+}
+
+void CurlDeleter::operator()(void *c) const
+{
+  ::curl_easy_cleanup(c);
 }
