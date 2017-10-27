@@ -8,19 +8,19 @@
 // *******************************************************************
 
 #include "http.h"
-#include <curl/curl.h>
 #include <cstdlib>
+#include <curl/curl.h>
 #include <iostream>
 
 namespace {
 struct CurlInit {
   CurlInit() {
-    if(::curl_global_init(CURL_GLOBAL_DEFAULT)) {
+    if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
       std::cerr << "libcurl initialisation failed\n";
       ::exit(1);
     }
     auto versinfo = ::curl_version_info(CURLVERSION_NOW);
-    if(!(versinfo->features & CURL_VERSION_SSL)) {
+    if (!(versinfo->features & CURL_VERSION_SSL)) {
       std::cerr << "Your libcurl doesn't support SSL\n";
       ::exit(1);
     }
@@ -32,14 +32,14 @@ struct CurlInit {
 
 const CurlInit c;
 
-size_t write_body(char *ptr, size_t size, size_t nmemb, void *userdata) {
+size_t write_body(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::string*>(userdata);
   auto total = size * nmemb;
   resp->append(ptr, total);
   return total;
 }
 
-size_t write_headers(char *ptr, size_t size, size_t nmemb, void *userdata) {
+size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::vector<HttpHeader>*>(userdata);
   auto total = size * nmemb;
   HttpHeader h;
@@ -57,7 +57,7 @@ size_t write_headers(char *ptr, size_t size, size_t nmemb, void *userdata) {
 
 HttpStatus_t rawCodeToHttpStatus(long respCode) {
   HttpStatus_t rv = OTHER_FAIL;
-  switch(respCode) {
+  switch (respCode) {
   case 200:
     rv = OK;
     break;
@@ -98,18 +98,18 @@ bool HttpGet::send(const std::string& hostname, const unsigned short port,
   url += resource;
   ::curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
 
-  struct curl_slist *list = nullptr;
-  for(auto&& header : headers) {
+  struct curl_slist* list = nullptr;
+  for (auto&& header : headers) {
     auto fullHeader = header.name + ": " + header.value;
     list = ::curl_slist_append(list, fullHeader.c_str());
   }
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
-  
+
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, write_body);
   ::curl_easy_setopt(curl.get(), CURLOPT_HEADERDATA, &out.headers);
   ::curl_easy_setopt(curl.get(), CURLOPT_HEADERFUNCTION, write_headers);
-  
+
   ::curl_easy_perform(curl.get());
 
   long response_code;

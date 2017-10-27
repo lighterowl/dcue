@@ -13,9 +13,9 @@
 #include "defs.h"
 #include "string_utility.h"
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 enum HttpStatus_t { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
 

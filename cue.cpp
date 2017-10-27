@@ -143,10 +143,10 @@ void CueBuilder::build() {
   for (std::vector<Disc>::size_type i = 0; i < discs_size; ++i) {
     // string sanitisation is really just a way of compensating for the number
     // of dumb cue tools available, double quotes especially confuse them and
-    // Medieval CUE Splitter on Windows practically blows up when confronted with
-    // backslashes in titles  it's not really the application's job to do this
-    // (bar perhaps the double quotes) but because there's no actual standard for
-    // cue sheets we have to make do and mend
+    // Medieval CUE Splitter on Windows practically blows up when confronted
+    // with backslashes in titles  it's not really the application's job to do
+    // this (bar perhaps the double quotes) but because there's no actual
+    // standard for cue sheets we have to make do and mend
     Cue c;
     if (!cuesheet.album.genre.empty()) {
       c.add_genre(sanitise_string(cuesheet.album.genre));
