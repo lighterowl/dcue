@@ -43,8 +43,7 @@ public:
   HttpGet();
   void add_header(const std::string& name, const std::string& value);
   void set_resource(const std::string& res);
-  bool send(const std::string& hostname, const unsigned short port,
-            HttpResponse& out) const;
+  bool send(const std::string& hostname, HttpResponse& out) const;
 };
 
 #endif

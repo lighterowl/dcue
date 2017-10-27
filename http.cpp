@@ -89,8 +89,7 @@ void HttpGet::set_resource(const std::string& res) {
   resource = res;
 }
 
-bool HttpGet::send(const std::string& hostname, const unsigned short port,
-                   HttpResponse& out) const {
+bool HttpGet::send(const std::string& hostname, HttpResponse& out) const {
   if (resource.empty()) {
     return false;
   }
