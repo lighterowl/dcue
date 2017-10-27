@@ -12,14 +12,61 @@
 
 namespace {
 struct CurlInit {
-  CurlInit() { ::curl_global_init(CURL_GLOBAL_DEFAULT); }
-  ~CurlInit() { ::curl_global_cleanup(); }
+  CurlInit() {
+    ::curl_global_init(CURL_GLOBAL_DEFAULT);
+  }
+  ~CurlInit() {
+    ::curl_global_cleanup();
+  }
 };
 
 const CurlInit c;
+
+size_t write_body(char *ptr, size_t size, size_t nmemb, void *userdata) {
+  auto resp = static_cast<std::string*>(userdata);
+  auto total = size * nmemb;
+  resp->append(ptr, total);
+  return total;
 }
 
-HttpGet::HttpGet():curl(::curl_easy_init()) {}
+size_t write_headers(char *ptr, size_t size, size_t nmemb, void *userdata) {
+  auto resp = static_cast<std::vector<HttpHeader>*>(userdata);
+  auto total = size * nmemb;
+  HttpHeader h;
+  auto hdrLine = std::string{ptr, total};
+  auto firstColon = hdrLine.find_first_of(":");
+  auto temp = hdrLine.substr(0, firstColon);
+  trim(temp);
+  h.name = temp;
+  temp = hdrLine.substr(firstColon + 1);
+  trim(temp);
+  h.value = temp;
+  resp->push_back(h);
+  return total;
+}
+
+HttpStatus_t rawCodeToHttpStatus(long respCode) {
+  HttpStatus_t rv = OTHER_FAIL;
+  switch(respCode) {
+  case 200:
+    rv = OK;
+    break;
+  case 403:
+    rv = FORBIDDEN;
+    break;
+  case 404:
+    rv = NOT_FOUND;
+    break;
+  case 500:
+    rv = INT_ERR;
+    break;
+  }
+  return rv;
+}
+}
+
+HttpGet::HttpGet() : curl(::curl_easy_init()) {
+}
 
 void HttpGet::add_header(const std::string& name, const std::string& value) {
   HttpHeader h;
@@ -37,82 +84,31 @@ bool HttpGet::send(const std::string& hostname, const unsigned short port,
   if (resource.empty()) {
     return false;
   }
-  std::string w;
-  w = "GET ";
-  w += resource;
-  w += " " HTTP_VERSION LINE_END;
+  auto url = hostname;
+  url += resource;
+  ::curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
 
-  const std::vector<HttpHeader>::size_type headers_size = headers.size();
-  for (std::vector<HttpHeader>::size_type i = 0; i < headers_size; ++i) {
-    w += headers[i].name;
-    w += ": ";
-    w += headers[i].value;
-    w += LINE_END;
+  struct curl_slist *list = nullptr;
+  for(auto&& header : headers) {
+    auto fullHeader = header.name + ": " + header.value;
+    list = ::curl_slist_append(list, fullHeader.c_str());
   }
+  ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
+  
+  ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);
+  ::curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, write_body);
+  ::curl_easy_setopt(curl.get(), CURLOPT_HEADERDATA, &out.headers);
+  ::curl_easy_setopt(curl.get(), CURLOPT_HEADERFUNCTION, write_headers);
+  
+  ::curl_easy_perform(curl.get());
 
-  w += LINE_END;
+  long response_code;
+  ::curl_easy_getinfo(curl.get(), CURLINFO_RESPONSE_CODE, &response_code);
+  out.status = rawCodeToHttpStatus(response_code);
 
-  Sock s;
-  if (!s.sconnect(hostname, port)) {
-    return false;
-  }
-  if (!s.swrite(w)) {
-    return false;
-  }
-
-  std::string temp;
-  std::string raw_res = "";
-  do {
-    if (!s.sread(temp)) {
-      return false;
-    }
-    raw_res += temp;
-  } while (temp != "");
-
-  std::string res_headers = raw_res.substr(0, raw_res.find("\r\n\r\n"));
-
-  std::vector<std::string> lines;
-  explode(res_headers, "\r\n", lines);
-
-  std::vector<std::string> tokens;
-  explode(lines[0], " ", tokens);
-
-  // for first-line of response with format HTTP/1.1 <CODE> <DESC>
-  if (tokens[1] == "200") {
-    out.status = OK;
-  } else if (tokens[1] == "403") {
-    out.status = FORBIDDEN;
-  } else if (tokens[1] == "404") {
-    out.status = NOT_FOUND;
-  } else if (tokens[1] == "500") {
-    out.status = INT_ERR;
-  } else {
-    out.status = OTHER_FAIL;
-  }
-
-  if (out.status != OK) {
-    return true;
-  }
-
-  const std::vector<std::string>::size_type lines_size = lines.size();
-  for (std::vector<std::string>::size_type i = 1; i < lines_size; ++i) {
-    HttpHeader h;
-    temp = lines[i].substr(0, lines[i].find_first_of(":"));
-    trim(temp);
-    h.name = temp;
-    temp = lines[i].substr(lines[i].find_first_of(":") + 1);
-    trim(temp);
-    h.value = temp;
-    out.headers.push_back(h);
-  }
-
-  out.body = raw_res.substr(raw_res.find("\r\n\r\n") + 4);
-
-  s.sdisconnect();
   return true;
 }
 
-void CurlDeleter::operator()(void *c) const
-{
+void CurlDeleter::operator()(void* c) const {
   ::curl_easy_cleanup(c);
 }

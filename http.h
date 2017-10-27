@@ -11,7 +11,6 @@
 #define _HTTP_H
 
 #include "defs.h"
-#include "socket.h"
 #include "string_utility.h"
 
 #include <string>

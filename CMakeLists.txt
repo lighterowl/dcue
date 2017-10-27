@@ -16,6 +16,5 @@ add_executable(dcue
   json_parser.cpp
   main.cpp
   naming.cpp
-  socket.cpp
   string_utility.cpp)
 target_link_libraries(dcue ${CURL_LIBRARIES})
