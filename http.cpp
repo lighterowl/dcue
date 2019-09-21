@@ -105,6 +105,7 @@ bool HttpGet::send(const std::string& hostname, HttpResponse& out) const {
     auto fullHeader = header.name + ": " + header.value;
     list = ::curl_slist_append(list, fullHeader.c_str());
   }
+  list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);

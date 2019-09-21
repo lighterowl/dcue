@@ -14,7 +14,7 @@
 #define _DEFS_H
 
 #define VERSION "1.2dev"
-#define USER_AGENT "DCue/" VERSION
+#define USER_AGENT "DCue/" VERSION " +https://github.com/xavery/dcue"
 #define COMMENT "DCue v" VERSION
 
 #endif

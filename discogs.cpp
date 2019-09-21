@@ -20,7 +20,6 @@ bool DiscogsReleaseRequest::send(const std::string& rel_id, std::string& out,
   } else {
     req.set_resource("/releases/" + rel_id);
   }
-  req.add_header("User-Agent", USER_AGENT);
   req.send("https://api.discogs.com", res);
   if (success()) {
     out = res.body;
