@@ -113,6 +113,7 @@ bool HttpGet::send(const std::string& hostname, HttpResponse& out) const {
   ::curl_easy_setopt(curl.get(), CURLOPT_HEADERFUNCTION, write_headers);
 
   ::curl_easy_perform(curl.get());
+  ::curl_slist_free_all(list);
 
   long response_code;
   ::curl_easy_getinfo(curl.get(), CURLINFO_RESPONSE_CODE, &response_code);
