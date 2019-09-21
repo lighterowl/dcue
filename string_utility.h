@@ -1,4 +1,7 @@
 // *******************************************************************
+// DCue (github.com/xavery/dcue)
+// Copyright (c) 2019 Daniel Kamil Kozar
+// Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
 // *******************************************************************
