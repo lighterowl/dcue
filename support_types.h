@@ -16,7 +16,6 @@
 
 #include <unordered_map>
 
-typedef std::unordered_map<std::string, std::string> string_map;
 typedef std::tm Tm_t;
 
 struct Track {

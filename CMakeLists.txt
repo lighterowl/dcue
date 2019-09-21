@@ -20,7 +20,6 @@ add_executable(dcue
   discogs.cpp
   filename_utility.cpp
   http.cpp
-  json_parser.cpp
   main.cpp
   naming.cpp
   string_utility.cpp)
