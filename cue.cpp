@@ -65,7 +65,7 @@ class Cue {
     stream << ":";
     stream << numeric_to_padded_string<unsigned>(frames, 2);
   }
-  void add_index(const char *index, unsigned minutes, unsigned seconds) {
+  void add_index(const char* index, unsigned minutes, unsigned seconds) {
     stream << "INDEX ";
     stream << index;
     stream << " ";
