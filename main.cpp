@@ -25,13 +25,6 @@
 #include "string_utility.h"
 #include "support_types.h"
 
-using std::cerr;
-using std::cout;
-using std::endl;
-using std::strcmp;
-using std::string;
-using std::transform;
-
 namespace {
 const char help[] =
     "********" COMMENT "********"
@@ -103,9 +96,9 @@ void generate(const std::string& id, const std::string& filename,
   std::string json;
   DiscogsReleaseRequest req;
   if (!req.send(id, json, is_master)) {
-    std::cerr << "Failed to get valid release info from Discogs (are you "
-                 "connected to the internet? are you sure the ID is correct?)"
-              << std::endl;
+    std::cerr
+        << "Failed to get valid release info from Discogs (are you "
+           "connected to the internet? are you sure the ID is correct?)\n";
     std::exit(1);
   }
   nlohmann::json toplevel = nlohmann::json::parse(json);
@@ -174,43 +167,43 @@ void generate(const std::string& id, const std::string& filename,
   try {
     Cue_build(a, filename);
   } catch (std::runtime_error& e) {
-    std::cerr << e.what() << std::endl;
+    std::cerr << e.what() << '\n';
     exit(1);
   }
 }
 }
 
 int main(int argc, char* argv[]) {
-  string first;
+  std::string first;
   if (argc < 2) {
-    cerr << error << endl;
+    std::cerr << help << '\n';
     return 1;
   } else {
     first = argv[1];
   }
 
   if (first == "--help" || first == "-h" || first == "-H") {
-    cerr << help << endl;
+    std::cerr << help << '\n';
     return 0;
   } else {
     if (argc != 3) {
-      cerr << error << endl;
+      std::cerr << error << '\n';
       return 1;
     } else {
-      string rel = first;
-      transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
-      string fn(argv[2]);
-      string single = rel.substr(0, 2);
-      string full = rel.substr(0, 8);
-      string mfull = rel.substr(0, 7);
-      if (rel.find("=") == string::npos) {
+      std::string rel = first;
+      std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
+      std::string fn(argv[2]);
+      std::string single = rel.substr(0, 2);
+      std::string full = rel.substr(0, 8);
+      std::string mfull = rel.substr(0, 7);
+      if (rel.find("=") == std::string::npos) {
         generate(rel, fn);
       } else if (single == "r=" || full == "release=") {
         generate(rel.substr(rel.find("=") + 1), fn);
       } else if (single == "m=" || mfull == "master=") {
         generate(rel.substr(rel.find("=") + 1), fn, true);
       } else {
-        cerr << error << endl;
+        std::cerr << error << '\n';
         return 1;
       }
     }
