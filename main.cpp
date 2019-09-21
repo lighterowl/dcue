@@ -151,8 +151,8 @@ void generate(const std::string& id, const std::string& filename,
       if (time_components.size() == 2) {
         trim(time_components[0]);
         trim(time_components[1]);
-        t.length.tm_min = string_to_numeric<int>(time_components[0]);
-        t.length.tm_sec = string_to_numeric<int>(time_components[1]);
+        t.length.min = string_to_numeric<unsigned>(time_components[0]);
+        t.length.sec = string_to_numeric<unsigned>(time_components[1]);
       }
     }
     a.discs[disc].tracks.push_back(t);

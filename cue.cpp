@@ -29,20 +29,6 @@ std::string sanitise_string(const std::string& str) {
   return out;
 }
 
-time_t tm_to_time_t(const Tm_t& t) {
-  time_t ret = 0;
-  ret += t.tm_sec;
-  ret += (t.tm_min * 60);
-  return ret;
-}
-
-Tm_t time_t_to_tm(const time_t t) {
-  Tm_t ret;
-  ret.tm_min = static_cast<int>((t / 60));
-  ret.tm_sec = static_cast<int>((t % 60));
-  return ret;
-}
-
 void open_file(std::ofstream& out, const std::string& filename,
                unsigned disc = 0) {
   auto cuepath = path(filename) + basename(filename);
@@ -79,12 +65,13 @@ class Cue {
     stream << ":";
     stream << numeric_to_padded_string<unsigned>(frames, 2);
   }
-  void add_index(const std::string& index, const unsigned minutes,
-                 const unsigned seconds, const unsigned frames) {
+  void add_index(const char *index, unsigned minutes, unsigned seconds) {
     stream << "INDEX ";
     stream << index;
     stream << " ";
-    add_generic_time(minutes, seconds, frames);
+    /* Discogs timestamps aren't detailed enough to provide CD frame accuracy,
+     * so we just go with 0 here. */
+    add_generic_time(minutes, seconds, 0);
     stream << "\r\n";
   }
   void add_type_from_ext(const std::string& ext) {
@@ -128,10 +115,8 @@ public:
     stream << " AUDIO";
     stream << "\r\n";
   }
-  void add_track_index(const unsigned minutes, const unsigned seconds,
-                       const unsigned frames) {
-    const std::string index = "01";
-    add_index(index, minutes, seconds, frames);
+  void add_track_index(const unsigned minutes, const unsigned seconds) {
+    add_index("01", minutes, seconds);
   }
   void add_filename(const std::string& name) {
     std::string t = name.substr(name.find_last_of(".") + 1);
@@ -184,7 +169,7 @@ void Cue_build(const Album& album, const std::string& filename) {
       replace_char(fn, '?', numeric_to_string<unsigned>(discno));
       c.add_filename(fn);
     }
-    time_t cumulative = 0;
+    Track::Duration total;
     for (auto&& track : disc.tracks) {
       c.add_indent();
       c.add_track(track.position);
@@ -200,9 +185,8 @@ void Cue_build(const Album& album, const std::string& filename) {
       }
       c.add_indent();
       c.add_indent();
-      Tm_t temp = time_t_to_tm(cumulative);
-      c.add_track_index(temp.tm_min, temp.tm_sec, 0);
-      cumulative += tm_to_time_t(track.length);
+      c.add_track_index(total.min, total.sec);
+      total += track.length;
     }
   }
 }

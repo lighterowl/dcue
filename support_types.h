@@ -13,32 +13,22 @@
 #ifndef _SUPPORT_TYPES_H
 #define _SUPPORT_TYPES_H
 
-#include <ctime>
 #include <string>
 #include <vector>
-
-#include <unordered_map>
-
-typedef std::tm Tm_t;
 
 struct Track {
   std::string artist;
   std::string title;
-  struct tm length;
-  unsigned position;
-
-  inline bool operator>(const Track& rhs) const {
-    return this->position > rhs.position;
-  }
-
-  inline bool operator<(const Track& rhs) const {
-    return this->position < rhs.position;
-  }
-
-  Track() : artist(""), title(""), position(0) {
-    length.tm_min = 0;
-    length.tm_sec = 0;
-  }
+  struct Duration {
+    unsigned min = 0;
+    unsigned sec = 0;
+    void operator+=(const Duration& d) {
+      sec += d.sec;
+      min += d.min + (sec / 60);
+      sec %= 60;
+    }
+  } length;
+  unsigned position = 0;
 };
 
 struct Disc {
