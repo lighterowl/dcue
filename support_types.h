@@ -53,10 +53,4 @@ struct Album {
   std::string album_artist;
 };
 
-struct CueSheet {
-  Album album;
-  std::string comment;
-  std::string filename;
-};
-
 #endif

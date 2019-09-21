@@ -13,6 +13,7 @@
 #include "cue.h"
 #include "filename_utility.h"
 #include "string_utility.h"
+#include "support_types.h"
 
 #include <algorithm>
 #include <fstream>
@@ -26,7 +27,6 @@ std::string sanitise_string(const std::string& str) {
   replace_char(out, '\\', "-");
   replace_char(out, '/', "-");
   return out;
-}
 }
 
 time_t tm_to_time_t(const Tm_t& t) {
@@ -43,176 +43,164 @@ Tm_t time_t_to_tm(const time_t t) {
   return ret;
 }
 
-void Cue::add_meta(const std::string& comment) {
-  out += "REM ";
-  out += comment;
-  out += LINE_END;
-}
+void open_file(std::ofstream& out, const std::string& filename,
+               unsigned disc = 0) {
+  auto cuepath = path(filename) + basename(filename);
 
-void Cue::add_generic_time(const unsigned minutes, const unsigned seconds,
-                           const unsigned frames) {
-  out += numeric_to_padded_string<unsigned>(minutes, 2);
-  out += ":";
-  out += numeric_to_padded_string<unsigned>(seconds, 2);
-  out += ":";
-  out += numeric_to_padded_string<unsigned>(frames, 2);
-}
+  if (disc != 0) {
+    if (!replace_char(cuepath, '?', numeric_to_string<unsigned>(disc))) {
+      cuepath += "-" + numeric_to_string<unsigned>(disc);
+    }
+  }
 
-void Cue::add_index(const std::string& index, const unsigned minutes,
-                    const unsigned seconds, const unsigned frames) {
-  out += "INDEX ";
-  out += index;
-  out += " ";
-  add_generic_time(minutes, seconds, frames);
-  out += LINE_END;
-}
+  cuepath += ".cue";
 
-void Cue::add_type_from_ext(const std::string& ext) {
-  std::string extension = ext;
-  std::transform(extension.begin(), extension.end(), extension.begin(),
-                 ::tolower);
-  if (extension == "mp3") {
-    out += "MP3";
-  } else if (extension == "aiff") {
-    out += "AIFF";
-  } else {
-    out += "WAVE";
+  out.open(cuepath, std::ios::binary | std::ios::out);
+  if (!out.is_open()) {
+    throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
   }
 }
 
-void Cue::add_genre(const std::string& genre) {
-  add_meta("GENRE " + genre);
+class Cue {
+  std::ostream& stream;
+
+  void add_meta(const std::string& comment) {
+    stream << "REM ";
+    stream << comment;
+    stream << LINE_END;
+  }
+  void add_generic_time(const unsigned minutes, const unsigned seconds,
+                        const unsigned frames) {
+    stream << numeric_to_padded_string<unsigned>(minutes, 2);
+    stream << ":";
+    stream << numeric_to_padded_string<unsigned>(seconds, 2);
+    stream << ":";
+    stream << numeric_to_padded_string<unsigned>(frames, 2);
+  }
+  void add_index(const std::string& index, const unsigned minutes,
+                 const unsigned seconds, const unsigned frames) {
+    stream << "INDEX ";
+    stream << index;
+    stream << " ";
+    add_generic_time(minutes, seconds, frames);
+    stream << LINE_END;
+  }
+  void add_type_from_ext(const std::string& ext) {
+    std::string extension = ext;
+    std::transform(extension.begin(), extension.end(), extension.begin(),
+                   ::tolower);
+    if (extension == "mp3") {
+      stream << "MP3";
+    } else if (extension == "aiff") {
+      stream << "AIFF";
+    } else {
+      stream << "WAVE";
+    }
+  }
+
+public:
+  void add_genre(const std::string& genre) {
+    add_meta("GENRE " + genre);
+  }
+  void add_year(const std::string& year) {
+    add_meta("DATE " + year);
+  }
+  void add_comment(const std::string& comment) {
+    add_meta("COMMENT \"" + comment + "\"");
+  }
+  void add_artist(const std::string& artist) {
+    stream << "PERFORMER \"";
+    stream << artist;
+    stream << "\"";
+    stream << LINE_END;
+  }
+  void add_title(const std::string& title) {
+    stream << "TITLE \"";
+    stream << title;
+    stream << "\"";
+    stream << LINE_END;
+  }
+  void add_track(const unsigned num) {
+    stream << "TRACK ";
+    stream << numeric_to_padded_string<unsigned>(num, 2);
+    stream << " AUDIO";
+    stream << LINE_END;
+  }
+  void add_track_index(const unsigned minutes, const unsigned seconds,
+                       const unsigned frames) {
+    const std::string index = "01";
+    add_index(index, minutes, seconds, frames);
+  }
+  void add_filename(const std::string& name) {
+    std::string t = name.substr(name.find_last_of(".") + 1);
+    stream << "FILE \"";
+    stream << name;
+    stream << "\" ";
+    add_type_from_ext(t);
+    stream << LINE_END;
+  }
+  void add_indent() {
+    stream << "\t";
+  }
+  Cue(std::ostream& os) : stream(os) {
+  }
+};
 }
 
-void Cue::add_year(const std::string& year) {
-  add_meta("DATE " + year);
-}
-
-void Cue::add_comment(const std::string& comment) {
-  add_meta("COMMENT \"" + comment + "\"");
-}
-
-void Cue::add_artist(const std::string& artist) {
-  out += "PERFORMER \"";
-  out += artist;
-  out += "\"";
-  out += LINE_END;
-}
-
-void Cue::add_title(const std::string& title) {
-  out += "TITLE \"";
-  out += title;
-  out += "\"";
-  out += LINE_END;
-}
-
-void Cue::add_track(const unsigned num) {
-  out += "TRACK ";
-  out += numeric_to_padded_string<unsigned>(num, 2);
-  out += " AUDIO";
-  out += LINE_END;
-}
-
-void Cue::add_track_index(const unsigned minutes, const unsigned seconds,
-                          const unsigned frames) {
-  const std::string index = "01";
-  add_index(index, minutes, seconds, frames);
-}
-
-void Cue::add_filename(const std::string& name) {
-  std::string t = name.substr(name.find_last_of(".") + 1);
-  out += "FILE \"";
-  out += name;
-  out += "\" ";
-  add_type_from_ext(t);
-  out += LINE_END;
-}
-
-void Cue::add_indent() {
-  out += "\t";
-}
-
-const std::string& Cue::get_output() const {
-  return out;
-}
-
-void CueBuilder::build() {
-  std::string fn;
-  const std::vector<Disc>::size_type discs_size = cuesheet.album.discs.size();
-  for (std::vector<Disc>::size_type i = 0; i < discs_size; ++i) {
+void Cue_build(const Album& album, const std::string& filename) {
+  for (auto i = 0u; i < album.discs.size(); ++i) {
+    auto&& disc = album.discs[i];
+    auto discno = i + 1;
+    std::ofstream f;
+    if (album.discs.size() > 1) {
+      open_file(f, filename, discno);
+    } else {
+      open_file(f, filename);
+    }
+    Cue c(f);
     // string sanitisation is really just a way of compensating for the number
     // of dumb cue tools available, double quotes especially confuse them and
     // Medieval CUE Splitter on Windows practically blows up when confronted
     // with backslashes in titles  it's not really the application's job to do
     // this (bar perhaps the double quotes) but because there's no actual
     // standard for cue sheets we have to make do and mend
-    Cue c;
-    if (!cuesheet.album.genre.empty()) {
-      c.add_genre(sanitise_string(cuesheet.album.genre));
+    if (!album.genre.empty()) {
+      c.add_genre(sanitise_string(album.genre));
     }
-    if (!cuesheet.album.year.empty()) {
-      c.add_year(cuesheet.album.year);
+    if (!album.year.empty()) {
+      c.add_year(album.year);
     }
-    if (!cuesheet.comment.empty()) {
-      c.add_comment(cuesheet.comment);
+    c.add_comment(COMMENT);
+    if (!album.album_artist.empty()) {
+      c.add_artist(sanitise_string(album.album_artist));
     }
-    if (!cuesheet.album.album_artist.empty()) {
-      c.add_artist(sanitise_string(cuesheet.album.album_artist));
+    if (!album.title.empty()) {
+      c.add_title(sanitise_string(album.title));
     }
-    if (!cuesheet.album.title.empty()) {
-      c.add_title(sanitise_string(cuesheet.album.title));
-    }
-    if (!cuesheet.filename.empty()) {
-      fn = basename(cuesheet.filename) + "." + extension(cuesheet.filename);
-      replace_char(fn, '?', numeric_to_string<unsigned>(i + 1));
+    if (!filename.empty()) {
+      auto fn = basename(filename) + "." + extension(filename);
+      replace_char(fn, '?', numeric_to_string<unsigned>(discno));
       c.add_filename(fn);
     }
     time_t cumulative = 0;
-    const std::vector<Track>::size_type tracks_size =
-        cuesheet.album.discs[i].tracks.size();
-    for (std::vector<Track>::size_type j = 0; j < tracks_size; ++j) {
+    for (auto&& track : disc.tracks) {
       c.add_indent();
-      c.add_track(cuesheet.album.discs[i].tracks[j].position);
+      c.add_track(track.position);
       c.add_indent();
       c.add_indent();
-      if (!cuesheet.album.discs[i].tracks[j].title.empty()) {
-        c.add_title(sanitise_string(cuesheet.album.discs[i].tracks[j].title));
+      if (!track.title.empty()) {
+        c.add_title(sanitise_string(track.title));
       }
       c.add_indent();
       c.add_indent();
-      if (!cuesheet.album.discs[i].tracks[j].artist.empty()) {
-        c.add_artist(sanitise_string(cuesheet.album.discs[i].tracks[j].artist));
+      if (!track.artist.empty()) {
+        c.add_artist(sanitise_string(track.artist));
       }
       c.add_indent();
       c.add_indent();
       Tm_t temp = time_t_to_tm(cumulative);
       c.add_track_index(temp.tm_min, temp.tm_sec, 0);
-      cumulative += tm_to_time_t(cuesheet.album.discs[i].tracks[j].length);
-    }
-    if (discs_size > 1) {
-      write_file(c, i + 1);
-    } else {
-      write_file(c);
+      cumulative += tm_to_time_t(track.length);
     }
   }
-}
-
-void CueBuilder::write_file(const Cue& c, const unsigned disc) {
-  std::string filename = path(cuesheet.filename) + basename(cuesheet.filename);
-
-  if (disc != 0) {
-    if (!replace_char(filename, '?', numeric_to_string<unsigned>(disc))) {
-      filename += "-" + numeric_to_string<unsigned>(disc);
-    }
-  }
-
-  filename += ".cue";
-
-  std::ofstream out;
-  out.open(filename, std::ios::binary | std::ios::out);
-  if (!out.is_open()) {
-    throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
-  }
-  out.write(c.get_output().c_str(), c.get_output().length());
-  out.close();
 }

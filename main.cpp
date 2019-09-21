@@ -154,12 +154,8 @@ void generate(const std::string& id, const std::string& filename,
     a.discs.erase(a.discs.begin());
   }
 
-  CueSheet cs;
-  cs.album = a;
-  cs.filename = filename;
-  cs.comment = COMMENT;
   try {
-    CueBuilder csb(cs);
+    Cue_build(a, filename);
   } catch (std::runtime_error& e) {
     std::cerr << e.what() << std::endl;
     exit(1);
