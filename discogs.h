@@ -10,7 +10,6 @@
 #ifndef _DISCOGS_H
 #define _DISCOGS_H
 
-#include "defs.h"
 #include "http.h"
 
 #include <string>

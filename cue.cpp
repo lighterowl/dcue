@@ -8,15 +8,11 @@
 // *******************************************************************
 
 #include "cue.h"
+#include "filename_utility.h"
+#include "string_utility.h"
 
 #include <algorithm>
-#include <cstring>
-#include <ctime>
-#include <exception>
 #include <fstream>
-#include <iostream>
-#include <stdexcept>
-#include <vector>
 
 namespace {
 std::string sanitise_string(const std::string& str) {
@@ -214,7 +210,6 @@ void CueBuilder::write_file(const Cue& c, const unsigned disc) {
   if (!out.is_open()) {
     throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
   }
-  const char* cue_cstr = c.get_output().c_str();
-  out.write(cue_cstr, strlen(cue_cstr));
+  out.write(c.get_output().c_str(), c.get_output().length());
   out.close();
 }

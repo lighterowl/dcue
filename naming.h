@@ -10,9 +10,6 @@
 #ifndef _NAMING_H
 #define _NAMING_H
 
-#include "defs.h"
-#include "string_utility.h"
-
 #include <string>
 
 class NamingFacets {

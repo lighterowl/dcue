@@ -10,8 +10,6 @@
 #ifndef _SUPPORT_TYPES_H
 #define _SUPPORT_TYPES_H
 
-#include "defs.h"
-
 #include <ctime>
 #include <string>
 #include <vector>
