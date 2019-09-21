@@ -17,7 +17,4 @@
 #define USER_AGENT "DCue/" VERSION
 #define COMMENT "DCue v" VERSION
 
-// can probably be changed to "\n" on linux but there's no actual need to
-#define LINE_END "\r\n"
-
 #endif

@@ -33,25 +33,42 @@ using std::string;
 using std::transform;
 
 namespace {
-const string help =
-    "********" COMMENT "********" LINE_END
+const char help[] =
+    "********" COMMENT "********"
+    "\n"
     "DCue is a cue sheet generator which uses Discogs.com to find track "
-    "titles, lengths and other information." LINE_END LINE_END
-    "SYNTAX:" LINE_END
-    "dcue [(r)elease=|(m)aster=]<id> <audio filename>" LINE_END LINE_END
+    "titles, lengths and other information."
+    "\n"
+    "\n"
+    "SYNTAX:"
+    "\n"
+    "dcue [(r)elease=|(m)aster=]<id> <audio filename>"
+    "\n"
+    "\n"
     "FIRST ARGUMENT: a Discogs release or master release ID. Specify "
     "\"release=<id>\" or \"r=<id>\" or just \"<id>\" for a regular release and "
-    "\"master=<id>\" or \"m=<id>\" for a master." LINE_END
+    "\"master=<id>\" or \"m=<id>\" for a master."
+    "\n"
     "SECOND ARGUMENT: filename with optional absolute path of the AUDIO FILE "
     "you want to make a cue for. The cue file will be created alongside it. "
-    "\"?\" characters will be replaced by the disc number." LINE_END LINE_END
-    "EXAMPLES:" LINE_END
-    "dcue master=218406 \"Clubland X-Treme Hardcore-Disc?.wav\"" LINE_END
-    "dcue r=1 \"/path/to/the punisher - stockholm.mp3\"" LINE_END
-    "dcue 1432 \"Release filename.flac\"" LINE_END LINE_END "OPTIONS:" LINE_END
-    "--help (-h) - this command list" LINE_END;
+    "\"?\" characters will be replaced by the disc number."
+    "\n"
+    "\n"
+    "EXAMPLES:"
+    "\n"
+    "dcue master=218406 \"Clubland X-Treme Hardcore-Disc?.wav\""
+    "\n"
+    "dcue r=1 \"/path/to/the punisher - stockholm.mp3\""
+    "\n"
+    "dcue 1432 \"Release filename.flac\""
+    "\n"
+    "\n"
+    "OPTIONS:"
+    "\n"
+    "--help (-h) - this command list"
+    "\n";
 
-const string error = "Invalid syntax, use --help for help";
+const char error[] = "Invalid syntax, use --help for help";
 
 template <typename T>
 T get_if_exists(const nlohmann::json& json, const char* key, T defval = T()) {
@@ -166,18 +183,18 @@ void generate(const std::string& id, const std::string& filename,
 int main(int argc, char* argv[]) {
   string first;
   if (argc < 2) {
-    cout << error << endl;
+    cerr << error << endl;
     return 1;
   } else {
     first = argv[1];
   }
 
   if (first == "--help" || first == "-h" || first == "-H") {
-    cout << help << endl;
+    cerr << help << endl;
     return 0;
   } else {
     if (argc != 3) {
-      cout << error << endl;
+      cerr << error << endl;
       return 1;
     } else {
       string rel = first;
@@ -193,7 +210,7 @@ int main(int argc, char* argv[]) {
       } else if (single == "m=" || mfull == "master=") {
         generate(rel.substr(rel.find("=") + 1), fn, true);
       } else {
-        cout << error << endl;
+        cerr << error << endl;
         return 1;
       }
     }

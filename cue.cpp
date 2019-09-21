@@ -55,6 +55,8 @@ void open_file(std::ofstream& out, const std::string& filename,
 
   cuepath += ".cue";
 
+  /* the output stream that the contents of the CUE are written into is opened
+   * in binary mode in order to preserve CRLF line endings. */
   out.open(cuepath, std::ios::binary | std::ios::out);
   if (!out.is_open()) {
     throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
@@ -67,7 +69,7 @@ class Cue {
   void add_meta(const std::string& comment) {
     stream << "REM ";
     stream << comment;
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_generic_time(const unsigned minutes, const unsigned seconds,
                         const unsigned frames) {
@@ -83,7 +85,7 @@ class Cue {
     stream << index;
     stream << " ";
     add_generic_time(minutes, seconds, frames);
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_type_from_ext(const std::string& ext) {
     std::string extension = ext;
@@ -112,19 +114,19 @@ public:
     stream << "PERFORMER \"";
     stream << artist;
     stream << "\"";
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_title(const std::string& title) {
     stream << "TITLE \"";
     stream << title;
     stream << "\"";
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_track(const unsigned num) {
     stream << "TRACK ";
     stream << numeric_to_padded_string<unsigned>(num, 2);
     stream << " AUDIO";
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_track_index(const unsigned minutes, const unsigned seconds,
                        const unsigned frames) {
@@ -137,7 +139,7 @@ public:
     stream << name;
     stream << "\" ";
     add_type_from_ext(t);
-    stream << LINE_END;
+    stream << "\r\n";
   }
   void add_indent() {
     stream << "\t";
