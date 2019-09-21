@@ -13,7 +13,7 @@
 #ifndef _CUE_H
 #define _CUE_H
 
-class Album;
+struct Album;
 #include <string>
 
 void Cue_build(const Album& a, const std::string& filename);

@@ -75,7 +75,7 @@ std::string concatenate_artists(const nlohmann::json& artists) {
     if (!anv.empty()) {
       artist += anv;
     } else {
-      artist += artist_info["name"];
+      artist += artist_info["name"].get<std::string>();
     }
     NamingFacets::artist_facets(artist);
     auto join = get_if_exists<std::string>(artist_info, "join");
