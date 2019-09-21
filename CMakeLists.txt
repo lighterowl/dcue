@@ -17,7 +17,6 @@ endif()
 include_directories(${CURL_INCLUDE_DIRS})
 add_executable(dcue
   cue.cpp
-  dcue.cpp
   discogs.cpp
   filename_utility.cpp
   http.cpp

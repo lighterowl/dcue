@@ -10,9 +10,6 @@
 #ifndef _CUE_H
 #define _CUE_H
 
-#include "defs.h"
-#include "filename_utility.h"
-#include "string_utility.h"
 #include "support_types.h"
 
 #include <string>
