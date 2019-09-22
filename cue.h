@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _CUE_H
-#define _CUE_H
+#ifndef DCUE_CUE_H
+#define DCUE_CUE_H
 
 struct Album;
 #include <string>

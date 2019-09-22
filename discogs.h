@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _DISCOGS_H
-#define _DISCOGS_H
+#ifndef DCUE_DISCOGS_H
+#define DCUE_DISCOGS_H
 
 #include "http.h"
 

@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _NAMING_H
-#define _NAMING_H
+#ifndef DCUE_NAMING_H
+#define DCUE_NAMING_H
 
 #include <string>
 

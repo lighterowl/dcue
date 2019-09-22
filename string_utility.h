@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _STRING_UTILITY_H
-#define _STRING_UTILITY_H
+#ifndef DCUE_STRING_UTILITY_H
+#define DCUE_STRING_UTILITY_H
 
 #include "defs.h"
 

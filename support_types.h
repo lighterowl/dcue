@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _SUPPORT_TYPES_H
-#define _SUPPORT_TYPES_H
+#ifndef DCUE_SUPPORT_TYPES_H
+#define DCUE_SUPPORT_TYPES_H
 
 #include <string>
 #include <vector>

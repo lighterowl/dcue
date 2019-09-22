@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef _DEFS_H
-#define _DEFS_H
+#ifndef DCUE_DEFS_H
+#define DCUE_DEFS_H
 
 #define VERSION "1.2dev"
 #define USER_AGENT "DCue/" VERSION " +https://github.com/xavery/dcue"
