@@ -15,13 +15,8 @@
 
 #include <string>
 
-class NamingFacets {
-  static void remove_artist_number(std::string& out);
-  static void reverse_artist_the(std::string& out);
-
-public:
-  static void name_facets(std::string& out);
-  static void artist_facets(std::string& out);
+namespace NamingFacets {
+void artist_facets(std::string& out);
 };
 
 #endif

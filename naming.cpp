@@ -14,7 +14,8 @@
 
 #include <cctype>
 
-void NamingFacets::remove_artist_number(std::string& out) {
+namespace {
+void remove_artist_number(std::string& out) {
   const std::string::size_type out_size = out.size();
   if (out[out_size - 1] == ')' && std::isdigit(out[out_size - 2])) {
     const std::string::size_type bracket = out.find_last_of("(");
@@ -24,12 +25,13 @@ void NamingFacets::remove_artist_number(std::string& out) {
   }
 }
 
-void NamingFacets::reverse_artist_the(std::string& out) {
+void reverse_artist_the(std::string& out) {
   const std::string::size_type out_size = out.size();
   if (out_size > 5 && out.substr(out_size - 5) == ", The") {
     out.erase(out_size - 5);
     out = "The " + out;
   }
+}
 }
 
 void NamingFacets::artist_facets(std::string& out) {
