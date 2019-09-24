@@ -63,32 +63,25 @@ const char help[] =
 
 const char error[] = "Invalid syntax, use --help for help";
 
-template <typename T>
-T get_if_exists(const nlohmann::json& json, const char* key, T defval = T()) {
-  return json.find(key) != json.end() ? json[key].get<T>() : defval;
-}
-
 std::string concatenate_artists(const nlohmann::json& artists) {
-  std::string artist;
+  std::string rv;
   for (auto&& artist_info : artists) {
-    auto anv = get_if_exists<std::string>(artist_info, "anv");
-    if (!anv.empty()) {
-      artist += anv;
-    } else {
-      artist += artist_info["name"].get<std::string>();
+    auto name = artist_info.value("anv", std::string());
+    if (name.empty()) {
+      name = artist_info.at("name");
     }
-    NamingFacets::artist_facets(artist);
-    auto join = get_if_exists<std::string>(artist_info, "join");
-    if (!join.empty()) {
-      if (join != ",") {
-        artist += " ";
+    NamingFacets::artist_facets(name);
+    rv += name;
+    if (&artist_info != &artists.back()) {
+      auto join = artist_info.value("join", std::string());
+      if (join == ",") {
+        rv += join;
+      } else {
+        rv += " ";
       }
-      artist += join;
     }
-    artist += " ";
   }
-  artist.erase(artist.length() - 1, 1);
-  return artist;
+  return rv;
 }
 
 void generate(const std::string& id, const std::string& filename,
@@ -103,9 +96,10 @@ void generate(const std::string& id, const std::string& filename,
   }
   nlohmann::json toplevel = nlohmann::json::parse(json);
   Album a;
-  a.title = get_if_exists<std::string>(toplevel, "title");
-  if (toplevel.find("year") != toplevel.end()) {
-    a.year = std::to_string(toplevel["year"].get<int>());
+  a.title = toplevel.value("title", std::string());
+  auto year = toplevel.value("year", -1);
+  if (year != -1) {
+    a.year = std::to_string(year);
   }
   // style maps to genre better than genre does, in general
   if (toplevel.find("styles") != toplevel.end()) {
@@ -119,8 +113,8 @@ void generate(const std::string& id, const std::string& filename,
   a.discs.push_back(d);
   unsigned disc = 0;
   unsigned track_num = 1;
-  for (auto&& track_info : toplevel["tracklist"]) {
-    auto position = track_info["position"].get<std::string>();
+  for (auto&& track_info : toplevel.at("tracklist")) {
+    auto position = track_info.value("position", std::string());
     if (position.empty()) {
       // ++disc;
       // Disc nd;
@@ -138,23 +132,30 @@ void generate(const std::string& id, const std::string& filename,
     }
     Track t;
     t.position = track_num;
-    ++track_num;
     if (track_info.find("artists") != track_info.end()) {
       t.artist = concatenate_artists(track_info["artists"]);
     } else {
       t.artist = a.album_artist;
     }
-    t.title = get_if_exists<std::string>(track_info, "title");
-    if (track_info.find("duration") != track_info.end()) {
-      std::vector<std::string> time_components;
-      explode(track_info["duration"], ":", time_components);
-      if (time_components.size() == 2) {
-        trim(time_components[0]);
-        trim(time_components[1]);
-        t.length.min = string_to_numeric<unsigned>(time_components[0]);
-        t.length.sec = string_to_numeric<unsigned>(time_components[1]);
-      }
+    t.title = track_info.value("title", std::string());
+    auto duration = track_info.value("duration", std::string());
+    if (duration.empty()) {
+      std::cerr << "Track " << track_num << ", disc " << disc
+                << " has no duration, quitting\n";
+      ::exit(1);
     }
+    std::vector<std::string> time_components;
+    explode(duration, ":", time_components);
+    if (time_components.size() == 2) {
+      trim(time_components[0]);
+      trim(time_components[1]);
+      t.length.min = string_to_numeric<unsigned>(time_components[0]);
+      t.length.sec = string_to_numeric<unsigned>(time_components[1]);
+    } else {
+      std::cerr << "Unrecognised duration " << duration << ", quitting\n";
+      ::exit(1);
+    }
+    ++track_num;
     a.discs[disc].tracks.push_back(t);
   }
 
