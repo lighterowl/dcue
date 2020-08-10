@@ -68,7 +68,7 @@ std::string concatenate_artists(const nlohmann::json& artists) {
   for (auto&& artist_info : artists) {
     auto name = artist_info.value("anv", std::string());
     if (name.empty()) {
-      name = artist_info.at("name");
+      name = artist_info.value("name", std::string());
     }
     NamingFacets::artist_facets(name);
     rv += name;
@@ -103,7 +103,7 @@ void generate(const std::string& id, const std::string& filename,
   }
   // style maps to genre better than genre does, in general
   if (toplevel.find("styles") != toplevel.end()) {
-    a.genre = toplevel["styles"][0];
+    a.genre = toplevel["styles"][0].get<std::string>();
   }
   if (toplevel.find("artists") != toplevel.end()) {
     a.album_artist = concatenate_artists(toplevel["artists"]);

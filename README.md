@@ -28,19 +28,14 @@ make
 
 ## Windows
 
-Windows isn't my main development platform, so there might be a few things that
-will probably seem a bit off to more seasoned developers. dcue is compiled with
-Visual Studio 2015 on Windows 7, and that's where the official release builds
-come from. The libcurl DLL is shipped alongside the main application.
+Get [vcpkg](https://github.com/microsoft/vcpkg) and use it to compile and install libcurl :
 
-1. Choose a directory where the libcurl build files will be stored. This
-directory will be referred to as `CURL_PATH` from now on.
-2. Download the [curl source distribution](https://curl.haxx.se/download/curl-7.56.1.zip)
-and extract the `include` directory to `CURL_PATH`, thus placing the headers
-into `CURL_PATH/include/curl`.
-3. Download the [Windows binary distribution](https://skanthak.homepage.t-online.de/download/curl-7.56.1.cab)
-and extract the contents of the `I386` directory into `CURL_PATH/lib`.
-4. Run CMake and set `CURL_PATH` to your directory via the appropriate `-D`
-option if you're using the commandline, or in the GUI after configuring.
-5. Launch the *VS2015 x86 Native Tools Command Prompt*, go into the CMake build
-directory and run `msbuild dcue.sln`.
+```
+vcpkg install curl:x86-windows
+```
+
+Then, use CMake to generate the build files and build. If you use Visual Studio
+, chances are everything will work out of the box if you took the extra steps
+to integrate VS with vcpkg, as described in vcpkg's readme.
+
+The official builds use a statically linked libcurl for convenience.

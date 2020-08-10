@@ -1,0 +1,15 @@
+name: C/C++ CI (Windows)
+
+on: [push, pull_request]
+
+jobs:
+  build-win:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout
+
+    - name: Build with MSVC
+      shell: cmd
+      run: workflow_build_windows.bat
