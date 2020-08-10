@@ -13,3 +13,9 @@ jobs:
     - name: Build with MSVC
       shell: cmd
       run: workflow_build_windows.bat
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: DCue for Windows
+        path: build\dcue.7z
+      name: upload-dcue-build
