@@ -173,39 +173,31 @@ void generate(const std::string& id, const std::string& filename,
 }
 
 int main(int argc, char* argv[]) {
-  std::string first;
-  if (argc < 2) {
-    std::cerr << help << '\n';
-    return 1;
-  } else {
-    first = argv[1];
-  }
-
-  if (first == "--help" || first == "-h" || first == "-H") {
+  const auto argv_end = (argv + argc);
+  auto need_help = std::find_if(argv, argv_end, [](char* str) {
+    return ::strcmp(str, "--help") == 0 || ::strcmp(str, "-h") == 0 ||
+           ::strcmp(str, "-H") == 0;
+  });
+  if (argc < 3 || (need_help != argv_end)) {
     std::cerr << help << '\n';
     return 0;
+  }
+
+  std::string rel = argv[1];
+  std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
+  std::string fn(argv[2]);
+  std::string single = rel.substr(0, 2);
+  std::string full = rel.substr(0, 8);
+  std::string mfull = rel.substr(0, 7);
+  if (rel.find("=") == std::string::npos) {
+    generate(rel, fn);
+  } else if (single == "r=" || full == "release=") {
+    generate(rel.substr(rel.find("=") + 1), fn);
+  } else if (single == "m=" || mfull == "master=") {
+    generate(rel.substr(rel.find("=") + 1), fn, true);
   } else {
-    if (argc != 3) {
-      std::cerr << error << '\n';
-      return 1;
-    } else {
-      std::string rel = first;
-      std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
-      std::string fn(argv[2]);
-      std::string single = rel.substr(0, 2);
-      std::string full = rel.substr(0, 8);
-      std::string mfull = rel.substr(0, 7);
-      if (rel.find("=") == std::string::npos) {
-        generate(rel, fn);
-      } else if (single == "r=" || full == "release=") {
-        generate(rel.substr(rel.find("=") + 1), fn);
-      } else if (single == "m=" || mfull == "master=") {
-        generate(rel.substr(rel.find("=") + 1), fn, true);
-      } else {
-        std::cerr << error << '\n';
-        return 1;
-      }
-    }
+    std::cerr << error << '\n';
+    return 1;
   }
   return 0;
 }
