@@ -183,6 +183,26 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
+  bool do_cover = false;
+  std::string cover_fname = "cover.jpg";
+#ifdef DCUE_OFFICIAL_BUILD
+  {
+    const auto cover_arg = std::find_if(argv, argv_end, [](char* str) {
+      return ::strcmp(str, "--cover") == 0;
+    });
+    do_cover = (cover_arg != argv_end);
+    const auto cover_fname_arg = std::find_if(argv, argv_end, [](char* str) {
+      return ::strcmp(str, "--cover-file") == 0;
+    });
+    if (cover_fname_arg != argv_end) {
+      const auto actual_cover_fname_arg = cover_fname_arg + 1;
+      if (actual_cover_fname_arg != argv_end) {
+        cover_fname = *actual_cover_fname_arg;
+      }
+    }
+  }
+#endif
+
   std::string rel = argv[1];
   std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
   std::string fn(argv[2]);
