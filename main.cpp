@@ -27,39 +27,37 @@
 
 namespace {
 const char help[] =
-    "********" COMMENT "********"
-    "\n"
-    "DCue is a cue sheet generator which uses Discogs.com to find track "
-    "titles, lengths and other information."
-    "\n"
-    "\n"
-    "SYNTAX:"
-    "\n"
-    "dcue [(r)elease=|(m)aster=]<id> <audio filename>"
-    "\n"
-    "\n"
-    "FIRST ARGUMENT: a Discogs release or master release ID. Specify "
-    "\"release=<id>\" or \"r=<id>\" or just \"<id>\" for a regular release and "
-    "\"master=<id>\" or \"m=<id>\" for a master."
-    "\n"
-    "SECOND ARGUMENT: filename with optional absolute path of the AUDIO FILE "
-    "you want to make a cue for. The cue file will be created alongside it. "
-    "\"?\" characters will be replaced by the disc number."
-    "\n"
-    "\n"
-    "EXAMPLES:"
-    "\n"
-    "dcue master=218406 \"Clubland X-Treme Hardcore-Disc?.wav\""
-    "\n"
-    "dcue r=1 \"/path/to/the punisher - stockholm.mp3\""
-    "\n"
-    "dcue 1432 \"Release filename.flac\""
-    "\n"
-    "\n"
-    "OPTIONS:"
-    "\n"
-    "--help (-h) - this command list"
-    "\n";
+    "********" COMMENT "********\n"
+    R"helpstr(
+DCue is a cue sheet generator which uses Discogs.com to find track titles,
+lengths and other information.
+
+SYNTAX:
+dcue [options] [(r)elease=|(m)aster=]<id> <audio filename>
+
+FIRST ARGUMENT: a Discogs release or master release ID. Specify "release=<id>"
+or "r=<id>" or just "<id>" for a regular release and "master=<id>" or "m=<id>"
+for a master.
+
+SECOND ARGUMENT: filename with optional absolute path of the AUDIO FILE you want
+to make a cue for. The cue file will be created alongside it.
+"?" characters will be replaced by the disc number.
+
+EXAMPLES:
+dcue master=218406 "Clubland X-Treme Hardcore-Disc?.wav"
+dcue r=1 "/path/to/the punisher - stockholm.mp3"
+dcue 1432 "Release filename.flac"
+
+OPTIONS:
+--help (-h) - this command list
+
+--cover [primary|secondary] - fetch the cover for this release
+  (the second argument is the name of the cover specified in the release JSON,
+  "primary" is the default since it's the most prevalent)
+
+--cover-file [filename.jpg] - name of the file to save the cover to
+  (default is folder.jpg)
+)helpstr";
 
 const char error[] = "Invalid syntax, use --help for help";
 
