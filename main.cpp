@@ -49,14 +49,19 @@ dcue 1432 "Release filename.flac"
 
 OPTIONS:
 --help (-h) - this command list
+)helpstr"
 
---cover [primary|secondary] - fetch the cover for this release
-  (the second argument is the name of the cover specified in the release JSON,
-  "primary" is the default since it's the most prevalent)
+#ifdef DCUE_OFFICIAL_BUILD
+                    R"helpstr(
+--cover - fetch the cover for this release
+  (the "primary" cover is preferred, otherwise the first one available is
+  fetched)
 
 --cover-file filename.jpg - name of the file to save the cover to
-  (default is folder.jpg)
-)helpstr";
+  (default is cover.jpg)
+)helpstr"
+#endif
+    ;
 
 const char error[] = "Invalid syntax, use --help for help";
 
@@ -113,10 +118,6 @@ void generate(const std::string& id, const std::string& filename,
   for (auto&& track_info : toplevel.at("tracklist")) {
     auto position = track_info.value("position", std::string());
     if (position.empty()) {
-      // ++disc;
-      // Disc nd;
-      // a.discs.push_back(nd);
-      // track_num = 1;
       continue;
     }
     if (position.find_first_of(".-") != std::string::npos &&
