@@ -38,9 +38,10 @@ const struct CurlInit {
 } c;
 
 size_t write_body(char* ptr, size_t size, size_t nmemb, void* userdata) {
-  auto resp = static_cast<std::string*>(userdata);
+  auto resp = static_cast<std::vector<std::uint8_t>*>(userdata);
   auto total = size * nmemb;
-  resp->append(ptr, total);
+  resp->reserve(resp->size() + total);
+  std::copy(ptr, ptr + total, std::back_inserter(*resp));
   return total;
 }
 

@@ -15,6 +15,7 @@
 
 #include "string_utility.h"
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
@@ -29,7 +30,7 @@ struct HttpHeader {
 struct HttpResponse {
   HttpStatus_t status;
   std::vector<HttpHeader> headers;
-  std::string body;
+  std::vector<uint8_t> body;
 };
 
 struct CurlDeleter {

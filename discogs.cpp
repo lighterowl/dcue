@@ -22,7 +22,9 @@ bool DiscogsReleaseRequest::send(const std::string& rel_id, std::string& out,
   }
   req.send("https://api.discogs.com", res);
   if (success()) {
-    out = res.body;
+    out.reserve(res.body.size());
+    std::copy(std::begin(res.body), std::end(res.body),
+              std::back_inserter(out));
     return true;
   }
   return false;
