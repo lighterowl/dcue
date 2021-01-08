@@ -12,6 +12,9 @@ jobs:
 
     - name: Build with MSVC
       shell: cmd
+      env:
+        DCUE_APP_KEY: ${{ secrets.DCUE_APP_KEY }}
+        DCUE_APP_SECRET: ${{ secrets.DCUE_APP_SECRET }}
       run: workflow_build_windows.bat
 
     - uses: actions/upload-artifact@v2

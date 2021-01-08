@@ -1,0 +1,8 @@
+#ifndef DCUE_APP_KEY_H
+#define DCUE_APP_KEY_H
+
+#define DCUE_APP_KEY "$ENV{DCUE_APP_KEY}"
+#define DCUE_APP_SECRET "$ENV{DCUE_APP_SECRET}"
+
+#endif
+
