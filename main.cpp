@@ -26,9 +26,8 @@
 #include "support_types.h"
 
 namespace {
-const char help[] =
-    "********" COMMENT "********\n"
-    R"helpstr(
+const char help[] = "********" COMMENT "********\n"
+                    R"helpstr(
 DCue is a cue sheet generator which uses Discogs.com to find track titles,
 lengths and other information.
 
