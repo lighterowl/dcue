@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-enum HttpStatus_t { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
+enum class HttpStatus { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
 
 struct HttpHeader {
   std::string name;
@@ -28,7 +28,7 @@ struct HttpHeader {
 };
 
 struct HttpResponse {
-  HttpStatus_t status;
+  HttpStatus status;
   std::vector<HttpHeader> headers;
   std::vector<uint8_t> body;
 };

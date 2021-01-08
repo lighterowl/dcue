@@ -21,11 +21,8 @@ class DiscogsApiRequest {
 protected:
   HttpResponse res;
 
-  inline bool success() const {
-    if (res.status == OK) {
-      return true;
-    }
-    return false;
+  bool success() const {
+    return res.status == HttpStatus::OK;
   }
 
 public:

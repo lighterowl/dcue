@@ -61,20 +61,20 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
   return total;
 }
 
-HttpStatus_t rawCodeToHttpStatus(long respCode) {
-  HttpStatus_t rv = OTHER_FAIL;
+HttpStatus rawCodeToHttpStatus(long respCode) {
+  auto rv = HttpStatus::OTHER_FAIL;
   switch (respCode) {
   case 200:
-    rv = OK;
+    rv = HttpStatus::OK;
     break;
   case 403:
-    rv = FORBIDDEN;
+    rv = HttpStatus::FORBIDDEN;
     break;
   case 404:
-    rv = NOT_FOUND;
+    rv = HttpStatus::NOT_FOUND;
     break;
   case 500:
-    rv = INT_ERR;
+    rv = HttpStatus::INT_ERR;
     break;
   }
   return rv;
