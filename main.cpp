@@ -54,7 +54,7 @@ OPTIONS:
   (the second argument is the name of the cover specified in the release JSON,
   "primary" is the default since it's the most prevalent)
 
---cover-file [filename.jpg] - name of the file to save the cover to
+--cover-file filename.jpg - name of the file to save the cover to
   (default is folder.jpg)
 )helpstr";
 
