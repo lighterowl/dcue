@@ -15,8 +15,12 @@
 #include <curl/curl.h>
 #include <iostream>
 
+#ifdef DCUE_OFFICIAL_BUILD
+#include "appkey.h"
+#endif
+
 namespace {
-struct CurlInit {
+const struct CurlInit {
   CurlInit() {
     if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
       std::cerr << "libcurl initialisation failed\n";
@@ -31,9 +35,7 @@ struct CurlInit {
   ~CurlInit() {
     ::curl_global_cleanup();
   }
-};
-
-const CurlInit c;
+} c;
 
 size_t write_body(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::string*>(userdata);
@@ -106,6 +108,10 @@ bool HttpGet::send(const std::string& hostname, HttpResponse& out) const {
     list = ::curl_slist_append(list, fullHeader.c_str());
   }
   list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
+#ifdef DCUE_OFFICIAL_BUILD
+  list = ::curl_slist_append(list, "Authorization: Discogs key=" DCUE_APP_KEY
+                                   ", secret=" DCUE_APP_SECRET);
+#endif
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);
