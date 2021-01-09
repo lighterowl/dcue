@@ -19,6 +19,7 @@ target_include_directories(dcue PRIVATE ${CURL_INCLUDE_DIRS})
 target_link_libraries(dcue ${CURL_LIBRARIES})
 if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
     DEFINED ENV{DCUE_APP_XORKEY})
+  message("App keys found in environment, making an official build")
   configure_file(appkey.h.in appkey.h)
   target_compile_definitions(dcue PRIVATE DCUE_OFFICIAL_BUILD)
   target_include_directories(dcue PRIVATE ${CMAKE_BINARY_DIR})

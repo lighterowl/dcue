@@ -110,8 +110,14 @@ bool HttpGet::send(const std::string& hostname, HttpResponse& out) const {
   }
   list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
 #ifdef DCUE_OFFICIAL_BUILD
-  list = ::curl_slist_append(list, "Authorization: Discogs key=" DCUE_APP_KEY
-                                   ", secret=" DCUE_APP_SECRET);
+  {
+    auto key = discogs_key::get();
+    std::string auth_hdr("Authorization: Discogs key=");
+    auth_hdr.append(key.key);
+    auth_hdr.append(", secret=");
+    auth_hdr.append(key.secret);
+    list = ::curl_slist_append(list, auth_hdr.c_str());
+  }
 #endif
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
