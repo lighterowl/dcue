@@ -93,6 +93,22 @@ bool fetch(const std::string& id, nlohmann::json& data,
   return req.send(id, data, is_master);
 }
 
+bool get_disc_number(const std::string& position, unsigned& discno) {
+  auto dotpos = position.find_first_of(".-");
+  if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
+    return false;
+  }
+  discno = string_to_numeric<unsigned>(position.substr(0, dotpos));
+  try {
+    // string_to_numeric has no facility to notify of failure, but we need to be
+    // sure if this is actually a "2.3"-style track position to return true.
+    std::stoul(position.substr(dotpos + 1));
+    return true;
+  } catch (...) {
+  }
+  return false;
+}
+
 void generate(const nlohmann::json& toplevel, const std::string& filename) {
   Album a;
   a.title = toplevel.value("title", std::string());
@@ -117,9 +133,8 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
     if (position.empty()) {
       continue;
     }
-    if (position.find_first_of(".-") != std::string::npos &&
-        string_to_numeric<unsigned>(
-            position.substr(0, position.find_first_of(".-"))) > disc) {
+    unsigned this_disc;
+    if (get_disc_number(position, this_disc) && this_disc > disc) {
       ++disc;
       Disc nd;
       a.discs.push_back(nd);
