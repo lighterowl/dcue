@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <fstream>
 #include <iostream>
 #include <string>
 
@@ -32,7 +33,7 @@ DCue is a cue sheet generator which uses Discogs.com to find track titles,
 lengths and other information.
 
 SYNTAX:
-dcue [options] [(r)elease=|(m)aster=]<id> <audio filename>
+dcue [(r)elease=|(m)aster=]<id> <audio filename> [options]
 
 FIRST ARGUMENT: a Discogs release or master release ID. Specify "release=<id>"
 or "r=<id>" or just "<id>" for a regular release and "master=<id>" or "m=<id>"
@@ -86,17 +87,14 @@ std::string concatenate_artists(const nlohmann::json& artists) {
   return rv;
 }
 
-void generate(const std::string& id, const std::string& filename,
-              const bool is_master = false) {
+nlohmann::json fetch(const std::string& id, const bool is_master = false) {
   std::string json;
   DiscogsReleaseRequest req;
-  if (!req.send(id, json, is_master)) {
-    std::cerr
-        << "Failed to get valid release info from Discogs (are you "
-           "connected to the internet? are you sure the ID is correct?)\n";
-    std::exit(1);
-  }
-  nlohmann::json toplevel = nlohmann::json::parse(json);
+  return req.send(id, json, is_master) ? nlohmann::json::parse(json)
+                                       : nlohmann::json();
+}
+
+void generate(const nlohmann::json& toplevel, const std::string& filename) {
   Album a;
   a.title = toplevel.value("title", std::string());
   auto year = toplevel.value("year", -1);
@@ -170,6 +168,48 @@ void generate(const std::string& id, const std::string& filename,
     exit(1);
   }
 }
+
+void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
+  auto it = toplevel.find("images");
+  if (it == toplevel.end()) {
+    std::cerr << "Unfortunately, this release has no associated cover images\n";
+    return;
+  }
+  auto&& images = *it;
+  // look for a "primary" image first...
+  auto imageIt =
+      std::find_if(images.begin(), images.end(), [](const nlohmann::json& img) {
+        return img.value("type", "") == "primary" &&
+               (!img.value("uri", "").empty());
+      });
+  if (imageIt == images.end()) {
+    // settle for any image that has an URI we can hopefully get.
+    imageIt = std::find_if(images.begin(), images.end(),
+                           [](const nlohmann::json& img) {
+                             return !img.value("uri", "").empty();
+                           });
+  }
+  if (imageIt == images.end()) {
+    std::cerr << "No suitable images found\n";
+    return;
+  }
+
+  HttpGet g;
+  g.set_resource((*imageIt).at("uri"));
+  HttpResponse out;
+  if (!g.send("", out)) {
+    std::cerr << "Image request failed\n";
+    return;
+  }
+
+  std::ofstream outfile(fname, std::ios::out | std::ios::binary);
+  if (!outfile.is_open()) {
+    std::cerr << "Failed to create/open file " << fname << '\n';
+    return;
+  }
+  outfile.write(reinterpret_cast<const char*>(out.body.data()),
+                out.body.size());
+}
 }
 
 int main(int argc, char* argv[]) {
@@ -205,19 +245,32 @@ int main(int argc, char* argv[]) {
 
   std::string rel = argv[1];
   std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
-  std::string fn(argv[2]);
   std::string single = rel.substr(0, 2);
   std::string full = rel.substr(0, 8);
   std::string mfull = rel.substr(0, 7);
+  nlohmann::json discogs_data;
   if (rel.find("=") == std::string::npos) {
-    generate(rel, fn);
+    discogs_data = fetch(rel);
   } else if (single == "r=" || full == "release=") {
-    generate(rel.substr(rel.find("=") + 1), fn);
+    discogs_data = fetch(rel.substr(rel.find("=") + 1));
   } else if (single == "m=" || mfull == "master=") {
-    generate(rel.substr(rel.find("=") + 1), fn, true);
+    discogs_data = fetch(rel.substr(rel.find("=") + 1), true);
   } else {
     std::cerr << error << '\n';
     return 1;
+  }
+
+  if (discogs_data.empty()) {
+    std::cerr
+        << "Failed to get valid release info from Discogs (are you "
+           "connected to the internet? are you sure the ID is correct?)\n";
+    return 1;
+  }
+
+  generate(discogs_data, argv[2]);
+
+  if (do_cover) {
+    get_cover(discogs_data, cover_fname);
   }
   return 0;
 }
