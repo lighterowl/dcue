@@ -16,7 +16,7 @@ jobs:
         DCUE_APP_KEY: ${{ secrets.DCUE_APP_KEY }}
         DCUE_APP_SECRET: ${{ secrets.DCUE_APP_SECRET }}
         DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
-      run: workflow_build_windows.bat
+      run: .github/win_build.bat
 
     - uses: actions/upload-artifact@v2
       with:
