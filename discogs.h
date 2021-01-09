@@ -14,6 +14,7 @@
 #define DCUE_DISCOGS_H
 
 #include "http.h"
+#include "json.hpp"
 
 #include <string>
 
@@ -31,7 +32,7 @@ public:
 
 class DiscogsReleaseRequest : public DiscogsApiRequest {
 public:
-  bool send(const std::string& rel_id, std::string& out,
+  bool send(const std::string& rel_id, nlohmann::json& out,
             const bool is_master = false);
 };
 

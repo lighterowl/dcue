@@ -12,7 +12,7 @@
 
 #include "discogs.h"
 
-bool DiscogsReleaseRequest::send(const std::string& rel_id, std::string& out,
+bool DiscogsReleaseRequest::send(const std::string& rel_id, nlohmann::json& out,
                                  const bool is_master) {
   HttpGet req;
   if (is_master) {
@@ -22,9 +22,7 @@ bool DiscogsReleaseRequest::send(const std::string& rel_id, std::string& out,
   }
   req.send("https://api.discogs.com", res);
   if (success()) {
-    out.reserve(res.body.size());
-    std::copy(std::begin(res.body), std::end(res.body),
-              std::back_inserter(out));
+    out = nlohmann::json::parse(res.body);
     return true;
   }
   return false;

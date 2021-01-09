@@ -87,11 +87,10 @@ std::string concatenate_artists(const nlohmann::json& artists) {
   return rv;
 }
 
-nlohmann::json fetch(const std::string& id, const bool is_master = false) {
-  std::string json;
+bool fetch(const std::string& id, nlohmann::json& data,
+           const bool is_master = false) {
   DiscogsReleaseRequest req;
-  return req.send(id, json, is_master) ? nlohmann::json::parse(json)
-                                       : nlohmann::json();
+  return req.send(id, data, is_master);
 }
 
 void generate(const nlohmann::json& toplevel, const std::string& filename) {
@@ -249,18 +248,19 @@ int main(int argc, char* argv[]) {
   std::string full = rel.substr(0, 8);
   std::string mfull = rel.substr(0, 7);
   nlohmann::json discogs_data;
+  bool fetch_ok = false;
   if (rel.find("=") == std::string::npos) {
-    discogs_data = fetch(rel);
+    fetch_ok = fetch(rel, discogs_data);
   } else if (single == "r=" || full == "release=") {
-    discogs_data = fetch(rel.substr(rel.find("=") + 1));
+    fetch_ok = fetch(rel.substr(rel.find("=") + 1), discogs_data);
   } else if (single == "m=" || mfull == "master=") {
-    discogs_data = fetch(rel.substr(rel.find("=") + 1), true);
+    fetch_ok = fetch(rel.substr(rel.find("=") + 1), discogs_data, true);
   } else {
     std::cerr << error << '\n';
     return 1;
   }
 
-  if (discogs_data.empty()) {
+  if (!fetch_ok) {
     std::cerr
         << "Failed to get valid release info from Discogs (are you "
            "connected to the internet? are you sure the ID is correct?)\n";
