@@ -13,8 +13,22 @@ jobs:
     - name: Install curl
       run: sudo apt-get update && sudo apt-get install libcurl4-openssl-dev ninja-build
 
-    - name: Build and test (Debug)
+    - name: Build and test (GCC, Debug)
+      env:
+        CXX: g++
       run: .github/lnx_build_and_test.sh Debug
 
-    - name: Build and test (Release)
+    - name: Build and test (GCC, Release)
+      env:
+        CXX: g++
+      run: .github/lnx_build_and_test.sh Release
+
+    - name: Build and test (Clang, Debug)
+      env:
+        CXX: clang++
+      run: .github/lnx_build_and_test.sh Debug
+
+    - name: Build and test (Clang, Release)
+      env:
+        CXX: clang++
       run: .github/lnx_build_and_test.sh Release
