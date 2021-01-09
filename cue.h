@@ -13,9 +13,9 @@
 #ifndef DCUE_CUE_H
 #define DCUE_CUE_H
 
-struct Album;
 #include <string>
+#include "json.hpp"
 
-void Cue_build(const Album& a, const std::string& filename);
+void generate(const nlohmann::json& toplevel, const std::string& filename);
 
 #endif

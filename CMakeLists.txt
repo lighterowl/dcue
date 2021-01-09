@@ -7,14 +7,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(CURL 7.10 REQUIRED)
 
-add_executable(dcue
+add_library(dcue_core OBJECT
   cue.cpp
-  discogs.cpp
   filename_utility.cpp
-  http.cpp
-  main.cpp
   naming.cpp
-  string_utility.cpp)
+  string_utility.cpp
+)
+
+add_executable(dcue
+  $<TARGET_OBJECTS:dcue_core>
+  discogs.cpp
+  http.cpp
+  main.cpp)
 target_include_directories(dcue PRIVATE ${CURL_INCLUDE_DIRS})
 target_link_libraries(dcue ${CURL_LIBRARIES})
 if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
@@ -24,3 +28,7 @@ if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
   target_compile_definitions(dcue PRIVATE DCUE_OFFICIAL_BUILD)
   target_include_directories(dcue PRIVATE ${CMAKE_BINARY_DIR})
 endif()
+
+add_executable(dcue_test
+  $<TARGET_OBJECTS:dcue_core>
+  test/main.cpp)

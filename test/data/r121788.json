@@ -1,0 +1,757 @@
+{
+  "id": 121788,
+  "status": "Accepted",
+  "year": 1995,
+  "resource_url": "https://api.discogs.com/releases/121788",
+  "uri": "https://www.discogs.com/Mate-Galic-The-Original-DJ-Collection-Vol-1/release/121788",
+  "artists": [
+    {
+      "name": "Mate Galic",
+      "anv": "",
+      "join": "",
+      "role": "",
+      "tracks": "",
+      "id": 6214,
+      "resource_url": "https://api.discogs.com/artists/6214"
+    }
+  ],
+  "artists_sort": "Mate Galic",
+  "labels": [
+    {
+      "name": "Arcade",
+      "catno": "8800361",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 1614,
+      "resource_url": "https://api.discogs.com/labels/1614"
+    }
+  ],
+  "series": [],
+  "companies": [
+    {
+      "name": "Arcade Deutschland GmbH",
+      "catno": "",
+      "entity_type": "13",
+      "entity_type_name": "Phonographic Copyright (p)",
+      "id": 18869,
+      "resource_url": "https://api.discogs.com/labels/18869"
+    },
+    {
+      "name": "Arcade Deutschland GmbH",
+      "catno": "",
+      "entity_type": "14",
+      "entity_type_name": "Copyright (c)",
+      "id": 18869,
+      "resource_url": "https://api.discogs.com/labels/18869"
+    },
+    {
+      "name": "Arcade Deutschland GmbH",
+      "catno": "",
+      "entity_type": "8",
+      "entity_type_name": "Marketed By",
+      "id": 18869,
+      "resource_url": "https://api.discogs.com/labels/18869"
+    },
+    {
+      "name": "ADS (2)",
+      "catno": "",
+      "entity_type": "9",
+      "entity_type_name": "Distributed By",
+      "id": 280074,
+      "resource_url": "https://api.discogs.com/labels/280074"
+    },
+    {
+      "name": "Exclusa / Steinhausen",
+      "catno": "",
+      "entity_type": "9",
+      "entity_type_name": "Distributed By",
+      "id": 280072,
+      "resource_url": "https://api.discogs.com/labels/280072"
+    },
+    {
+      "name": "Arcade Handels GmbH",
+      "catno": "",
+      "entity_type": "9",
+      "entity_type_name": "Distributed By",
+      "id": 280073,
+      "resource_url": "https://api.discogs.com/labels/280073"
+    },
+    {
+      "name": "Underground, Cologne",
+      "catno": "",
+      "entity_type": "23",
+      "entity_type_name": "Recorded At",
+      "id": 454350,
+      "resource_url": "https://api.discogs.com/labels/454350"
+    }
+  ],
+  "formats": [
+    {
+      "name": "CD",
+      "qty": "1",
+      "descriptions": [
+        "Mixed"
+      ]
+    }
+  ],
+  "data_quality": "Needs Vote",
+  "community": {
+    "have": 116,
+    "want": 37,
+    "rating": {
+      "count": 33,
+      "average": 4.33
+    },
+    "submitter": {
+      "username": "ipe",
+      "resource_url": "https://api.discogs.com/users/ipe"
+    },
+    "contributors": [
+      {
+        "username": "ipe",
+        "resource_url": "https://api.discogs.com/users/ipe"
+      },
+      {
+        "username": "Modern.Angel",
+        "resource_url": "https://api.discogs.com/users/Modern.Angel"
+      },
+      {
+        "username": "303",
+        "resource_url": "https://api.discogs.com/users/303"
+      },
+      {
+        "username": "HouseCollector",
+        "resource_url": "https://api.discogs.com/users/HouseCollector"
+      },
+      {
+        "username": "elexxii",
+        "resource_url": "https://api.discogs.com/users/elexxii"
+      },
+      {
+        "username": "sobmaster",
+        "resource_url": "https://api.discogs.com/users/sobmaster"
+      },
+      {
+        "username": "wax_junkie",
+        "resource_url": "https://api.discogs.com/users/wax_junkie"
+      },
+      {
+        "username": "Dr.Alternative",
+        "resource_url": "https://api.discogs.com/users/Dr.Alternative"
+      },
+      {
+        "username": "ACRiD3o3",
+        "resource_url": "https://api.discogs.com/users/ACRiD3o3"
+      },
+      {
+        "username": "vokuhila",
+        "resource_url": "https://api.discogs.com/users/vokuhila"
+      },
+      {
+        "username": "MercersBlue",
+        "resource_url": "https://api.discogs.com/users/MercersBlue"
+      },
+      {
+        "username": "zoundshine",
+        "resource_url": "https://api.discogs.com/users/zoundshine"
+      },
+      {
+        "username": "DiscogsUpdateBot",
+        "resource_url": "https://api.discogs.com/users/DiscogsUpdateBot"
+      },
+      {
+        "username": "LindaLove",
+        "resource_url": "https://api.discogs.com/users/LindaLove"
+      }
+    ],
+    "data_quality": "Needs Vote",
+    "status": "Accepted"
+  },
+  "format_quantity": 1,
+  "date_added": "2003-03-13T04:55:04-08:00",
+  "date_changed": "2016-09-03T10:30:31-07:00",
+  "num_for_sale": 7,
+  "lowest_price": 4.26,
+  "title": "The Original DJ Collection Vol. 1",
+  "country": "Germany",
+  "released": "1995",
+  "notes": "TVCD\n\nTHE ORIGINAL DJ COLLECTION Vol. 1 invites You to a non-stop mix of very hypnotic and mindbending sound + rythm structures. Compiled & mixed by MATE GALIC | Recorded live at the Cologne Underground. Get out.\n\nThis is a special Vinyl Mix. Dont worry about some record clicks on this recording.\n\nTrack 3. listed as \"Alphawave-Plasticman (Acid House Mix)\" on the back cover and \"Alphawave Plasticman Acid House Mix\" inside the booklet.",
+  "released_formatted": "1995",
+  "identifiers": [
+    {
+      "type": "Barcode",
+      "value": "4 014548 003610"
+    },
+    {
+      "type": "Label Code",
+      "value": "LC 5896"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "∎ BOD ARC 8800361 ∎"
+    },
+    {
+      "type": "Mastering SID Code",
+      "value": "IFPI L357"
+    },
+    {
+      "type": "Mould SID Code",
+      "value": "IFPI5201"
+    },
+    {
+      "type": "Rights Society",
+      "value": "STEMRA"
+    },
+    {
+      "type": "Other",
+      "value": "PC 01",
+      "description": "Code on CD"
+    }
+  ],
+  "videos": [
+    {
+      "uri": "https://www.youtube.com/watch?v=SmJK6LUumS0",
+      "title": "MATE GALIC",
+      "description": "",
+      "duration": 4383,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=5mok8ZWoAJs",
+      "title": "Rotor-Type -  Be Yourself  1994",
+      "description": "when music was music \n\nRotortype /  Kari Pekka Lekebusch\nhttps://www.discogs.com/artist/23300-Rotortype",
+      "duration": 338,
+      "embed": true
+    }
+  ],
+  "genres": [
+    "Electronic"
+  ],
+  "styles": [
+    "Techno",
+    "Acid"
+  ],
+  "tracklist": [
+    {
+      "position": "1.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Rob Acid",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 7025,
+          "resource_url": "https://api.discogs.com/artists/7025"
+        }
+      ],
+      "title": "Why",
+      "extraartists": [
+        {
+          "name": "Rob Acid",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 7025,
+          "resource_url": "https://api.discogs.com/artists/7025"
+        }
+      ],
+      "duration": "4:11"
+    },
+    {
+      "position": "2.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Encephaloïd Disturbance",
+          "anv": "Encephaloid Disturbance",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 911,
+          "resource_url": "https://api.discogs.com/artists/911"
+        }
+      ],
+      "title": "Sülk",
+      "extraartists": [
+        {
+          "name": "Acid Kirk",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 12934,
+          "resource_url": "https://api.discogs.com/artists/12934"
+        },
+        {
+          "name": "Laurent Jadot",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 24963,
+          "resource_url": "https://api.discogs.com/artists/24963"
+        }
+      ],
+      "duration": "3:33"
+    },
+    {
+      "position": "3.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "System 7",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 6959,
+          "resource_url": "https://api.discogs.com/artists/6959"
+        }
+      ],
+      "title": "Alphawave (Plasticman Acid House Mix)",
+      "extraartists": [
+        {
+          "name": "Plastikman",
+          "anv": "Plasticman",
+          "join": "",
+          "role": "Remix",
+          "tracks": "",
+          "id": 1030,
+          "resource_url": "https://api.discogs.com/artists/1030"
+        },
+        {
+          "name": "Richie Hawtin",
+          "anv": "",
+          "join": "",
+          "role": "Remix [Credited To], Producer [Additional]",
+          "tracks": "",
+          "id": 835,
+          "resource_url": "https://api.discogs.com/artists/835"
+        },
+        {
+          "name": "Miquette Giraudy",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 39787,
+          "resource_url": "https://api.discogs.com/artists/39787"
+        },
+        {
+          "name": "Steve Hillage",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 4452,
+          "resource_url": "https://api.discogs.com/artists/4452"
+        }
+      ],
+      "duration": "9:25"
+    },
+    {
+      "position": "4.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Rotortype",
+          "anv": "Rotor Type",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 23300,
+          "resource_url": "https://api.discogs.com/artists/23300"
+        }
+      ],
+      "title": "Be Yourself (Original Mix)",
+      "extraartists": [
+        {
+          "name": "Cari Lekebusch",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 27,
+          "resource_url": "https://api.discogs.com/artists/27"
+        }
+      ],
+      "duration": "4:54"
+    },
+    {
+      "position": "5.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Koxbox",
+          "anv": "Kox Box",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 1347,
+          "resource_url": "https://api.discogs.com/artists/1347"
+        }
+      ],
+      "title": "Acid Vol. 3",
+      "extraartists": [
+        {
+          "name": "Ian Ion",
+          "anv": "",
+          "join": "",
+          "role": "Producer",
+          "tracks": "",
+          "id": 39190,
+          "resource_url": "https://api.discogs.com/artists/39190"
+        },
+        {
+          "name": "Koxbox",
+          "anv": "Kox Box",
+          "join": "",
+          "role": "Producer",
+          "tracks": "",
+          "id": 1347,
+          "resource_url": "https://api.discogs.com/artists/1347"
+        },
+        {
+          "name": "Frank E",
+          "anv": "Frank E.",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 79888,
+          "resource_url": "https://api.discogs.com/artists/79888"
+        },
+        {
+          "name": "Peter Candy",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 499836,
+          "resource_url": "https://api.discogs.com/artists/499836"
+        }
+      ],
+      "duration": "7:23"
+    },
+    {
+      "position": "6.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aural Traxx",
+          "anv": "Aural Traxx Vol. 1",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 188225,
+          "resource_url": "https://api.discogs.com/artists/188225"
+        }
+      ],
+      "title": "Brainworm",
+      "extraartists": [
+        {
+          "name": "Andreas Kauffelt",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 4300,
+          "resource_url": "https://api.discogs.com/artists/4300"
+        }
+      ],
+      "duration": "7:33"
+    },
+    {
+      "position": "7.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Black Labs",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 28777,
+          "resource_url": "https://api.discogs.com/artists/28777"
+        }
+      ],
+      "title": "Space Bar",
+      "extraartists": [
+        {
+          "name": "Carl A. Finlow",
+          "anv": "Finlow",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 13320,
+          "resource_url": "https://api.discogs.com/artists/13320"
+        },
+        {
+          "name": "Daz Quayle",
+          "anv": "Quayle",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 235246,
+          "resource_url": "https://api.discogs.com/artists/235246"
+        },
+        {
+          "name": "Kevin Walsh (2)",
+          "anv": "Walsh",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 919387,
+          "resource_url": "https://api.discogs.com/artists/919387"
+        }
+      ],
+      "duration": "5:58"
+    },
+    {
+      "position": "8.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "The Source Experience",
+          "anv": "The Source Expierience",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 6878,
+          "resource_url": "https://api.discogs.com/artists/6878"
+        }
+      ],
+      "title": "Gate 41",
+      "extraartists": [
+        {
+          "name": "Robert Leiner",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 6367,
+          "resource_url": "https://api.discogs.com/artists/6367"
+        }
+      ],
+      "duration": "7:36"
+    },
+    {
+      "position": "9.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Random XS",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 865,
+          "resource_url": "https://api.discogs.com/artists/865"
+        }
+      ],
+      "title": "Fading Away",
+      "extraartists": [
+        {
+          "name": "Sander Friedeman",
+          "anv": "S. Friedeman",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 995491,
+          "resource_url": "https://api.discogs.com/artists/995491"
+        }
+      ],
+      "duration": "6:09"
+    },
+    {
+      "position": "10.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Sunrize (3)",
+          "anv": "Sunrise",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 723441,
+          "resource_url": "https://api.discogs.com/artists/723441"
+        }
+      ],
+      "title": "Absolutely Lovely Stuff",
+      "extraartists": [
+        {
+          "name": "I.N.G.O.",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 63964,
+          "resource_url": "https://api.discogs.com/artists/63964"
+        },
+        {
+          "name": "Paul Cooper",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 36676,
+          "resource_url": "https://api.discogs.com/artists/36676"
+        }
+      ],
+      "duration": "8:28"
+    },
+    {
+      "position": "11.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Hardfloor",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 858,
+          "resource_url": "https://api.discogs.com/artists/858"
+        }
+      ],
+      "title": "Funalogue",
+      "extraartists": [
+        {
+          "name": "Oliver Bondzio",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 4864,
+          "resource_url": "https://api.discogs.com/artists/4864"
+        },
+        {
+          "name": "Ramon Zenker",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 13665,
+          "resource_url": "https://api.discogs.com/artists/13665"
+        }
+      ],
+      "duration": "6:30"
+    },
+    {
+      "position": "",
+      "type_": "heading",
+      "title": "Special Unreleased Mental Bonus Track",
+      "duration": ""
+    },
+    {
+      "position": "12.",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Notzucht",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 93899,
+          "resource_url": "https://api.discogs.com/artists/93899"
+        }
+      ],
+      "title": "Kraj",
+      "extraartists": [
+        {
+          "name": "Mate Galic",
+          "anv": "",
+          "join": "",
+          "role": "Written-By",
+          "tracks": "",
+          "id": 6214,
+          "resource_url": "https://api.discogs.com/artists/6214"
+        }
+      ],
+      "duration": "1:23"
+    }
+  ],
+  "extraartists": [
+    {
+      "name": "Oli Hilbring",
+      "anv": "",
+      "join": "",
+      "role": "Art Direction",
+      "tracks": "",
+      "id": 2730399,
+      "resource_url": "https://api.discogs.com/artists/2730399"
+    },
+    {
+      "name": "Mate Galic",
+      "anv": "",
+      "join": "",
+      "role": "Compiled By, DJ Mix",
+      "tracks": "",
+      "id": 6214,
+      "resource_url": "https://api.discogs.com/artists/6214"
+    }
+  ],
+  "images": [
+    {
+      "type": "primary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 592
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 469
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 591
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 602
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 298
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 296
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 296
+    }
+  ],
+  "thumb": "",
+  "estimated_weight": 85
+}

@@ -12,6 +12,7 @@
 
 #include "cue.h"
 #include "filename_utility.h"
+#include "naming.h"
 #include "string_utility.h"
 #include "support_types.h"
 
@@ -47,6 +48,43 @@ void open_file(std::ofstream& out, const std::string& filename,
   if (!out.is_open()) {
     throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
   }
+}
+
+std::string concatenate_artists(const nlohmann::json& artists) {
+  std::string rv;
+  for (auto&& artist_info : artists) {
+    auto name = artist_info.value("anv", std::string());
+    if (name.empty()) {
+      name = artist_info.value("name", std::string());
+    }
+    NamingFacets::artist_facets(name);
+    rv += name;
+    if (&artist_info != &artists.back()) {
+      auto join = artist_info.value("join", std::string());
+      if (join == ",") {
+        rv += join;
+      } else {
+        rv += " ";
+      }
+    }
+  }
+  return rv;
+}
+
+bool get_disc_number(const std::string& position, unsigned& discno) {
+  auto dotpos = position.find_first_of(".-");
+  if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
+    return false;
+  }
+  discno = string_to_numeric<unsigned>(position.substr(0, dotpos));
+  try {
+    // string_to_numeric has no facility to notify of failure, but we need to be
+    // sure if this is actually a "2.3"-style track position to return true.
+    std::stoul(position.substr(dotpos + 1));
+    return true;
+  } catch (...) {
+  }
+  return false;
 }
 
 class Cue {
@@ -132,7 +170,6 @@ public:
   Cue(std::ostream& os) : stream(os) {
   }
 };
-}
 
 void Cue_build(const Album& album, const std::string& filename) {
   for (auto i = 0u; i < album.discs.size(); ++i) {
@@ -189,4 +226,77 @@ void Cue_build(const Album& album, const std::string& filename) {
       total += track.length;
     }
   }
+}
+
+}
+
+void generate(const nlohmann::json& toplevel, const std::string& filename) {
+  Album a;
+  a.title = toplevel.value("title", std::string());
+  auto year = toplevel.value("year", -1);
+  if (year != -1) {
+    a.year = std::to_string(year);
+  }
+  // style maps to genre better than genre does, in general
+  if (toplevel.find("styles") != toplevel.end()) {
+    a.genre = toplevel["styles"][0].get<std::string>();
+  }
+  if (toplevel.find("artists") != toplevel.end()) {
+    a.album_artist = concatenate_artists(toplevel["artists"]);
+  }
+
+  Disc d;
+  a.discs.push_back(d);
+  unsigned disc = 0;
+  unsigned track_num = 1;
+  for (auto&& track_info : toplevel.at("tracklist")) {
+    auto position = track_info.value("position", std::string());
+    if (position.empty()) {
+      continue;
+    }
+    unsigned this_disc;
+    if (get_disc_number(position, this_disc) && this_disc > disc) {
+      ++disc;
+      Disc nd;
+      a.discs.push_back(nd);
+      track_num = 1;
+    }
+    Track t;
+    t.position = track_num;
+    if (track_info.find("artists") != track_info.end()) {
+      t.artist = concatenate_artists(track_info["artists"]);
+    } else {
+      t.artist = a.album_artist;
+    }
+    t.title = track_info.value("title", std::string());
+    auto duration = track_info.value("duration", std::string());
+    if (duration.empty()) {
+      std::stringstream ss;
+      ss << "Track " << track_num << ", disc " << disc
+         << " has no duration, quitting\n";
+      throw std::runtime_error(ss.str());
+    }
+    std::vector<std::string> time_components;
+    explode(duration, ":", time_components);
+    if (time_components.size() == 2) {
+      trim(time_components[0]);
+      trim(time_components[1]);
+      t.length.min = string_to_numeric<unsigned>(time_components[0]);
+      t.length.sec = string_to_numeric<unsigned>(time_components[1]);
+    } else {
+      std::stringstream ss;
+      ss << "Unrecognised duration " << duration << ", quitting\n";
+      throw std::runtime_error(ss.str());
+    }
+    ++track_num;
+    a.discs[disc].tracks.push_back(t);
+  }
+
+  // if multidisc album, we have to remove the useless disc we created in the
+  // loop
+  if (a.discs.size() > 1) {
+    a.discs.erase(a.discs.begin());
+  }
+
+  Cue_build(a, filename);
 }

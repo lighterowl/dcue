@@ -1,0 +1,393 @@
+{
+  "id": 1,
+  "status": "Accepted",
+  "year": 1999,
+  "resource_url": "https://api.discogs.com/releases/1",
+  "uri": "https://www.discogs.com/The-Persuader-Stockholm/release/1",
+  "artists": [
+    {
+      "name": "The Persuader",
+      "anv": "",
+      "join": "",
+      "role": "",
+      "tracks": "",
+      "id": 1,
+      "resource_url": "https://api.discogs.com/artists/1"
+    }
+  ],
+  "artists_sort": "Persuader, The",
+  "labels": [
+    {
+      "name": "Svek",
+      "catno": "SK032",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 5,
+      "resource_url": "https://api.discogs.com/labels/5"
+    }
+  ],
+  "series": [],
+  "companies": [
+    {
+      "name": "The Globe Studios",
+      "catno": "",
+      "entity_type": "23",
+      "entity_type_name": "Recorded At",
+      "id": 271046,
+      "resource_url": "https://api.discogs.com/labels/271046"
+    },
+    {
+      "name": "MPO",
+      "catno": "",
+      "entity_type": "17",
+      "entity_type_name": "Pressed By",
+      "id": 56025,
+      "resource_url": "https://api.discogs.com/labels/56025"
+    }
+  ],
+  "formats": [
+    {
+      "name": "Vinyl",
+      "qty": "2",
+      "descriptions": [
+        "12\"",
+        "33 ⅓ RPM"
+      ]
+    }
+  ],
+  "data_quality": "Needs Vote",
+  "community": {
+    "have": 596,
+    "want": 906,
+    "rating": {
+      "count": 161,
+      "average": 4.48
+    },
+    "submitter": {
+      "username": "teo",
+      "resource_url": "https://api.discogs.com/users/teo"
+    },
+    "contributors": [
+      {
+        "username": "teo",
+        "resource_url": "https://api.discogs.com/users/teo"
+      },
+      {
+        "username": "Ultravod",
+        "resource_url": "https://api.discogs.com/users/Ultravod"
+      },
+      {
+        "username": "MONK",
+        "resource_url": "https://api.discogs.com/users/MONK"
+      },
+      {
+        "username": "herr_roessi",
+        "resource_url": "https://api.discogs.com/users/herr_roessi"
+      },
+      {
+        "username": "Swedens_Finest",
+        "resource_url": "https://api.discogs.com/users/Swedens_Finest"
+      },
+      {
+        "username": "daniel-phonk",
+        "resource_url": "https://api.discogs.com/users/daniel-phonk"
+      },
+      {
+        "username": "sharevari",
+        "resource_url": "https://api.discogs.com/users/sharevari"
+      },
+      {
+        "username": "cosmicdream",
+        "resource_url": "https://api.discogs.com/users/cosmicdream"
+      },
+      {
+        "username": "moob",
+        "resource_url": "https://api.discogs.com/users/moob"
+      },
+      {
+        "username": "irionman",
+        "resource_url": "https://api.discogs.com/users/irionman"
+      },
+      {
+        "username": "PabloPlato",
+        "resource_url": "https://api.discogs.com/users/PabloPlato"
+      },
+      {
+        "username": "tomazy",
+        "resource_url": "https://api.discogs.com/users/tomazy"
+      },
+      {
+        "username": "NeedleCain",
+        "resource_url": "https://api.discogs.com/users/NeedleCain"
+      },
+      {
+        "username": "more_music",
+        "resource_url": "https://api.discogs.com/users/more_music"
+      },
+      {
+        "username": "teori",
+        "resource_url": "https://api.discogs.com/users/teori"
+      },
+      {
+        "username": "disneyfacts",
+        "resource_url": "https://api.discogs.com/users/disneyfacts"
+      },
+      {
+        "username": "baczbad",
+        "resource_url": "https://api.discogs.com/users/baczbad"
+      },
+      {
+        "username": "schachmatt",
+        "resource_url": "https://api.discogs.com/users/schachmatt"
+      },
+      {
+        "username": "pacifica",
+        "resource_url": "https://api.discogs.com/users/pacifica"
+      },
+      {
+        "username": "DiscogsUpdateBot",
+        "resource_url": "https://api.discogs.com/users/DiscogsUpdateBot"
+      },
+      {
+        "username": "Vinyl.Score",
+        "resource_url": "https://api.discogs.com/users/Vinyl.Score"
+      },
+      {
+        "username": "MadsTheo",
+        "resource_url": "https://api.discogs.com/users/MadsTheo"
+      },
+      {
+        "username": "KevinGoebbels",
+        "resource_url": "https://api.discogs.com/users/KevinGoebbels"
+      },
+      {
+        "username": "Lektronikumuz",
+        "resource_url": "https://api.discogs.com/users/Lektronikumuz"
+      },
+      {
+        "username": "MusicNutter",
+        "resource_url": "https://api.discogs.com/users/MusicNutter"
+      },
+      {
+        "username": "BarnyardOrbit",
+        "resource_url": "https://api.discogs.com/users/BarnyardOrbit"
+      },
+      {
+        "username": "igorigor.2012",
+        "resource_url": "https://api.discogs.com/users/igorigor.2012"
+      },
+      {
+        "username": "JuSi",
+        "resource_url": "https://api.discogs.com/users/JuSi"
+      },
+      {
+        "username": "goncalobcunha69",
+        "resource_url": "https://api.discogs.com/users/goncalobcunha69"
+      },
+      {
+        "username": "ccviscar",
+        "resource_url": "https://api.discogs.com/users/ccviscar"
+      },
+      {
+        "username": "faridaghilasse",
+        "resource_url": "https://api.discogs.com/users/faridaghilasse"
+      },
+      {
+        "username": "MediaDreams",
+        "resource_url": "https://api.discogs.com/users/MediaDreams"
+      },
+      {
+        "username": "A-day",
+        "resource_url": "https://api.discogs.com/users/A-day"
+      },
+      {
+        "username": "Klass.Animal",
+        "resource_url": "https://api.discogs.com/users/Klass.Animal"
+      },
+      {
+        "username": "iksxsuzil",
+        "resource_url": "https://api.discogs.com/users/iksxsuzil"
+      },
+      {
+        "username": "praz",
+        "resource_url": "https://api.discogs.com/users/praz"
+      }
+    ],
+    "data_quality": "Needs Vote",
+    "status": "Accepted"
+  },
+  "format_quantity": 2,
+  "date_added": "2000-09-01T00:00:00-07:00",
+  "date_changed": "2019-12-30T12:22:23-08:00",
+  "num_for_sale": 18,
+  "lowest_price": 1.21,
+  "master_id": 1660109,
+  "master_url": "https://api.discogs.com/masters/1660109",
+  "title": "Stockholm",
+  "country": "Sweden",
+  "released": "1999-03-00",
+  "notes": "The song titles are the names of six of Stockholm's 82 districts.\n\nTitle on label: - Stockholm -\n\nRecorded at the Globe Studio, Stockholm\n\nFAX: +46 8 679 64 53",
+  "released_formatted": "Mar 1999",
+  "identifiers": [
+    {
+      "type": "Matrix / Runout",
+      "value": "MPO SK 032 A1",
+      "description": "A-Side Runout"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "MPO SK 032 B1",
+      "description": "B-Side Runout"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "MPO SK 032 C1",
+      "description": "C-Side Runout"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "MPO SK 032 D1",
+      "description": "D-Side Runout"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "G PHRUPMASTERGENERAL T27 LONDON",
+      "description": "Only On A-Side Runout"
+    }
+  ],
+  "videos": [
+    {
+      "uri": "https://www.youtube.com/watch?v=MpmbntGDyNE",
+      "title": "The Persuader - Östermalm",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\r\n\r\nThe Persuader - Östermalm\n\r\n\r- video upload powered by https://www.TunesToTube.com",
+      "duration": 296,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=Cawyll0pOI4",
+      "title": "The Persuader - Vasastaden",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\n\nThe Persuader - Vasastaden",
+      "duration": 376,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=XExCZfMCXdo",
+      "title": "The Persuader - Kungsholmen",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\n\nThe Persuader - Kungsholmen",
+      "duration": 176,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=WDZqiENap_U",
+      "title": "The Persuader - Södermalm",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\n\nThe Persuader - Södermalm",
+      "duration": 341,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=EBBHR3EMN50",
+      "title": "The Persuader - Norrmalm",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\n\nThe Persuader - Norrmalm",
+      "duration": 301,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=afMHNll9EVM",
+      "title": "The Persuader - Gamla Stan",
+      "description": "https://www.discogs.com/The-Persuader-Stockholm/release/1\n\nThe Persuader - Gamla Stan",
+      "duration": 326,
+      "embed": true
+    }
+  ],
+  "genres": [
+    "Electronic"
+  ],
+  "styles": [
+    "Deep House"
+  ],
+  "tracklist": [
+    {
+      "position": "A",
+      "type_": "track",
+      "title": "Östermalm",
+      "duration": "4:45"
+    },
+    {
+      "position": "B1",
+      "type_": "track",
+      "title": "Vasastaden",
+      "duration": "6:11"
+    },
+    {
+      "position": "B2",
+      "type_": "track",
+      "title": "Kungsholmen",
+      "duration": "2:49"
+    },
+    {
+      "position": "C1",
+      "type_": "track",
+      "title": "Södermalm",
+      "duration": "5:38"
+    },
+    {
+      "position": "C2",
+      "type_": "track",
+      "title": "Norrmalm",
+      "duration": "4:52"
+    },
+    {
+      "position": "D",
+      "type_": "track",
+      "title": "Gamla Stan",
+      "duration": "5:16"
+    }
+  ],
+  "extraartists": [
+    {
+      "name": "Jesper Dahlbäck",
+      "anv": "",
+      "join": "",
+      "role": "Music By [All Tracks By]",
+      "tracks": "",
+      "id": 239,
+      "resource_url": "https://api.discogs.com/artists/239"
+    }
+  ],
+  "images": [
+    {
+      "type": "primary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 600
+    }
+  ],
+  "thumb": "",
+  "estimated_weight": 460
+}
