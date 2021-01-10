@@ -1,9 +1,9 @@
-name: C/C++ CI (Windows)
+name: Official build - Linux
 
 on: [push, pull_request]
 
 jobs:
-  build-win:
+  build-lnx:
 
     runs-on: ubuntu-16.04
 
