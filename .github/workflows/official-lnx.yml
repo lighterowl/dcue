@@ -23,5 +23,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: DCue for Linux
-        path: build\dcue.bz2
+        path: build/dcue.bz2
       name: upload-dcue-build
