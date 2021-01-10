@@ -1,0 +1,33 @@
+name: C/C++ CI (Windows)
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-win:
+
+    runs-on: ubuntu-16.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install curl
+      run: sudo apt-get update && sudo apt-get install libcurl4-openssl-dev ninja-build
+
+    - name: Build
+      env:
+        DCUE_APP_KEY: ${{ secrets.DCUE_APP_KEY }}
+        DCUE_APP_SECRET: ${{ secrets.DCUE_APP_SECRET }}
+        DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
+      run: .github/lnx_build.sh
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: DCue for Linux
+        path: build\dcue.bz2
+      name: upload-dcue-build
