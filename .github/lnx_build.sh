@@ -4,10 +4,7 @@ set -e
 
 mkdir build
 cd build
-cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_FIND_LIBRARY_SUFFIXES=.a \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_EXE_LINKER_FLAGS=-static
+cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release
 
 ninja
 bzip2 -9 dcue
