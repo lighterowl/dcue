@@ -1,12 +1,6 @@
 name: C/C++ CI (Windows)
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
   build-win:
