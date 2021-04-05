@@ -13,7 +13,7 @@
 #ifndef DCUE_HTTP_H
 #define DCUE_HTTP_H
 
-#if 0
+#ifdef _WIN32
 #include "http_wininet.h"
 using HttpGet = HttpGetWinInet;
 #else
