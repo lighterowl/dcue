@@ -12,6 +12,12 @@
 #endif
 
 namespace {
+struct CurlDeleter {
+  void operator()(void* c) const {
+    ::curl_easy_cleanup(c);
+  }
+};
+
 size_t write_body(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::vector<std::uint8_t>*>(userdata);
   auto total = size * nmemb;
@@ -37,9 +43,7 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
 }
 }
 
-void HttpGetCurl::CurlDeleter::operator()(void* c) const {
-  ::curl_easy_cleanup(c);
-}
+using CurlHandle = std::unique_ptr<void, CurlDeleter>;
 
 HttpGetCurl::HttpGetCurl() : curl(::curl_easy_init()) {
 }
@@ -73,6 +77,7 @@ void HttpGetCurl::set_resource(const std::string& res) {
 }
 
 bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
+  auto curl = CurlHandle{::curl_easy_init()};
   if (resource.empty()) {
     return false;
   }

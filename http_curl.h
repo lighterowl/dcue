@@ -6,15 +6,10 @@
 #include <memory>
 
 class HttpGetCurl {
-  struct CurlDeleter {
-    void operator()(void* c) const;
-  };
   std::vector<HttpHeader> headers;
   std::string resource;
-  std::unique_ptr<void, CurlDeleter> curl;
 
 public:
-  HttpGetCurl();
   static void global_init();
   static void global_deinit();
   void add_header(const std::string& name, const std::string& value);
