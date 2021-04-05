@@ -45,9 +45,6 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
 
 using CurlHandle = std::unique_ptr<void, CurlDeleter>;
 
-HttpGetCurl::HttpGetCurl() : curl(::curl_easy_init()) {
-}
-
 void HttpGetCurl::global_init() {
   if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
     std::cerr << "libcurl initialisation failed\n";
