@@ -71,13 +71,13 @@ bool HttpGetWinInet::send(const std::string& hostname,
   }
 
   DWORD actualRead;
-  bool read_all = false;
-  while (!read_all) {
+  bool did_read_all = false;
+  while (!did_read_all) {
     std::uint8_t buf[4096];
     bool read_ok =
         ::InternetReadFile(handle.get(), buf, sizeof(buf), &actualRead);
     std::copy(buf, buf + actualRead, std::back_inserter(out.body));
-    read_all = (read_ok && actualRead == 0);
+    did_read_all = (read_ok && actualRead == 0);
   }
 
   DWORD httpStatus = 0;

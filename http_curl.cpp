@@ -12,23 +12,6 @@
 #endif
 
 namespace {
-const struct CurlInit {
-  CurlInit() {
-    if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
-      std::cerr << "libcurl initialisation failed\n";
-      ::exit(1);
-    }
-    auto versinfo = ::curl_version_info(CURLVERSION_NOW);
-    if (!(versinfo->features & CURL_VERSION_SSL)) {
-      std::cerr << "Your libcurl doesn't support SSL\n";
-      ::exit(1);
-    }
-  }
-  ~CurlInit() {
-    ::curl_global_cleanup();
-  }
-} init;
-
 size_t write_body(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::vector<std::uint8_t>*>(userdata);
   auto total = size * nmemb;
@@ -59,6 +42,22 @@ void HttpGetCurl::CurlDeleter::operator()(void* c) const {
 }
 
 HttpGetCurl::HttpGetCurl() : curl(::curl_easy_init()) {
+}
+
+void HttpGetCurl::global_init() {
+  if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
+    std::cerr << "libcurl initialisation failed\n";
+    ::exit(1);
+  }
+  auto versinfo = ::curl_version_info(CURLVERSION_NOW);
+  if (!(versinfo->features & CURL_VERSION_SSL)) {
+    std::cerr << "Your libcurl doesn't support SSL\n";
+    ::exit(1);
+  }
+}
+
+void HttpGetCurl::global_deinit() {
+  ::curl_global_cleanup();
 }
 
 void HttpGetCurl::add_header(const std::string& name,
