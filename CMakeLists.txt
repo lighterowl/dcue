@@ -5,7 +5,14 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(CURL 7.10 REQUIRED)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(HTTP_DEFINITIONS UNICODE)
+  set(HTTP_LIBS Winhttp)
+else()
+  find_package(CURL 7.10 REQUIRED)
+  set(HTTP_INCLUDES ${CURL_INCLUDE_DIRS})
+  set(HTTP_LIBS ${CURL_LIBRARIES})
+endif()
 
 add_library(dcue_core OBJECT
   cue.cpp
@@ -19,8 +26,10 @@ add_executable(dcue
   discogs.cpp
   http.cpp
   main.cpp)
-target_include_directories(dcue PRIVATE ${CURL_INCLUDE_DIRS})
-target_link_libraries(dcue ${CURL_LIBRARIES})
+target_compile_definitions(dcue PRIVATE ${HTTP_DEFINITIONS})
+target_include_directories(dcue PRIVATE ${HTTP_INCLUDES})
+target_link_libraries(dcue ${HTTP_LIBS})
+
 if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
     DEFINED ENV{DCUE_APP_XORKEY})
   message("App keys found in environment, making an official build")
