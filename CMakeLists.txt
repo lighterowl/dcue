@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-  set(HTTP_DEFINITIONS UNICODE)
-  set(HTTP_LIBS Winhttp)
+  set(HTTP_LIBS Wininet)
 else()
   find_package(CURL 7.10 REQUIRED)
   set(HTTP_INCLUDES ${CURL_INCLUDE_DIRS})
   set(HTTP_LIBS ${CURL_LIBRARIES})
+  set(HTTP_EXTRA_SOURCES http_curl.cpp)
 endif()
 
 add_library(dcue_core OBJECT
@@ -24,9 +24,9 @@ add_library(dcue_core OBJECT
 add_executable(dcue
   $<TARGET_OBJECTS:dcue_core>
   discogs.cpp
-  http.cpp
-  main.cpp)
-target_compile_definitions(dcue PRIVATE ${HTTP_DEFINITIONS})
+  main.cpp
+  ${HTTP_EXTRA_SOURCES}
+)
 target_include_directories(dcue PRIVATE ${HTTP_INCLUDES})
 target_link_libraries(dcue ${HTTP_LIBS})
 
