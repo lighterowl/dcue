@@ -52,25 +52,6 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
   resp->push_back(h);
   return total;
 }
-
-HttpStatus rawCodeToHttpStatus(long respCode) {
-  auto rv = HttpStatus::OTHER_FAIL;
-  switch (respCode) {
-  case 200:
-    rv = HttpStatus::OK;
-    break;
-  case 403:
-    rv = HttpStatus::FORBIDDEN;
-    break;
-  case 404:
-    rv = HttpStatus::NOT_FOUND;
-    break;
-  case 500:
-    rv = HttpStatus::INT_ERR;
-    break;
-  }
-  return rv;
-}
 }
 
 void HttpGetCurl::CurlDeleter::operator()(void* c) const {

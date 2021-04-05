@@ -3,9 +3,14 @@
 
 #include "http_types.h"
 
+#include <memory>
+
 class HttpGetWinInet {
+  std::string resource;
+
 public:
-  void add_header(const std::string& name, const std::string& value);
+  static void global_init();
+  static void global_deinit();
   void set_resource(const std::string& res);
   bool send(const std::string& hostname, HttpResponse& out) const;
 };
