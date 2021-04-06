@@ -34,7 +34,7 @@ processRawHeaders(const std::vector<std::uint8_t>& rawHeaders) {
       std::advance(it, 2);
       if (it < nextNul) {
         std::string value(it, nextNul);
-        rv.push_back(HttpHeader{name, value});
+        rv.push_back(HttpHeader{std::move(name), std::move(value)});
       }
     }
     it = nextNul;
