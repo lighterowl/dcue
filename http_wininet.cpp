@@ -19,6 +19,30 @@ struct InternetHandleDeleter {
     ::InternetCloseHandle(h);
   }
 };
+
+std::vector<HttpHeader>
+processRawHeaders(const std::vector<std::uint8_t>& rawHeaders) {
+  std::vector<HttpHeader> rv;
+  const auto end = std::end(rawHeaders);
+  auto it = std::begin(rawHeaders);
+  auto nextNul = std::find(it, end, 0);
+  while (std::distance(it, nextNul) > 0) {
+    auto colon = std::find(it, nextNul, ':');
+    if (colon != nextNul) {
+      std::string name(it, colon);
+      it = colon;
+      std::advance(it, 2);
+      if (it < nextNul) {
+        std::string value(it, nextNul);
+        rv.push_back(HttpHeader{name, value});
+      }
+    }
+    it = nextNul;
+    std::advance(it, 1);
+    nextNul = std::find(it, end, 0);
+  }
+  return rv;
+}
 }
 
 using InetHandle = std::unique_ptr<void, InternetHandleDeleter>;
@@ -51,21 +75,27 @@ bool HttpGetWinInet::send(const std::string& hostname,
   auto url = hostname;
   url += resource;
 
-  std::string headers;
+  std::string requestHeaders;
+  for (auto&& h : headers) {
+    requestHeaders.append(h.name);
+    requestHeaders.append(": ");
+    requestHeaders.append(h.value);
+    requestHeaders.append("\x0D\x0A");
+  }
 #ifdef DCUE_OFFICIAL_BUILD
   {
     auto key = discogs_key::get();
-    headers.append("Authorization: Discogs key=");
-    headers.append(key.key);
-    headers.append(", secret=");
-    headers.append(key.secret);
-    headers.append("\x0D\x0A");
+    requestHeaders.append("Authorization: Discogs key=");
+    requestHeaders.append(key.key);
+    requestHeaders.append(", secret=");
+    requestHeaders.append(key.secret);
+    requestHeaders.append("\x0D\x0A");
   }
 #endif
 
   auto handle = InetHandle{::InternetOpenUrlA(
-      rootInternet, url.c_str(), headers.c_str(), headers.length(),
-      INTERNET_FLAG_NO_UI | INTERNET_FLAG_RELOAD, 0)};
+      rootInternet, url.c_str(), requestHeaders.c_str(),
+      requestHeaders.length(), INTERNET_FLAG_NO_UI | INTERNET_FLAG_RELOAD, 0)};
   if (handle == nullptr) {
     return false;
   }
@@ -86,6 +116,18 @@ bool HttpGetWinInet::send(const std::string& hostname,
                    HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &httpStatus,
                    &buflen, 0);
   out.status = rawCodeToHttpStatus(httpStatus);
+
+  std::vector<std::uint8_t> rawHeaders;
+  buflen = 0;
+  ::HttpQueryInfoA(handle.get(), HTTP_QUERY_RAW_HEADERS, nullptr, &buflen, 0);
+  if (GetLastError() != ERROR_HTTP_HEADER_NOT_FOUND) {
+    rawHeaders.resize(buflen);
+    auto success = ::HttpQueryInfoA(handle.get(), HTTP_QUERY_RAW_HEADERS,
+                                    rawHeaders.data(), &buflen, 0);
+    if (success) {
+      out.headers = processRawHeaders(rawHeaders);
+    }
+  }
 
   return true;
 }
