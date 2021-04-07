@@ -12,6 +12,10 @@
 
 #include "discogs.h"
 
+#ifdef DCUE_OFFICIAL_BUILD
+#include "appkey.h"
+#endif
+
 bool DiscogsReleaseRequest::send(const std::string& rel_id, nlohmann::json& out,
                                  const bool is_master) {
   HttpGet req;
@@ -20,6 +24,9 @@ bool DiscogsReleaseRequest::send(const std::string& rel_id, nlohmann::json& out,
   } else {
     req.set_resource("/releases/" + rel_id);
   }
+#ifdef DCUE_OFFICIAL_BUILD
+  req.add_header(discogs_key::getHeader());
+#endif
   req.send("https://api.discogs.com", res);
   if (success()) {
     out = nlohmann::json::parse(res.body);
