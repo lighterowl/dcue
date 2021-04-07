@@ -100,10 +100,10 @@ bool HttpGetWinInet::send(const std::string& hostname,
     return false;
   }
 
-  DWORD actualRead;
   bool did_read_all = false;
   while (!did_read_all) {
     std::uint8_t buf[4096];
+    DWORD actualRead;
     bool read_ok =
         ::InternetReadFile(handle.get(), buf, sizeof(buf), &actualRead);
     std::copy(buf, buf + actualRead, std::back_inserter(out.body));
