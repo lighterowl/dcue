@@ -7,10 +7,6 @@
 
 #include "string_utility.h"
 
-#ifdef DCUE_OFFICIAL_BUILD
-#include "appkey.h"
-#endif
-
 namespace {
 struct CurlDeleter {
   void operator()(void* c) const {
