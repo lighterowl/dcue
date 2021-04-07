@@ -28,7 +28,7 @@ add_executable(dcue
   main.cpp
   ${HTTP_EXTRA_SOURCES}
 )
-target_include_directories(dcue PRIVATE ${HTTP_INCLUDES})
+target_include_directories(dcue PRIVATE ${HTTP_INCLUDES} ${CMAKE_SOURCE_DIR})
 target_link_libraries(dcue ${HTTP_LIBS})
 
 if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
