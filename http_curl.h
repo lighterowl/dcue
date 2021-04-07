@@ -12,7 +12,7 @@ class HttpGetCurl {
 public:
   static void global_init();
   static void global_deinit();
-  void add_header(const std::string& name, const std::string& value);
+  void add_header(HttpHeader&& header);
   void set_resource(const std::string& res);
   bool send(const std::string& hostname, HttpResponse& out) const;
 };

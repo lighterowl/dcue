@@ -7,10 +7,6 @@
 
 #include "string_utility.h"
 
-#ifdef DCUE_OFFICIAL_BUILD
-#include "appkey.h"
-#endif
-
 namespace {
 struct CurlDeleter {
   void operator()(void* c) const {
@@ -61,12 +57,8 @@ void HttpGetCurl::global_deinit() {
   ::curl_global_cleanup();
 }
 
-void HttpGetCurl::add_header(const std::string& name,
-                             const std::string& value) {
-  HttpHeader h;
-  h.name = name;
-  h.value = value;
-  headers.push_back(h);
+void HttpGetCurl::add_header(HttpHeader&& header) {
+  headers.emplace_back(header);
 }
 
 void HttpGetCurl::set_resource(const std::string& res) {
@@ -88,16 +80,6 @@ bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
     list = ::curl_slist_append(list, fullHeader.c_str());
   }
   list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
-#ifdef DCUE_OFFICIAL_BUILD
-  {
-    auto key = discogs_key::get();
-    std::string auth_hdr("Authorization: Discogs key=");
-    auth_hdr.append(key.key);
-    auth_hdr.append(", secret=");
-    auth_hdr.append(key.secret);
-    list = ::curl_slist_append(list, auth_hdr.c_str());
-  }
-#endif
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);

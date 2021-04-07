@@ -7,10 +7,6 @@
 
 #include <WinInet.h>
 
-#ifdef DCUE_OFFICIAL_BUILD
-#include "appkey.h"
-#endif
-
 namespace {
 HINTERNET rootInternet;
 
@@ -25,6 +21,8 @@ processRawHeaders(const std::vector<std::uint8_t>& rawHeaders) {
   std::vector<HttpHeader> rv;
   const auto end = std::end(rawHeaders);
   auto it = std::begin(rawHeaders);
+  rv.reserve(std::count(it, end, 0));
+
   auto nextNul = std::find(it, end, 0);
   while (std::distance(it, nextNul) > 0) {
     auto colon = std::find(it, nextNul, ':');
@@ -62,6 +60,10 @@ void HttpGetWinInet::global_deinit() {
   ::InternetCloseHandle(rootInternet);
 }
 
+void HttpGetWinInet::add_header(HttpHeader&& header) {
+  headers.emplace_back(header);
+}
+
 void HttpGetWinInet::set_resource(const std::string& res) {
   resource = res;
 }
@@ -82,16 +84,6 @@ bool HttpGetWinInet::send(const std::string& hostname,
     requestHeaders.append(h.value);
     requestHeaders.append("\x0D\x0A");
   }
-#ifdef DCUE_OFFICIAL_BUILD
-  {
-    auto key = discogs_key::get();
-    requestHeaders.append("Authorization: Discogs key=");
-    requestHeaders.append(key.key);
-    requestHeaders.append(", secret=");
-    requestHeaders.append(key.secret);
-    requestHeaders.append("\x0D\x0A");
-  }
-#endif
 
   auto handle = InetHandle{::InternetOpenUrlA(
       rootInternet, url.c_str(), requestHeaders.c_str(),
