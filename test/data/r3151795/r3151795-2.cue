@@ -3,7 +3,7 @@ REM DATE 2011
 REM COMMENT "DCue v1.4dev"
 PERFORMER "Various"
 TITLE "Hardcore Underground 5"
-FILE "r3151795.cue" WAVE
+FILE "r3151795.wav" WAVE
 	TRACK 01 AUDIO
 		TITLE "Can You Hear The Silence"
 		PERFORMER "Entity & Chwhynny"
