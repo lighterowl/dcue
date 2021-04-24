@@ -1,6 +1,6 @@
 REM GENRE Eurobeat
 REM DATE 2016
-REM COMMENT "DCue v1.2dev"
+REM COMMENT "DCue v1.4dev"
 PERFORMER "Various"
 TITLE "Eurobeat Festival Vol. 2"
 FILE "r9922074.wav" WAVE
@@ -22,7 +22,7 @@ FILE "r9922074.wav" WAVE
 		INDEX 01 14:44:00
 	TRACK 05 AUDIO
 		TITLE "Midnight Shot!! 2016"
-		PERFORMER "紅梔子 ノイズ"
+		PERFORMER "紅梔子 & ノイズ"
 		INDEX 01 19:36:00
 	TRACK 06 AUDIO
 		TITLE "Eurobeat Ninja Comes Again"
