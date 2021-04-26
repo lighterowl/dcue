@@ -60,8 +60,11 @@ std::string concatenate_artists(const nlohmann::json& artists) {
     NamingFacets::artist_facets(name);
     rv += name;
     if (&artist_info != &artists.back()) {
-      rv += " ";
-      rv += artist_info.value("join", ",");
+      auto join = artist_info.value("join", ",");
+      if (join != ",") {
+        rv += " ";
+      }
+      rv += join;
       rv += " ";
     }
   }

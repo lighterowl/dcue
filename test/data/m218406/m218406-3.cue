@@ -14,7 +14,7 @@ FILE "m218406.wav" WAVE
 		INDEX 01 04:28:00
 	TRACK 03 AUDIO
 		TITLE "Freaks"
-		PERFORMER "Hixxy , Sy & Unknown"
+		PERFORMER "Hixxy, Sy & Unknown"
 		INDEX 01 09:10:00
 	TRACK 04 AUDIO
 		TITLE "Overload (Hixxy & Re-Con Remix)"
@@ -42,7 +42,7 @@ FILE "m218406.wav" WAVE
 		INDEX 01 34:49:00
 	TRACK 10 AUDIO
 		TITLE "First Time Meet Up"
-		PERFORMER "Hixxy , Sy & Unknown"
+		PERFORMER "Hixxy, Sy & Unknown"
 		INDEX 01 39:09:00
 	TRACK 11 AUDIO
 		TITLE "Power Of Love"

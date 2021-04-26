@@ -46,7 +46,7 @@ FILE "r3151795.wav" WAVE
 		INDEX 01 24:57:00
 	TRACK 11 AUDIO
 		TITLE "Beyond Us (Douglas Remix)"
-		PERFORMER "Rampant , Obie & Darwin"
+		PERFORMER "Rampant, Obie & Darwin"
 		INDEX 01 28:09:00
 	TRACK 12 AUDIO
 		TITLE "Codex"

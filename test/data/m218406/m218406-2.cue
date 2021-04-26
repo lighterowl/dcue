@@ -6,7 +6,7 @@ TITLE "Clubland X-Treme Hardcore 3"
 FILE "m218406.wav" WAVE
 	TRACK 01 AUDIO
 		TITLE "All About"
-		PERFORMER "MC Storm , Flyin' & Sparky"
+		PERFORMER "MC Storm, Flyin' & Sparky"
 		INDEX 01 00:00:00
 	TRACK 02 AUDIO
 		TITLE "My Direction (Xtreme Edit)"

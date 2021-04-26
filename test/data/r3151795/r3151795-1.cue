@@ -14,7 +14,7 @@ FILE "r3151795.wav" WAVE
 		INDEX 01 03:12:00
 	TRACK 03 AUDIO
 		TITLE "Sheltered"
-		PERFORMER "Al Storm , Technikore & JTS"
+		PERFORMER "Al Storm, Technikore & JTS"
 		INDEX 01 05:44:00
 	TRACK 04 AUDIO
 		TITLE "Hardcore Style"
@@ -38,7 +38,7 @@ FILE "r3151795.wav" WAVE
 		INDEX 01 18:02:00
 	TRACK 09 AUDIO
 		TITLE "Supersonik"
-		PERFORMER "Technikore, JTS , Wain Johnstone & Kato"
+		PERFORMER "Technikore, JTS, Wain Johnstone & Kato"
 		INDEX 01 20:11:00
 	TRACK 10 AUDIO
 		TITLE "So Much Stronger"
@@ -70,7 +70,7 @@ FILE "r3151795.wav" WAVE
 		INDEX 01 41:37:00
 	TRACK 17 AUDIO
 		TITLE "This Is How It's Done"
-		PERFORMER "Technikore , Al Storm & JTS"
+		PERFORMER "Technikore, Al Storm & JTS"
 		INDEX 01 44:48:00
 	TRACK 18 AUDIO
 		TITLE "Betrayed (Winter Stayed)"
