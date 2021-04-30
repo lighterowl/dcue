@@ -13,40 +13,12 @@
 #ifndef DCUE_HTTP_H
 #define DCUE_HTTP_H
 
-#include "string_utility.h"
-
-#include <cstdint>
-#include <memory>
-#include <string>
-#include <vector>
-
-enum class HttpStatus { OK, NOT_FOUND, FORBIDDEN, INT_ERR, OTHER_FAIL };
-
-struct HttpHeader {
-  std::string name;
-  std::string value;
-};
-
-struct HttpResponse {
-  HttpStatus status;
-  std::vector<HttpHeader> headers;
-  std::vector<uint8_t> body;
-};
-
-struct CurlDeleter {
-  void operator()(void*) const;
-};
-
-class HttpGet {
-  std::vector<HttpHeader> headers;
-  std::string resource;
-  std::unique_ptr<void, CurlDeleter> curl;
-
-public:
-  HttpGet();
-  void add_header(const std::string& name, const std::string& value);
-  void set_resource(const std::string& res);
-  bool send(const std::string& hostname, HttpResponse& out) const;
-};
+#ifdef _WIN32
+#include "http_wininet.h"
+using HttpGet = HttpGetWinInet;
+#else
+#include "http_curl.h"
+using HttpGet = HttpGetCurl;
+#endif
 
 #endif

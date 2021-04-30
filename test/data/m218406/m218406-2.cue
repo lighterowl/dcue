@@ -1,16 +1,16 @@
 REM GENRE Hardcore
 REM DATE 2006
-REM COMMENT "DCue v1.2dev"
+REM COMMENT "DCue v1.4dev"
 PERFORMER "Various"
 TITLE "Clubland X-Treme Hardcore 3"
 FILE "m218406.wav" WAVE
 	TRACK 01 AUDIO
 		TITLE "All About"
-		PERFORMER "MC Storm,Flyin' & Sparky"
+		PERFORMER "MC Storm, Flyin' & Sparky"
 		INDEX 01 00:00:00
 	TRACK 02 AUDIO
 		TITLE "My Direction (Xtreme Edit)"
-		PERFORMER "D-Code Emma"
+		PERFORMER "D-Code Feat. Emma"
 		INDEX 01 04:08:00
 	TRACK 03 AUDIO
 		TITLE "Hardcore DJ (Re-Con Remix)"
@@ -22,7 +22,7 @@ FILE "m218406.wav" WAVE
 		INDEX 01 12:00:00
 	TRACK 05 AUDIO
 		TITLE "Only If"
-		PERFORMER "Breeze Re-Con"
+		PERFORMER "Breeze & Re-Con"
 		INDEX 01 15:43:00
 	TRACK 06 AUDIO
 		TITLE "Truly, Madly, Deeply (Styles & Breeze Remix)"
@@ -30,7 +30,7 @@ FILE "m218406.wav" WAVE
 		INDEX 01 19:03:00
 	TRACK 07 AUDIO
 		TITLE "Never Be Alone"
-		PERFORMER "Breeze Euphony"
+		PERFORMER "Breeze & Euphony"
 		INDEX 01 21:30:00
 	TRACK 08 AUDIO
 		TITLE "Yeah Yeah (Dougal & Gammer "The Beat's The Bass" Remix)"
@@ -42,23 +42,23 @@ FILE "m218406.wav" WAVE
 		INDEX 01 28:57:00
 	TRACK 10 AUDIO
 		TITLE "Rise Again"
-		PERFORMER "Breeze Lost Witness"
+		PERFORMER "Breeze vs. Lost Witness"
 		INDEX 01 33:36:00
 	TRACK 11 AUDIO
 		TITLE "Crash"
-		PERFORMER "SHM Scottie B"
+		PERFORMER "SHM & Scottie B"
 		INDEX 01 38:15:00
 	TRACK 12 AUDIO
 		TITLE "Dirty"
-		PERFORMER "Breeze UFO"
+		PERFORMER "Breeze & UFO"
 		INDEX 01 43:05:00
 	TRACK 13 AUDIO
 		TITLE "Touch The Sky"
-		PERFORMER "Sy & Unknown Lou Lou"
+		PERFORMER "Sy & Unknown Feat. Lou Lou"
 		INDEX 01 46:18:00
 	TRACK 14 AUDIO
 		TITLE "Love You For A Lifetime"
-		PERFORMER "Breeze Re-Con"
+		PERFORMER "Breeze & Re-Con"
 		INDEX 01 51:07:00
 	TRACK 15 AUDIO
 		TITLE "Walking In The Rain (Styles & Breeze Remix)"

@@ -67,6 +67,8 @@ bool fetch(const std::string& id, nlohmann::json& data,
   return req.send(id, data, is_master);
 }
 
+#ifdef DCUE_OFFICIAL_BUILD
+#include "appkey.h"
 void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
   auto it = toplevel.find("images");
   if (it == toplevel.end()) {
@@ -94,6 +96,7 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
 
   HttpGet g;
   g.set_resource((*imageIt).at("uri"));
+  g.add_header(discogs_key::getHeader());
   HttpResponse out;
   if (!g.send("", out)) {
     std::cerr << "Image request failed\n";
@@ -108,9 +111,11 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
   outfile.write(reinterpret_cast<const char*>(out.body.data()),
                 out.body.size());
 }
+#endif
 }
 
 int main(int argc, char* argv[]) {
+  HttpGet::global_init();
   const auto argv_end = (argv + argc);
   auto need_help = std::find_if(argv, argv_end, [](char* str) {
     return ::strcmp(str, "--help") == 0 || ::strcmp(str, "-h") == 0 ||
@@ -121,9 +126,9 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
+#ifdef DCUE_OFFICIAL_BUILD
   bool do_cover = false;
   std::string cover_fname = "cover.jpg";
-#ifdef DCUE_OFFICIAL_BUILD
   {
     const auto cover_arg = std::find_if(argv, argv_end, [](char* str) {
       return ::strcmp(str, "--cover") == 0;
@@ -168,12 +173,15 @@ int main(int argc, char* argv[]) {
 
   try {
     generate(discogs_data, argv[2]);
+#ifdef DCUE_OFFICIAL_BUILD
     if (do_cover) {
       get_cover(discogs_data, cover_fname);
     }
+#endif
     return 0;
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
   }
+  HttpGet::global_deinit();
   return 1;
 }

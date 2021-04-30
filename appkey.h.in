@@ -4,20 +4,28 @@
 #include <array>
 #include <string>
 
+#include "http_types.h"
+
 struct discogs_key {
+  static HttpHeader getHeader() {
+    auto key = get();
+    std::string value = "Discogs key=" + key.key + ", secret=" + key.secret;
+    return HttpHeader{"Authorization", std::move(value)};
+  }
+
+private:
   const std::string key;
   const std::string secret;
+
+  discogs_key(std::string&& key, std::string&& secret)
+      : key(key), secret(secret) {
+  }
 
   static discogs_key get() {
     static constexpr const char key[] = "$ENV{DCUE_APP_KEY}";
     static constexpr const char secret[] = "$ENV{DCUE_APP_SECRET}";
-    return discogs_key(descramble(key, sizeof(key)),
-                       descramble(secret, sizeof(secret)));
-  }
-
-private:
-  discogs_key(std::string&& key, std::string&& secret)
-      : key(key), secret(secret) {
+    return discogs_key(descramble(key, sizeof(key) - 1),
+                       descramble(secret, sizeof(secret) - 1));
   }
 
   static std::string descramble(const char* data, std::size_t len) {
@@ -28,8 +36,8 @@ private:
         static_cast<unsigned char>((xorkey >> 16) & 0xff),
         static_cast<unsigned char>((xorkey >> 24) & 0xff)};
     std::string rv;
-    rv.reserve(len - 1);
-    for (std::size_t i = 0; i < len - 1; ++i) {
+    rv.reserve(len);
+    for (std::size_t i = 0; i < len; ++i) {
       rv.push_back(data[i] ^ xorkey_b[i % xorkey_b.size()]);
     }
     return rv;
