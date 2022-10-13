@@ -5,15 +5,15 @@ on: [push, pull_request]
 jobs:
   test-lnx:
   
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     
     strategy:
       matrix:
-        compiler: [g++, g++-10, clang++, clang++-9]
+        compiler: [g++, g++-10, clang++, clang++-12]
         buildtype: [Debug, Release]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install curl
       run: sudo apt-get update && sudo apt-get install libcurl4-openssl-dev ninja-build
