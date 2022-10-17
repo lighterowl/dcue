@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.13)
 
 project(dcue CXX)
 set(CMAKE_CXX_STANDARD 17)
@@ -16,6 +16,18 @@ else()
   set(HTTP_INCLUDES ${CURL_INCLUDE_DIRS})
   set(HTTP_LIBS ${CURL_LIBRARIES})
   set(HTTP_EXTRA_SOURCES http_curl.cpp)
+endif()
+
+if(COVERAGE)
+  if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    add_compile_options(--coverage)
+    add_link_options(--coverage)
+  elseif(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
+    add_compile_options(-fprofile-instr-generate -fcoverage-mapping)
+    add_link_options(-fprofile-instr-generate)
+  else()
+    message(FATAL_ERROR "Coverage not supported for compiler ${CMAKE_CXX_COMPILER_ID}")
+  endif()
 endif()
 
 add_library(dcue_core OBJECT
