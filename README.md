@@ -10,6 +10,8 @@ Please report bugs and ideas via the GitHub issue tracker. Thanks!
 
 Please note that due to image URLs being available only when the Discogs API is accessed via a registered application identified by its own key and secret, fetching images is only possible when running the official builds. Thus, you will not be able to use this functionality if you compile the application yourself (`--cover` and `--cover-file` will be ignored and won't even appear in the help output). If you need a build for another platform, please file an issue.
 
+Also remember to include submodules in your clone : the easiest way to do that is to add `--recurse-submodules` to the `git clone` commandline.
+
 ## Linux
 
 Make sure you have the libcurl headers. Most distributions ship these as a separate package, for example `libcurl-dev` on Debian and `libcurl-devel` on Red Hat.
