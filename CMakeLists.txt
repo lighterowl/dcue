@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_subdirectory(spdlog)
+include_directories(nlohmann-json/single_include)
+
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   set(HTTP_LIBS Wininet)
   set(HTTP_EXTRA_SOURCES http_wininet.cpp)
@@ -15,14 +18,13 @@ else()
   set(HTTP_EXTRA_SOURCES http_curl.cpp)
 endif()
 
-include_directories(nlohmann-json/single_include)
-
 add_library(dcue_core OBJECT
   cue.cpp
   filename_utility.cpp
   naming.cpp
   string_utility.cpp
 )
+target_link_libraries(dcue_core PUBLIC spdlog::spdlog)
 
 add_executable(dcue
   $<TARGET_OBJECTS:dcue_core>
