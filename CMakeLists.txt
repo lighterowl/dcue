@@ -15,6 +15,8 @@ else()
   set(HTTP_EXTRA_SOURCES http_curl.cpp)
 endif()
 
+include_directories(nlohmann-json/single_include)
+
 add_library(dcue_core OBJECT
   cue.cpp
   filename_utility.cpp

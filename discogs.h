@@ -14,7 +14,7 @@
 #define DCUE_DISCOGS_H
 
 #include "http.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 #include <string>
 

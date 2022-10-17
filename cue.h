@@ -14,7 +14,7 @@
 #define DCUE_CUE_H
 
 #include <string>
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 void generate(const nlohmann::json& toplevel, const std::string& filename);
 

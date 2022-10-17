@@ -19,7 +19,7 @@
 
 #include "cue.h"
 #include "discogs.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 namespace {
 const char help[] = "********" COMMENT "********\n"
