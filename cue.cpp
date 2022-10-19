@@ -12,6 +12,7 @@
 
 #include "cue.h"
 
+#include "defs.h"
 #include "filename_utility.h"
 #include "naming.h"
 #include "string_utility.h"

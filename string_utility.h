@@ -13,15 +13,12 @@
 #ifndef DCUE_STRING_UTILITY_H
 #define DCUE_STRING_UTILITY_H
 
-#include "defs.h"
-
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <vector>
 
-void ltrim(std::string& text);
-void rtrim(std::string& text);
-void trim(std::string& text);
+std::string_view trim(std::string_view text);
 bool replace_char(std::string& text, const char candidate,
                   const std::string& new_text);
 bool replace_string(std::string& text, const std::string& candidate,

@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "defs.h"
 #include "string_utility.h"
 
 namespace {
@@ -26,14 +27,12 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::vector<HttpHeader>*>(userdata);
   auto total = size * nmemb;
   HttpHeader h;
-  auto hdrLine = std::string{ptr, total};
+  auto hdrLine = std::string_view{ptr, total};
   auto firstColon = hdrLine.find_first_of(":");
   auto temp = hdrLine.substr(0, firstColon);
-  trim(temp);
-  h.name = temp;
+  h.name = trim(temp);
   temp = hdrLine.substr(firstColon + 1);
-  trim(temp);
-  h.value = temp;
+  h.value = trim(temp);
   resp->push_back(h);
   return total;
 }

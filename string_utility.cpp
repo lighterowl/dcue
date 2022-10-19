@@ -14,26 +14,27 @@
 
 #include <cctype>
 
-void ltrim(std::string& text) {
+namespace {
+std::string_view ltrim(std::string_view text) {
   std::string::size_type i = 0;
   const std::string::size_type text_size = text.size();
   while (i < text_size && std::isspace(text[i])) {
     ++i;
   }
-  text.erase(0, i);
+  return text.substr(i);
 }
 
-void rtrim(std::string& text) {
+std::string_view rtrim(std::string_view text) {
   std::string::size_type i = text.size();
   while (i > 0 && std::isspace(text[i - 1])) {
     --i;
   }
-  text.erase(i);
+  return text.substr(0, i);
+}
 }
 
-void trim(std::string& text) {
-  ltrim(text);
-  rtrim(text);
+std::string_view trim(std::string_view text) {
+  return ltrim(rtrim(text));
 }
 
 bool replace_char(std::string& text, const char candidate,
