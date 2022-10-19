@@ -19,6 +19,8 @@
 
 #include "cue.h"
 #include "discogs.h"
+#include "http.h"
+
 #include <nlohmann/json.hpp>
 
 namespace {

@@ -16,6 +16,8 @@
 #include "appkey.h"
 #endif
 
+#include "http.h"
+
 bool DiscogsReleaseRequest::send(const std::string& rel_id, nlohmann::json& out,
                                  const bool is_master) {
   HttpGet req;
@@ -27,8 +29,9 @@ bool DiscogsReleaseRequest::send(const std::string& rel_id, nlohmann::json& out,
 #ifdef DCUE_OFFICIAL_BUILD
   req.add_header(discogs_key::getHeader());
 #endif
+  HttpResponse res;
   req.send("https://api.discogs.com", res);
-  if (success()) {
+  if (res.status == HttpStatus::OK) {
     out = nlohmann::json::parse(res.body);
     return true;
   }
