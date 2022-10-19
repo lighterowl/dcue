@@ -106,10 +106,21 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
   }
 }
 #endif
+
+struct HttpInit {
+  HttpInit() {
+    HttpGet::global_init();
+  }
+  ~HttpInit() {
+    HttpGet::global_deinit();
+  }
+  HttpInit(const HttpInit&) = delete;
+  HttpInit& operator=(const HttpInit&) = delete;
+};
 }
 
 int main(int argc, char* argv[]) {
-  HttpGet::global_init();
+  ::HttpInit i__;
   const auto argv_end = (argv + argc);
   auto need_help = std::find_if(argv, argv_end, [](char* str) {
     return ::strcmp(str, "--help") == 0 || ::strcmp(str, "-h") == 0 ||
@@ -162,6 +173,5 @@ int main(int argc, char* argv[]) {
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
   }
-  HttpGet::global_deinit();
   return 1;
 }
