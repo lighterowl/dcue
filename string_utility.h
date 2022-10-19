@@ -19,8 +19,6 @@
 #include <string>
 #include <vector>
 
-void explode(const std::string& text, const std::string& separator,
-             std::vector<std::string>& results);
 void ltrim(std::string& text);
 void rtrim(std::string& text);
 void trim(std::string& text);

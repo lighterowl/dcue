@@ -11,13 +11,17 @@
 // *******************************************************************
 
 #include "cue.h"
+
 #include "filename_utility.h"
 #include "naming.h"
 #include "string_utility.h"
 #include "support_types.h"
 
 #include <algorithm>
+#include <charconv>
 #include <fstream>
+
+#include <spdlog/fmt/fmt.h>
 
 namespace {
 std::string sanitise_string(const std::string& str) {
@@ -228,6 +232,27 @@ void Cue_build(const Album& album, const std::string& filename) {
   }
 }
 
+Track::Duration parse_duration(std::string_view dur) {
+  const auto do_throw = [=]() {
+    throw std::runtime_error(
+        fmt::format("Unrecognised duration {}, qutting\n", dur));
+  };
+
+  const auto colon_pos = dur.find(':');
+  if (colon_pos == std::string_view::npos || colon_pos == dur.length() - 1) {
+    do_throw();
+  }
+  unsigned min, sec;
+  auto min_conv_result =
+      std::from_chars(dur.data(), dur.data() + colon_pos, min);
+  auto sec_conv_result = std::from_chars(dur.data() + colon_pos + 1,
+                                         dur.data() + dur.length(), sec);
+  if (min_conv_result.ec != std::errc{} || sec_conv_result.ec != std::errc{}) {
+    do_throw();
+  }
+  return Track::Duration{min, sec};
+}
+
 }
 
 void generate(const nlohmann::json& toplevel, const std::string& filename) {
@@ -276,18 +301,7 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
          << " has no duration, quitting\n";
       throw std::runtime_error(ss.str());
     }
-    std::vector<std::string> time_components;
-    explode(duration, ":", time_components);
-    if (time_components.size() == 2) {
-      trim(time_components[0]);
-      trim(time_components[1]);
-      t.length.min = string_to_numeric<unsigned>(time_components[0]);
-      t.length.sec = string_to_numeric<unsigned>(time_components[1]);
-    } else {
-      std::stringstream ss;
-      ss << "Unrecognised duration " << duration << ", quitting\n";
-      throw std::runtime_error(ss.str());
-    }
+    t.length = parse_duration(duration);
     ++track_num;
     a.discs[disc].tracks.push_back(t);
   }

@@ -14,22 +14,6 @@
 
 #include <cctype>
 
-void explode(const std::string& text, const std::string& separator,
-             std::vector<std::string>& results) {
-  std::string::size_type found;
-  std::string copy(text);
-  const std::string::size_type separator_size = separator.length();
-  do {
-    found = copy.find(separator);
-    if (found > 0) {
-      results.push_back(copy.substr(0, found));
-    }
-    copy = copy.substr(found + separator_size);
-  } while (found != std::string::npos);
-
-  return;
-}
-
 void ltrim(std::string& text) {
   std::string::size_type i = 0;
   const std::string::size_type text_size = text.size();

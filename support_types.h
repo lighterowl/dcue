@@ -22,10 +22,11 @@ struct Track {
   struct Duration {
     unsigned min = 0;
     unsigned sec = 0;
-    void operator+=(const Duration& d) {
+    Duration& operator+=(const Duration& d) {
       sec += d.sec;
       min += d.min + (sec / 60);
       sec %= 60;
+      return *this;
     }
   } length;
   unsigned position = 0;
