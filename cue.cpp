@@ -244,11 +244,12 @@ Track::Duration parse_duration(std::string_view dur) {
       std::from_chars(dur.data(), dur.data() + colon_pos, min);
   auto sec_conv_result = std::from_chars(dur.data() + colon_pos + 1,
                                          dur.data() + dur.length(), sec);
-  if (min_conv_result.ec != std::errc{} || sec_conv_result.ec != std::errc{}) {
+  if (min_conv_result.ec == std::errc{} && sec_conv_result.ec == std::errc{}) {
+    return Track::Duration{min, sec};
+  } else {
     throw std::runtime_error(
         fmt::format("Unrecognised duration {}, qutting", dur));
   }
-  return Track::Duration{min, sec};
 }
 
 }
