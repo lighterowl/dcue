@@ -236,7 +236,7 @@ void Cue_build(const Album& album, const std::string& filename) {
 Track::Duration parse_duration(std::string_view dur) {
   const auto do_throw = [=]() {
     throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting\n", dur));
+        fmt::format("Unrecognised duration {}, qutting", dur));
   };
 
   const auto colon_pos = dur.find(':');
@@ -299,7 +299,7 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
     if (duration.empty()) {
       std::stringstream ss;
       ss << "Track " << track_num << ", disc " << disc
-         << " has no duration, quitting\n";
+         << " has no duration, quitting";
       throw std::runtime_error(ss.str());
     }
     t.length = parse_duration(duration);
