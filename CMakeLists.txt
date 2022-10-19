@@ -5,6 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# work around stupid gcc 9 and 10 in release mode
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
+   ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 11.0.0)
+  add_compile_options(-Wno-maybe-uninitialized)
+endif()
+
 add_subdirectory(spdlog)
 include_directories(nlohmann-json/single_include)
 
