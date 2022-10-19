@@ -234,14 +234,10 @@ void Cue_build(const Album& album, const std::string& filename) {
 }
 
 Track::Duration parse_duration(std::string_view dur) {
-  const auto do_throw = [=]() {
-    throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting", dur));
-  };
-
   const auto colon_pos = dur.find(':');
   if (colon_pos == std::string_view::npos || colon_pos == dur.length() - 1) {
-    do_throw();
+    throw std::runtime_error(
+        fmt::format("Unrecognised duration {}, qutting", dur));
   }
   unsigned min, sec;
   auto min_conv_result =
@@ -249,7 +245,8 @@ Track::Duration parse_duration(std::string_view dur) {
   auto sec_conv_result = std::from_chars(dur.data() + colon_pos + 1,
                                          dur.data() + dur.length(), sec);
   if (min_conv_result.ec != std::errc{} || sec_conv_result.ec != std::errc{}) {
-    do_throw();
+    throw std::runtime_error(
+        fmt::format("Unrecognised duration {}, qutting", dur));
   }
   return Track::Duration{min, sec};
 }
