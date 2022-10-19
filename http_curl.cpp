@@ -56,18 +56,10 @@ void HttpGetCurl::global_deinit() {
   ::curl_global_cleanup();
 }
 
-void HttpGetCurl::add_header(HttpHeader&& header) {
-  headers.emplace_back(header);
-}
-
-void HttpGetCurl::set_resource(const std::string& res) {
-  resource = res;
-}
-
-bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
+std::optional<HttpResponse> HttpGetCurl::send() const {
   auto curl = CurlHandle{::curl_easy_init()};
   if (resource.empty()) {
-    return false;
+    return std::nullopt;
   }
   auto url = hostname;
   url += resource;
@@ -81,6 +73,7 @@ bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
   list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
+  HttpResponse out;
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, write_body);
   ::curl_easy_setopt(curl.get(), CURLOPT_HEADERDATA, &out.headers);
@@ -93,5 +86,5 @@ bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
   ::curl_easy_getinfo(curl.get(), CURLINFO_RESPONSE_CODE, &response_code);
   out.status = rawCodeToHttpStatus(response_code);
 
-  return true;
+  return out;
 }

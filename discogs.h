@@ -13,12 +13,10 @@
 #ifndef DCUE_DISCOGS_H
 #define DCUE_DISCOGS_H
 
-#include <nlohmann/json.hpp>
+#include "http.h"
 
-class DiscogsReleaseRequest {
-public:
-  bool send(const std::string& rel_id, nlohmann::json& out,
-            const bool is_master = false);
+namespace DiscogsRequestFactory {
+  HttpGet create(const std::string& dcue_rel_id);
 };
 
 #endif
