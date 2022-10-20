@@ -40,8 +40,9 @@ void open_file(std::ofstream& out, const std::string& filename,
   auto cuepath = path(filename) + basename(filename);
 
   if (disc != 0) {
-    if (!replace_char(cuepath, '?', numeric_to_string<unsigned>(disc))) {
-      cuepath += "-" + numeric_to_string<unsigned>(disc);
+    const auto disc_str = std::to_string(disc);
+    if (!replace_char(cuepath, '?', disc_str)) {
+      cuepath += "-" + disc_str;
     }
   }
 
@@ -102,11 +103,9 @@ class Cue {
   }
   void add_generic_time(const unsigned minutes, const unsigned seconds,
                         const unsigned frames) {
-    stream << numeric_to_padded_string<unsigned>(minutes, 2);
-    stream << ":";
-    stream << numeric_to_padded_string<unsigned>(seconds, 2);
-    stream << ":";
-    stream << numeric_to_padded_string<unsigned>(frames, 2);
+    stream << std::setfill('0') << std::setw(2) << minutes << ':'
+           << std::setfill('0') << std::setw(2) << seconds << ':'
+           << std::setfill('0') << std::setw(2) << frames;
   }
   void add_index(const char* index, unsigned minutes, unsigned seconds) {
     stream << "INDEX ";
@@ -141,31 +140,21 @@ public:
     add_meta("COMMENT \"" + comment + "\"");
   }
   void add_artist(const std::string& artist) {
-    stream << "PERFORMER \"";
-    stream << artist;
-    stream << "\"";
-    stream << "\r\n";
+    stream << "PERFORMER \"" << artist << "\"\r\n";
   }
   void add_title(const std::string& title) {
-    stream << "TITLE \"";
-    stream << title;
-    stream << "\"";
-    stream << "\r\n";
+    stream << "TITLE \"" << title << "\"\r\n";
   }
   void add_track(const unsigned num) {
-    stream << "TRACK ";
-    stream << numeric_to_padded_string<unsigned>(num, 2);
-    stream << " AUDIO";
-    stream << "\r\n";
+    stream << "TRACK " << std::setfill('0') << std::setw(2) << num
+           << " AUDIO\r\n";
   }
   void add_track_index(const unsigned minutes, const unsigned seconds) {
     add_index("01", minutes, seconds);
   }
   void add_filename(const std::string& name) {
     std::string t = name.substr(name.find_last_of(".") + 1);
-    stream << "FILE \"";
-    stream << name;
-    stream << "\" ";
+    stream << "FILE \"" << name << "\" ";
     add_type_from_ext(t);
     stream << "\r\n";
   }
@@ -208,7 +197,7 @@ void Cue_build(const Album& album, const std::string& filename) {
     }
     if (!filename.empty()) {
       auto fn = basename(filename) + "." + extension(filename);
-      replace_char(fn, '?', numeric_to_string<unsigned>(discno));
+      replace_char(fn, '?', std::to_string(discno));
       c.add_filename(fn);
     }
     Track::Duration total;
@@ -295,10 +284,8 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
     t.title = track_info.value("title", std::string());
     auto duration = track_info.value("duration", std::string());
     if (duration.empty()) {
-      std::stringstream ss;
-      ss << "Track " << track_num << ", disc " << disc
-         << " has no duration, quitting";
-      throw std::runtime_error(ss.str());
+      throw std::runtime_error(fmt::format(
+          "Track {}, disc {} has no duration : quitting", track_num, disc));
     }
     t.length = parse_duration(duration);
     ++track_num;

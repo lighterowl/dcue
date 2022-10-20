@@ -31,22 +31,4 @@ template <typename T> inline T string_to_numeric(const std::string& str) {
   return result;
 }
 
-template <typename T> inline std::string numeric_to_string(const T num) {
-  std::stringstream ss;
-  ss << num;
-  return ss.str();
-}
-
-template <typename T>
-inline std::string
-numeric_to_padded_string(const T num, const std::string::size_type places) {
-  std::string res = numeric_to_string<T>(num);
-  std::string::size_type res_size = res.size();
-  if (res_size < places) {
-    std::string pad(places - res_size, '0');
-    res = pad + res;
-  }
-  return res;
-}
-
 #endif
