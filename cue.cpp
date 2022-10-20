@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <charconv>
 #include <fstream>
+#include <iomanip>
 
 #include <spdlog/fmt/fmt.h>
 
@@ -95,9 +96,7 @@ class Cue {
   std::ostream& stream;
 
   void add_meta(const std::string& comment) {
-    stream << "REM ";
-    stream << comment;
-    stream << "\r\n";
+    stream << "REM " << comment << "\r\n";
   }
   void add_generic_time(const unsigned minutes, const unsigned seconds,
                         const unsigned frames) {
@@ -106,9 +105,7 @@ class Cue {
            << std::setfill('0') << std::setw(2) << frames;
   }
   void add_index(const char* index, unsigned minutes, unsigned seconds) {
-    stream << "INDEX ";
-    stream << index;
-    stream << " ";
+    stream << "INDEX " << index << ' ';
     /* Discogs timestamps aren't detailed enough to provide CD frame accuracy,
      * so we just go with 0 here. */
     add_generic_time(minutes, seconds, 0);
@@ -138,10 +135,10 @@ public:
     add_meta("COMMENT \"" + comment + "\"");
   }
   void add_artist(const std::string& artist) {
-    stream << "PERFORMER \"" << artist << "\"\r\n";
+    stream << "PERFORMER " << std::quoted(artist) << "\r\n";
   }
   void add_title(const std::string& title) {
-    stream << "TITLE \"" << title << "\"\r\n";
+    stream << "TITLE " << std::quoted(title) << "\r\n";
   }
   void add_track(const unsigned num) {
     stream << "TRACK " << std::setfill('0') << std::setw(2) << num
@@ -152,12 +149,12 @@ public:
   }
   void add_filename(const std::string& name) {
     std::string t = name.substr(name.find_last_of(".") + 1);
-    stream << "FILE \"" << name << "\" ";
+    stream << "FILE " << std::quoted(name) << ' ';
     add_type_from_ext(t);
     stream << "\r\n";
   }
   void add_indent() {
-    stream << "\t";
+    stream << '\t';
   }
   Cue(std::ostream& os) : stream(os) {
   }
