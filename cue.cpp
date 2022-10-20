@@ -82,15 +82,13 @@ bool get_disc_number(const std::string& position, unsigned& discno) {
   if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
     return false;
   }
-  discno = string_to_numeric<unsigned>(position.substr(0, dotpos));
-  try {
-    // string_to_numeric has no facility to notify of failure, but we need to be
-    // sure if this is actually a "2.3"-style track position to return true.
-    std::stoul(position.substr(dotpos + 1));
-    return true;
-  } catch (...) {
-  }
-  return false;
+  auto pre_dot = std::string_view{position}.substr(0, dotpos);
+  auto post_dot = std::string_view{position}.substr(dotpos + 1);
+  auto pre_dot_result = std::from_chars(pre_dot.begin(), pre_dot.end(), discno);
+  unsigned dummy;
+  auto post_dot_result =
+      std::from_chars(post_dot.begin(), post_dot.end(), dummy);
+  return pre_dot_result.ec == std::errc{} && post_dot_result.ec == std::errc{};
 }
 
 class Cue {

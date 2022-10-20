@@ -13,22 +13,13 @@
 #ifndef DCUE_STRING_UTILITY_H
 #define DCUE_STRING_UTILITY_H
 
-#include <sstream>
 #include <string>
 #include <string_view>
-#include <vector>
 
 std::string_view trim(std::string_view text);
 bool replace_char(std::string& text, const char candidate,
                   const std::string& new_text);
 bool replace_string(std::string& text, const std::string& candidate,
                     const std::string& new_text);
-
-template <typename T> inline T string_to_numeric(const std::string& str) {
-  std::stringstream ss(str);
-  T result;
-  ss >> result;
-  return result;
-}
 
 #endif
