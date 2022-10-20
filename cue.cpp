@@ -22,6 +22,7 @@
 #include <charconv>
 #include <fstream>
 #include <iomanip>
+#include <optional>
 
 #include <spdlog/fmt/fmt.h>
 
@@ -78,18 +79,23 @@ std::string concatenate_artists(const nlohmann::json& artists) {
   return rv;
 }
 
-bool get_disc_number(const std::string& position, unsigned& discno) {
+std::optional<unsigned> get_disc_number(const std::string& position) {
   auto dotpos = position.find_first_of(".-");
   if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
-    return false;
+    return std::nullopt;
   }
   auto pre_dot = std::string_view{position}.substr(0, dotpos);
   auto post_dot = std::string_view{position}.substr(dotpos + 1);
+  unsigned discno;
   auto pre_dot_result = std::from_chars(pre_dot.begin(), pre_dot.end(), discno);
   unsigned dummy;
   auto post_dot_result =
       std::from_chars(post_dot.begin(), post_dot.end(), dummy);
-  return pre_dot_result.ec == std::errc{} && post_dot_result.ec == std::errc{};
+  if (pre_dot_result.ec == std::errc{} && post_dot_result.ec == std::errc{}) {
+    return discno;
+  } else {
+    return std::nullopt;
+  }
 }
 
 class Cue {
@@ -262,8 +268,8 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
     if (position.empty()) {
       continue;
     }
-    unsigned this_disc;
-    if (get_disc_number(position, this_disc) && this_disc > disc) {
+    const auto this_disc = get_disc_number(position);
+    if (this_disc && *this_disc > disc) {
       ++disc;
       Disc nd;
       a.discs.push_back(nd);
