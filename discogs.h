@@ -14,26 +14,9 @@
 #define DCUE_DISCOGS_H
 
 #include "http.h"
-#include "json.hpp"
 
-#include <string>
-
-class DiscogsApiRequest {
-protected:
-  HttpResponse res;
-
-  bool success() const {
-    return res.status == HttpStatus::OK;
-  }
-
-public:
-  bool send(const std::string&, std::string&);
-};
-
-class DiscogsReleaseRequest : public DiscogsApiRequest {
-public:
-  bool send(const std::string& rel_id, nlohmann::json& out,
-            const bool is_master = false);
+namespace DiscogsRequestFactory {
+  HttpGet create(const std::string& dcue_rel_id);
 };
 
 #endif

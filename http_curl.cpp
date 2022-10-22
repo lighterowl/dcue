@@ -1,10 +1,11 @@
 #include "http_curl.h"
 
 #include <curl/curl.h>
+#include <spdlog/spdlog.h>
 
 #include <cstdlib>
-#include <iostream>
 
+#include "defs.h"
 #include "string_utility.h"
 
 namespace {
@@ -26,14 +27,12 @@ size_t write_headers(char* ptr, size_t size, size_t nmemb, void* userdata) {
   auto resp = static_cast<std::vector<HttpHeader>*>(userdata);
   auto total = size * nmemb;
   HttpHeader h;
-  auto hdrLine = std::string{ptr, total};
+  auto hdrLine = std::string_view{ptr, total};
   auto firstColon = hdrLine.find_first_of(":");
   auto temp = hdrLine.substr(0, firstColon);
-  trim(temp);
-  h.name = temp;
+  h.name = trim(temp);
   temp = hdrLine.substr(firstColon + 1);
-  trim(temp);
-  h.value = temp;
+  h.value = trim(temp);
   resp->push_back(h);
   return total;
 }
@@ -43,12 +42,12 @@ using CurlHandle = std::unique_ptr<void, CurlDeleter>;
 
 void HttpGetCurl::global_init() {
   if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
-    std::cerr << "libcurl initialisation failed\n";
+    SPDLOG_CRITICAL("libcurl initialisation failed");
     ::exit(1);
   }
   auto versinfo = ::curl_version_info(CURLVERSION_NOW);
   if (!(versinfo->features & CURL_VERSION_SSL)) {
-    std::cerr << "Your libcurl doesn't support SSL\n";
+    SPDLOG_CRITICAL("Your libcurl doesn't support SSL");
     ::exit(1);
   }
 }
@@ -57,18 +56,10 @@ void HttpGetCurl::global_deinit() {
   ::curl_global_cleanup();
 }
 
-void HttpGetCurl::add_header(HttpHeader&& header) {
-  headers.emplace_back(header);
-}
-
-void HttpGetCurl::set_resource(const std::string& res) {
-  resource = res;
-}
-
-bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
+std::optional<HttpResponse> HttpGetCurl::send() const {
   auto curl = CurlHandle{::curl_easy_init()};
   if (resource.empty()) {
-    return false;
+    return std::nullopt;
   }
   auto url = hostname;
   url += resource;
@@ -82,6 +73,7 @@ bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
   list = ::curl_slist_append(list, "User-Agent: " USER_AGENT);
   ::curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, list);
 
+  HttpResponse out;
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &out.body);
   ::curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, write_body);
   ::curl_easy_setopt(curl.get(), CURLOPT_HEADERDATA, &out.headers);
@@ -94,5 +86,5 @@ bool HttpGetCurl::send(const std::string& hostname, HttpResponse& out) const {
   ::curl_easy_getinfo(curl.get(), CURLINFO_RESPONSE_CODE, &response_code);
   out.status = rawCodeToHttpStatus(response_code);
 
-  return true;
+  return out;
 }

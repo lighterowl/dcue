@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: true
 
     - name: Build with MSVC
       shell: cmd
@@ -22,7 +24,7 @@ jobs:
         DCUE_APP_KEY: ${{ secrets.DCUE_APP_KEY }}
         DCUE_APP_SECRET: ${{ secrets.DCUE_APP_SECRET }}
         DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
-      run: .github/win_build.bat
+      run: .github/win_official.bat
 
     - uses: actions/upload-artifact@v2
       with:

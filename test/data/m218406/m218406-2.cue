@@ -33,7 +33,7 @@ FILE "m218406.wav" WAVE
 		PERFORMER "Breeze & Euphony"
 		INDEX 01 21:30:00
 	TRACK 08 AUDIO
-		TITLE "Yeah Yeah (Dougal & Gammer "The Beat's The Bass" Remix)"
+		TITLE "Yeah Yeah (Dougal & Gammer \"The Beat's The Bass\" Remix)"
 		PERFORMER "Bodyrox"
 		INDEX 01 26:09:00
 	TRACK 09 AUDIO

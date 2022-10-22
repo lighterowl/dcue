@@ -4,17 +4,13 @@
 #include "http_types.h"
 
 #include <memory>
+#include <optional>
 
-class HttpGetWinInet {
-  std::vector<HttpHeader> headers;
-  std::string resource;
-
+class HttpGetWinInet : public http_internal::HttpGetCommon {
 public:
   static void global_init();
   static void global_deinit();
-  void add_header(HttpHeader&& header);
-  void set_resource(const std::string& res);
-  bool send(const std::string& hostname, HttpResponse& out) const;
+  std::optional<HttpResponse> send() const;
 };
 
 #endif

@@ -13,13 +13,16 @@
 #include "defs.h"
 
 #include <cstring>
-#include <fstream>
 #include <iostream>
 #include <string>
 
 #include "cue.h"
 #include "discogs.h"
-#include "json.hpp"
+#include "http.h"
+
+#include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
+#include <spdlog/cfg/env.h>
 
 namespace {
 const char help[] = "********" COMMENT "********\n"
@@ -59,20 +62,12 @@ OPTIONS:
 #endif
     ;
 
-const char error[] = "Invalid syntax, use --help for help";
-
-bool fetch(const std::string& id, nlohmann::json& data,
-           const bool is_master = false) {
-  DiscogsReleaseRequest req;
-  return req.send(id, data, is_master);
-}
-
 #ifdef DCUE_OFFICIAL_BUILD
 #include "appkey.h"
 void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
   auto it = toplevel.find("images");
   if (it == toplevel.end()) {
-    std::cerr << "Unfortunately, this release has no associated cover images\n";
+    SPDLOG_INFO("Unfortunately, this release has no associated cover images");
     return;
   }
   auto&& images = *it;
@@ -90,39 +85,51 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
                            });
   }
   if (imageIt == images.end()) {
-    std::cerr << "No suitable images found\n";
-    return;
-  }
-
-  HttpGet g;
-  g.set_resource((*imageIt).at("uri"));
-  g.add_header(discogs_key::getHeader());
-  HttpResponse out;
-  if (!g.send("", out)) {
-    std::cerr << "Image request failed\n";
+    SPDLOG_INFO("No suitable images found");
     return;
   }
 
   std::ofstream outfile(fname, std::ios::out | std::ios::binary);
   if (!outfile.is_open()) {
-    std::cerr << "Failed to create/open file " << fname << '\n';
+    SPDLOG_WARN("Failed to create/open file {}", fname);
     return;
   }
-  outfile.write(reinterpret_cast<const char*>(out.body.data()),
-                out.body.size());
+
+  HttpGet req;
+  const auto uri = imageIt->at("uri").get<std::string>();
+  req.set_resource(uri);
+  req.add_header(discogs_key::getHeader());
+  if (const auto rsp = req.send()) {
+    outfile.write(reinterpret_cast<const char*>(rsp->body.data()),
+                  rsp->body.size());
+  } else {
+    SPDLOG_WARN("Image request failed");
+  }
 }
 #endif
+
+struct HttpInit {
+  HttpInit() {
+    HttpGet::global_init();
+  }
+  ~HttpInit() {
+    HttpGet::global_deinit();
+  }
+  HttpInit(const HttpInit&) = delete;
+  HttpInit& operator=(const HttpInit&) = delete;
+};
 }
 
 int main(int argc, char* argv[]) {
-  HttpGet::global_init();
+  spdlog::cfg::load_env_levels();
+  ::HttpInit i__;
   const auto argv_end = (argv + argc);
   auto need_help = std::find_if(argv, argv_end, [](char* str) {
     return ::strcmp(str, "--help") == 0 || ::strcmp(str, "-h") == 0 ||
            ::strcmp(str, "-H") == 0;
   });
   if (argc < 3 || (need_help != argv_end)) {
-    std::cerr << help << '\n';
+    SPDLOG_INFO("{}", help);
     return 0;
   }
 
@@ -148,30 +155,15 @@ int main(int argc, char* argv[]) {
 
   std::string rel = argv[1];
   std::transform(rel.begin(), rel.end(), rel.begin(), ::tolower);
-  std::string single = rel.substr(0, 2);
-  std::string full = rel.substr(0, 8);
-  std::string mfull = rel.substr(0, 7);
-  nlohmann::json discogs_data;
-  bool fetch_ok = false;
-  if (rel.find("=") == std::string::npos) {
-    fetch_ok = fetch(rel, discogs_data);
-  } else if (single == "r=" || full == "release=") {
-    fetch_ok = fetch(rel.substr(rel.find("=") + 1), discogs_data);
-  } else if (single == "m=" || mfull == "master=") {
-    fetch_ok = fetch(rel.substr(rel.find("=") + 1), discogs_data, true);
-  } else {
-    std::cerr << error << '\n';
-    return 1;
-  }
-
-  if (!fetch_ok) {
-    std::cerr
-        << "Failed to get valid release info from Discogs (are you "
-           "connected to the internet? are you sure the ID is correct?)\n";
-    return 1;
-  }
-
   try {
+    auto req = DiscogsRequestFactory::create(rel);
+    auto resp = req.send();
+    if (!resp || resp->status != HttpStatus::OK) {
+      SPDLOG_ERROR("Failed to get valid release info from Discogs (are you "
+             "connected to the internet? are you sure the ID is correct?)");
+      return 1;
+    }
+    const auto discogs_data = nlohmann::json::parse(resp->body);
     generate(discogs_data, argv[2]);
 #ifdef DCUE_OFFICIAL_BUILD
     if (do_cover) {
@@ -180,8 +172,7 @@ int main(int argc, char* argv[]) {
 #endif
     return 0;
   } catch (const std::exception& e) {
-    std::cerr << e.what() << '\n';
+    SPDLOG_ERROR("{}", e.what());
   }
-  HttpGet::global_deinit();
   return 1;
 }

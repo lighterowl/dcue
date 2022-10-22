@@ -22,7 +22,7 @@ for i in "$data_dir"/*.json; do
 
   echo >&2 "Testing $fname_noext..."
   "$test_bin" "$i" "${fname_noext}.wav"
-  diff -r "${data_dir}/${fname_noext}" -I '^REM COMMENT' .
+  diff --color -u -r "${data_dir}/${fname_noext}" -I '^REM COMMENT' .
   [[ $? -ne 0 ]] && num_fails=$((num_fails + 1))
 
   popd >/dev/null 2>&1
