@@ -22,6 +22,11 @@ if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
   add_compile_options(-Wno-maybe-uninitialized)
 endif()
 
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND
+   ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 9.1.0)
+  link_libraries(stdc++fs)
+endif()
+
 add_subdirectory(spdlog)
 include_directories(nlohmann-json/single_include)
 
@@ -49,7 +54,6 @@ endif()
 
 add_library(dcue_core OBJECT
   cue.cpp
-  filename_utility.cpp
   naming.cpp
   string_utility.cpp
 )

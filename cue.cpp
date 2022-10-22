@@ -13,7 +13,6 @@
 #include "cue.h"
 
 #include "defs.h"
-#include "filename_utility.h"
 #include "naming.h"
 #include "string_utility.h"
 #include "support_types.h"
@@ -37,24 +36,25 @@ std::string sanitise_string(const std::string& str) {
   return out;
 }
 
-void open_file(std::ofstream& out, const std::string& filename,
+void open_file(std::ofstream& out, const std::filesystem::path& fpath,
                unsigned disc = 0) {
-  auto cuepath = path(filename) + basename(filename);
-
+  auto cuepath = fpath;
   if (disc != 0) {
     const auto disc_str = std::to_string(disc);
-    if (!replace_char(cuepath, '?', disc_str)) {
-      cuepath += "-" + disc_str;
+    auto fname = cuepath.stem().string();
+    if (!replace_char(fname, '?', disc_str)) {
+      cuepath.replace_filename(fname + '-' + disc_str);
     }
   }
 
-  cuepath += ".cue";
+  cuepath.replace_extension(".cue");
 
   /* the output stream that the contents of the CUE are written into is opened
    * in binary mode in order to preserve CRLF line endings. */
   out.open(cuepath, std::ios::binary | std::ios::out);
   if (!out.is_open()) {
-    throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
+    throw std::runtime_error(
+        fmt::format("Cannot open output file! (\"{}\")", cuepath.string()));
   }
 }
 
@@ -166,15 +166,15 @@ public:
   }
 };
 
-void Cue_build(const Album& album, const std::string& filename) {
+void Cue_build(const Album& album, const std::filesystem::path& fpath) {
   for (auto i = 0u; i < album.discs.size(); ++i) {
     auto&& disc = album.discs[i];
     auto discno = i + 1;
     std::ofstream f;
     if (album.discs.size() > 1) {
-      open_file(f, filename, discno);
+      open_file(f, fpath, discno);
     } else {
-      open_file(f, filename);
+      open_file(f, fpath);
     }
     Cue c(f);
     // string sanitisation is really just a way of compensating for the number
@@ -196,10 +196,10 @@ void Cue_build(const Album& album, const std::string& filename) {
     if (!album.title.empty()) {
       c.add_title(sanitise_string(album.title));
     }
-    if (!filename.empty()) {
-      auto fn = basename(filename) + "." + extension(filename);
-      replace_char(fn, '?', std::to_string(discno));
-      c.add_filename(fn);
+    if (!fpath.empty()) {
+      auto fname = fpath.filename().string();
+      replace_char(fname, '?', std::to_string(discno));
+      c.add_filename(fname);
     }
     Track::Duration total;
     for (auto&& track : disc.tracks) {
@@ -244,7 +244,8 @@ Track::Duration parse_duration(std::string_view dur) {
 
 }
 
-void generate(const nlohmann::json& toplevel, const std::string& filename) {
+void generate(const nlohmann::json& toplevel,
+              const std::filesystem::path& fpath) {
   Album a;
   a.title = toplevel.value("title", std::string());
   auto year = toplevel.value("year", -1);
@@ -299,5 +300,5 @@ void generate(const nlohmann::json& toplevel, const std::string& filename) {
     a.discs.erase(a.discs.begin());
   }
 
-  Cue_build(a, filename);
+  Cue_build(a, fpath);
 }
