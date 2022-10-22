@@ -10,7 +10,7 @@ class HttpGetWinInet : public http_internal::HttpGetCommon {
 public:
   static void global_init();
   static void global_deinit();
-  std::optional<HttpResponse> send(HttpResponse& out) const;
+  std::optional<HttpResponse> send() const;
 };
 
 #endif
