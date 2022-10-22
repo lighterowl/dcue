@@ -3,7 +3,7 @@ name: Build and test (Linux)
 on: [push, pull_request]
 
 jobs:
-  test-lnx:
+  build-test-lnx:
   
     runs-on: ubuntu-20.04
     

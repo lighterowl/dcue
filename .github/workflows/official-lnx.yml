@@ -26,7 +26,7 @@ jobs:
         DCUE_APP_KEY: ${{ secrets.DCUE_APP_KEY }}
         DCUE_APP_SECRET: ${{ secrets.DCUE_APP_SECRET }}
         DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
-      run: .github/lnx_build.sh
+      run: .github/lnx_official.sh
 
     - uses: actions/upload-artifact@v2
       with:
