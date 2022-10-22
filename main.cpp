@@ -13,7 +13,6 @@
 #include "defs.h"
 
 #include <cstring>
-#include <fstream>
 #include <iostream>
 #include <string>
 
@@ -22,6 +21,8 @@
 #include "http.h"
 
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
+#include <spdlog/cfg/env.h>
 
 namespace {
 const char help[] = "********" COMMENT "********\n"
@@ -66,7 +67,7 @@ OPTIONS:
 void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
   auto it = toplevel.find("images");
   if (it == toplevel.end()) {
-    std::cerr << "Unfortunately, this release has no associated cover images\n";
+    SPDLOG_INFO("Unfortunately, this release has no associated cover images");
     return;
   }
   auto&& images = *it;
@@ -84,13 +85,13 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
                            });
   }
   if (imageIt == images.end()) {
-    std::cerr << "No suitable images found\n";
+    SPDLOG_INFO("No suitable images found");
     return;
   }
 
   std::ofstream outfile(fname, std::ios::out | std::ios::binary);
   if (!outfile.is_open()) {
-    std::cerr << "Failed to create/open file " << fname << '\n';
+    SPDLOG_WARN("Failed to create/open file {}", fname);
     return;
   }
 
@@ -102,7 +103,7 @@ void get_cover(const nlohmann::json& toplevel, const std::string& fname) {
     outfile.write(reinterpret_cast<const char*>(rsp->body.data()),
                   rsp->body.size());
   } else {
-    std::cerr << "Image request failed\n";
+    SPDLOG_WARN("Image request failed");
   }
 }
 #endif
@@ -120,6 +121,7 @@ struct HttpInit {
 }
 
 int main(int argc, char* argv[]) {
+  spdlog::cfg::load_env_levels();
   ::HttpInit i__;
   const auto argv_end = (argv + argc);
   auto need_help = std::find_if(argv, argv_end, [](char* str) {
@@ -127,7 +129,7 @@ int main(int argc, char* argv[]) {
            ::strcmp(str, "-H") == 0;
   });
   if (argc < 3 || (need_help != argv_end)) {
-    std::cerr << help << '\n';
+    SPDLOG_INFO("{}", help);
     return 0;
   }
 
@@ -157,9 +159,8 @@ int main(int argc, char* argv[]) {
     auto req = DiscogsRequestFactory::create(rel);
     auto resp = req.send();
     if (!resp || resp->status != HttpStatus::OK) {
-      std::cerr
-          << "Failed to get valid release info from Discogs (are you "
-             "connected to the internet? are you sure the ID is correct?)\n";
+      SPDLOG_ERROR("Failed to get valid release info from Discogs (are you "
+             "connected to the internet? are you sure the ID is correct?)");
       return 1;
     }
     const auto discogs_data = nlohmann::json::parse(resp->body);
@@ -171,7 +172,7 @@ int main(int argc, char* argv[]) {
 #endif
     return 0;
   } catch (const std::exception& e) {
-    std::cerr << e.what() << '\n';
+    SPDLOG_ERROR("{}", e.what());
   }
   return 1;
 }

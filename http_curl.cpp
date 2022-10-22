@@ -1,9 +1,9 @@
 #include "http_curl.h"
 
 #include <curl/curl.h>
+#include <spdlog/spdlog.h>
 
 #include <cstdlib>
-#include <iostream>
 
 #include "defs.h"
 #include "string_utility.h"
@@ -42,12 +42,12 @@ using CurlHandle = std::unique_ptr<void, CurlDeleter>;
 
 void HttpGetCurl::global_init() {
   if (::curl_global_init(CURL_GLOBAL_DEFAULT)) {
-    std::cerr << "libcurl initialisation failed\n";
+    SPDLOG_CRITICAL("libcurl initialisation failed");
     ::exit(1);
   }
   auto versinfo = ::curl_version_info(CURLVERSION_NOW);
   if (!(versinfo->features & CURL_VERSION_SSL)) {
-    std::cerr << "Your libcurl doesn't support SSL\n";
+    SPDLOG_CRITICAL("Your libcurl doesn't support SSL");
     ::exit(1);
   }
 }

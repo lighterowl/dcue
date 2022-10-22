@@ -1,7 +1,7 @@
 #include "http_wininet.h"
 #include "defs.h"
 
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 #include <Windows.h>
 
@@ -50,8 +50,8 @@ void HttpGetWinInet::global_init() {
                                  nullptr, nullptr, 0);
   if (rootInternet == nullptr) {
     DWORD err = ::GetLastError();
-    std::cerr << "Creating root internet handle failed (GetLastError = " << err
-              << '\n';
+    SPDLOG_CRITICAL("Creating root internet handle failed (GetLastError = {})",
+                    err);
     ::exit(1);
   }
 }
