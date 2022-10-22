@@ -87,10 +87,11 @@ std::optional<unsigned> get_disc_number(const std::string& position) {
   auto pre_dot = std::string_view{position}.substr(0, dotpos);
   auto post_dot = std::string_view{position}.substr(dotpos + 1);
   unsigned discno;
-  auto pre_dot_result = std::from_chars(pre_dot.begin(), pre_dot.end(), discno);
+  auto pre_dot_result =
+      std::from_chars(pre_dot.data(), pre_dot.data() + pre_dot.size(), discno);
   unsigned dummy;
-  auto post_dot_result =
-      std::from_chars(post_dot.begin(), post_dot.end(), dummy);
+  auto post_dot_result = std::from_chars(
+      post_dot.data(), post_dot.data() + post_dot.size(), dummy);
   if (pre_dot_result.ec == std::errc{} && post_dot_result.ec == std::errc{}) {
     return discno;
   } else {
