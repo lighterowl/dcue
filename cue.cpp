@@ -79,13 +79,37 @@ std::string concatenate_artists(const nlohmann::json& artists) {
   return rv;
 }
 
+std::vector<std::string_view> tokenise_position(std::string_view position) {
+  // tokenise the "position" field to something a bit more workable.
+  // this does not try to interpret the meaning of each of the tokenised fields
+  // since they are context-dependent, i.e. "2.5" might mean the 5th medley
+  // track in the 2nd track of a single-disc release or the 5th track on the 2nd
+  // disc of a multi-disc release.
+
+  std::vector<std::string_view> rv;
+  std::size_t cur_pos = 0;
+  while (cur_pos < position.size()) {
+    const auto sep_pos = position.find_first_of("-.", cur_pos);
+    if (sep_pos != std::string_view::npos) {
+      // up to but not including the separator
+      rv.emplace_back(position.substr(cur_pos, sep_pos - cur_pos));
+      cur_pos = sep_pos + 1;
+    } else {
+      // all that's left
+      rv.emplace_back(position.substr(cur_pos));
+      break;
+    }
+  }
+  return rv;
+}
+
 std::optional<unsigned> get_disc_number(const std::string& position) {
-  auto dotpos = position.find_first_of(".-");
-  if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
+  const auto tokens = tokenise_position(position);
+  if (tokens.size() != 2) {
     return std::nullopt;
   }
-  auto pre_dot = std::string_view{position}.substr(0, dotpos);
-  auto post_dot = std::string_view{position}.substr(dotpos + 1);
+  auto pre_dot = tokens[0];
+  auto post_dot = tokens[1];
   unsigned discno;
   auto pre_dot_result =
       std::from_chars(pre_dot.data(), pre_dot.data() + pre_dot.size(), discno);
