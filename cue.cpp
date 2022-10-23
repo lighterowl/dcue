@@ -106,13 +106,13 @@ std::vector<std::string_view> tokenise_position(std::string_view position) {
   return rv;
 }
 
-std::optional<unsigned> get_disc_number(const std::string& position) {
-  const auto tokens = tokenise_position(position);
-  if (tokens.size() != 2) {
+std::optional<unsigned>
+get_disc_number(const std::vector<std::string_view>& position) {
+  if (position.size() < 2) {
     return std::nullopt;
   }
-  auto pre_dot = tokens[0];
-  auto post_dot = tokens[1];
+  auto pre_dot = position[0];
+  auto post_dot = position[1];
   unsigned discno;
   auto pre_dot_result =
       std::from_chars(pre_dot.data(), pre_dot.data() + pre_dot.size(), discno);
@@ -272,7 +272,8 @@ Track::Duration parse_duration(std::string_view dur) {
 }
 
 Track read_track(nlohmann::json::const_iterator track,
-                 const nlohmann::json&, const Album& album) {
+                 const nlohmann::json& , const Album& album,
+                 const std::vector<std::string_view>& ) {
   Track rv;
   if (track->find("artists") != track->end()) {
     rv.artist = concatenate_artists((*track)["artists"]);
@@ -318,14 +319,16 @@ void generate(const nlohmann::json& toplevel,
     if (position.empty()) {
       continue;
     }
-    const auto this_disc = get_disc_number(position);
+    auto tokens = tokenise_position(position);
+    const auto this_disc = get_disc_number(tokens);
     if (this_disc && *this_disc > disc) {
       ++disc;
       Disc nd;
       album.discs.push_back(nd);
     }
 
-    album.discs[disc].tracks.emplace_back(read_track(track, tracklist, album));
+    album.discs[disc].tracks.emplace_back(
+        read_track(track, tracklist, album, tokens));
   }
 
   // if multidisc album, we have to remove the useless disc we created in the
