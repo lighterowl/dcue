@@ -146,6 +146,9 @@ struct HttpInit {
 
 int main(int argc, char* argv[]) {
   spdlog::cfg::load_env_levels();
+#ifdef DCUE_OFFICIAL_BUILD
+  spdlog::set_pattern("%v");
+#endif
   ::HttpInit i__;
   const auto argv_end = (argv + argc);
   auto need_help = std::find_if(argv, argv_end, [](char* str) {
