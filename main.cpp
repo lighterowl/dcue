@@ -46,8 +46,32 @@ dcue master=218406 "Clubland X-Treme Hardcore-Disc?.wav"
 dcue r=1 "/path/to/the punisher - stockholm.mp3"
 dcue 1432 "Release filename.flac"
 
+MEDLEY AND INDEX TRACK HANDLING:
+Medley tracks (also called hidden tracks) are tracks which appear in the track
+listing provided by Discogs with no duration and a track number like "3.1",
+"A3.a" or "A3b". They are a part of the track that the first number/token in
+their position refer to.
+
+Index tracks are essentially the same thing as far as the end-user is concerned
+but a bit more formalised as they appear as separate entities in Discogs' JSON
+output and its release pages.
+
+How medley and index tracks are represented in the CUE output can be customised
+by passing one of those strings to the --medley or --index options :
+ * single : Use the index track's or the referenced track's (in case of medley
+            tracks) artist/title information for the whole index/medley track.
+ * merge : Merge artist/title information from all index/medley tracks into
+           artist/title fields in the CUE.
+ * separate : Output all index/medley tracks as separate CUE tracks. This is
+              only possible if they all have assigned durations and will cause
+              an error otherwise.
+
+"single" is used for both if unspecified.
+
 OPTIONS:
---help (-h) - this command list
+--medley=(single|merge|separate) - set medley track handling
+--index=(single|merge|separate) - set index track handling
+--help / -h - this command list
 )helpstr"
 
 #ifdef DCUE_OFFICIAL_BUILD
