@@ -85,6 +85,9 @@ std::vector<std::string_view> tokenise_position(std::string_view position) {
   // since they are context-dependent, i.e. "2.5" might mean the 5th medley
   // track in the 2nd track of a single-disc release or the 5th track on the 2nd
   // disc of a multi-disc release.
+  // according to Database Guidelines, multi-disc releases should use '-' as the
+  // separator while medley tracks should use '.' but this is hardly enforced so
+  // relying on this makes little sense.
 
   std::vector<std::string_view> rv;
   std::size_t cur_pos = 0;
@@ -227,9 +230,10 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
       c.add_filename(fname);
     }
     Track::Duration total;
-    for (auto&& track : disc.tracks) {
+    for (unsigned int i = 0 ; i < disc.tracks.size() ; ++i) {
+      auto &track = disc.tracks[i];
       c.add_indent();
-      c.add_track(track.position);
+      c.add_track(i + 1);
       c.add_indent();
       c.add_indent();
       if (!track.title.empty()) {
@@ -266,7 +270,6 @@ Track::Duration parse_duration(std::string_view dur) {
         fmt::format("Unrecognised duration {}, qutting", dur));
   }
 }
-
 }
 
 void generate(const nlohmann::json& toplevel,
@@ -288,7 +291,6 @@ void generate(const nlohmann::json& toplevel,
   Disc d;
   a.discs.push_back(d);
   unsigned disc = 0;
-  unsigned track_num = 1;
   for (auto&& track_info : toplevel.at("tracklist")) {
     auto position = track_info.value("position", std::string());
     if (position.empty()) {
@@ -299,10 +301,8 @@ void generate(const nlohmann::json& toplevel,
       ++disc;
       Disc nd;
       a.discs.push_back(nd);
-      track_num = 1;
     }
     Track t;
-    t.position = track_num;
     if (track_info.find("artists") != track_info.end()) {
       t.artist = concatenate_artists(track_info["artists"]);
     } else {
@@ -312,11 +312,16 @@ void generate(const nlohmann::json& toplevel,
     auto duration = track_info.value("duration", std::string());
     if (duration.empty()) {
       throw std::runtime_error(fmt::format(
-          "Track {}, disc {} has no duration : quitting", track_num, disc));
+          "Track {} has no duration : quitting", position));
     }
     t.length = parse_duration(duration);
-    ++track_num;
     a.discs[disc].tracks.push_back(t);
+  }
+
+  const auto& tracklist = toplevel.at("tracklist");
+  for (auto track_it = std::begin(tracklist); track_it != std::end(tracklist);
+       ++track_it) {
+
   }
 
   // if multidisc album, we have to remove the useless disc we created in the

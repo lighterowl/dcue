@@ -29,7 +29,6 @@ struct Track {
       return *this;
     }
   } length;
-  unsigned position = 0;
 };
 
 struct Disc {
