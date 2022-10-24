@@ -14,12 +14,15 @@
 #define DCUE_SUPPORT_TYPES_H
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 struct Track {
   std::string artist;
   std::string title;
   struct Duration {
+    Duration() = default;
+    Duration(std::string_view);
     unsigned min = 0;
     unsigned sec = 0;
     Duration& operator+=(const Duration& d) {

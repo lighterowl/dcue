@@ -252,25 +252,6 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
   }
 }
 
-Track::Duration parse_duration(std::string_view dur) {
-  const auto colon_pos = dur.find(':');
-  if (colon_pos == std::string_view::npos || colon_pos == dur.length() - 1) {
-    throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting", dur));
-  }
-  unsigned min, sec;
-  auto min_conv_result =
-      std::from_chars(dur.data(), dur.data() + colon_pos, min);
-  auto sec_conv_result = std::from_chars(dur.data() + colon_pos + 1,
-                                         dur.data() + dur.length(), sec);
-  if (min_conv_result.ec == std::errc{} && sec_conv_result.ec == std::errc{}) {
-    return Track::Duration{min, sec};
-  } else {
-    throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting", dur));
-  }
-}
-
 Track read_track(nlohmann::json::const_iterator track,
                  const nlohmann::json& , const Album& album,
                  const std::vector<std::string_view>& ) {
@@ -287,7 +268,7 @@ Track read_track(nlohmann::json::const_iterator track,
         fmt::format("Track {} has no duration : quitting",
                     track->value("position", std::string())));
   }
-  rv.length = parse_duration(duration);
+  rv.length = Track::Duration{duration};
   return rv;
 }
 }
