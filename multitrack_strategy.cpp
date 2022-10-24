@@ -9,6 +9,8 @@
 
 #include "multitrack_strategy.h"
 
+#include "naming.h"
+
 namespace {
 struct multitrack_strategy_single : public multitrack_strategy {
 public:
@@ -31,12 +33,43 @@ public:
 };
 
 struct multitrack_strategy_merge : public multitrack_strategy {
-  std::vector<Track> handle_index(const nlohmann::json&) const override {
-    return {}; // TODO
+  std::vector<Track>
+  handle_index(const nlohmann::json& idx_track) const override {
+    auto& subtracks = idx_track["sub_tracks"];
+    if (subtracks.empty()) {
+      return {};
+    }
+
+    Track rv;
+    rv.length = Track::Duration{idx_track.value("duration", std::string())};
+    rv.title = idx_track.value("title", std::string());
+    rv.title += " : ";
+    for (auto& sub : subtracks) {
+      if (sub.value("type_", std::string()) == "track") {
+        rv.title += sub.value("title", std::string());
+        if (&sub != &subtracks.back()) {
+          rv.title += " / ";
+        }
+      }
+    }
+    return {rv};
   }
+
   std::vector<Track> handle_medley(
-      const std::vector<nlohmann::json::const_iterator>&) const override {
-    return {}; // TODO
+      const std::vector<nlohmann::json::const_iterator>& medley_tracks)
+      const override {
+    Track rv;
+    rv.length = Track::Duration{
+        medley_tracks.front()->value("duration", std::string())};
+    for (auto& t : medley_tracks) {
+      rv.title += t->value("title", std::string());
+      rv.artist += NamingFacets::concatenate_artists((*t)["artists"]);
+      if (&t != &medley_tracks.back()) {
+        rv.title += " / ";
+        rv.artist += " / ";
+      }
+    }
+    return {rv};
   }
 };
 

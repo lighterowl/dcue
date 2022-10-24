@@ -58,27 +58,6 @@ void open_file(std::ofstream& out, const std::filesystem::path& fpath,
   }
 }
 
-std::string concatenate_artists(const nlohmann::json& artists) {
-  std::string rv;
-  for (auto&& artist_info : artists) {
-    auto name = artist_info.value("anv", std::string());
-    if (name.empty()) {
-      name = artist_info.value("name", std::string());
-    }
-    NamingFacets::artist_facets(name);
-    rv += name;
-    if (&artist_info != &artists.back()) {
-      auto join = artist_info.value("join", ",");
-      if (join != ",") {
-        rv += " ";
-      }
-      rv += join;
-      rv += " ";
-    }
-  }
-  return rv;
-}
-
 std::vector<std::string_view> tokenise_position(std::string_view position) {
   // tokenise the "position" field to something a bit more workable.
   // this does not try to interpret the meaning of each of the tokenised fields
