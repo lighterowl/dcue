@@ -124,13 +124,13 @@ class Cue {
     add_generic_time(minutes, seconds, 0);
     stream << "\r\n";
   }
-  void add_type_from_ext(const std::string& ext) {
-    std::string extension = ext;
+  void add_type_from_ext(const std::filesystem::path& fpath) {
+    auto extension = fpath.extension().string();
     std::transform(extension.begin(), extension.end(), extension.begin(),
                    ::tolower);
-    if (extension == "mp3") {
+    if (extension == ".mp3") {
       stream << "MP3";
-    } else if (extension == "aiff") {
+    } else if (extension == ".aiff") {
       stream << "AIFF";
     } else {
       stream << "WAVE";
@@ -160,10 +160,11 @@ public:
   void add_track_index(const unsigned minutes, const unsigned seconds) {
     add_index("01", minutes, seconds);
   }
-  void add_filename(const std::string& name) {
-    std::string t = name.substr(name.find_last_of(".") + 1);
+  void add_filename(const std::filesystem::path& fpath, unsigned discno) {
+    auto name = fpath.string();
+    replace_char(name, '?', std::to_string(discno));
     stream << "FILE " << std::quoted(name) << ' ';
-    add_type_from_ext(t);
+    add_type_from_ext(fpath);
     stream << "\r\n";
   }
   void add_indent() {
@@ -204,9 +205,7 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
       c.add_title(sanitise_string(album.title));
     }
     if (!fpath.empty()) {
-      auto fname = fpath.filename().string();
-      replace_char(fname, '?', std::to_string(discno));
-      c.add_filename(fname);
+      c.add_filename(fpath, discno);
     }
     Track::Duration total;
     for (unsigned int i = 0; i < disc.tracks.size(); ++i) {
