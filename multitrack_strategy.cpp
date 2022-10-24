@@ -11,6 +11,8 @@
 
 #include "naming.h"
 
+#include <spdlog/fmt/fmt.h>
+
 namespace {
 struct multitrack_strategy_single : public multitrack_strategy {
 public:
@@ -74,12 +76,32 @@ struct multitrack_strategy_merge : public multitrack_strategy {
 };
 
 struct multitrack_strategy_separate : public multitrack_strategy {
-  std::vector<Track> handle_index(const nlohmann::json&) const override {
-    return {}; // TODO
+  std::vector<Track>
+  handle_index(const nlohmann::json& idx_track) const override {
+    auto rv = std::vector<Track>{};
+    for (auto& subtrack : idx_track["sub_tracks"]) {
+      Track t;
+      // FIXME add album argument so we can do t.artist = album.artist;
+      t.title = fmt::format("{} : {}", idx_track.value("title", std::string()),
+                            subtrack.value("title", std::string()));
+      t.length = Track::Duration{subtrack.value("duration", std::string())};
+      rv.emplace_back(std::move(t));
+    }
+    return rv;
   }
-  std::vector<Track> handle_medley(
-      const std::vector<nlohmann::json::const_iterator>&) const override {
-    return {}; // TODO
+  std::vector<Track>
+  handle_medley(const std::vector<nlohmann::json::const_iterator>& tracks)
+      const override {
+    auto rv = std::vector<Track>{};
+    for (auto& t : tracks) {
+      Track parsed_track;
+      parsed_track.artist = NamingFacets::concatenate_artists((*t)["artists"]);
+      parsed_track.title = t->value("title", std::string());
+      parsed_track.length =
+          Track::Duration{t->value("duration", std::string())};
+      rv.emplace_back(std::move(parsed_track));
+    }
+    return rv;
   }
 };
 }

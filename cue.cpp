@@ -231,12 +231,11 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
   }
 }
 
-Track read_track(nlohmann::json::const_iterator track,
-                 const nlohmann::json& , const Album& album,
-                 const std::vector<std::string_view>& ) {
+Track read_track(nlohmann::json::const_iterator track, const nlohmann::json&,
+                 const Album& album, const std::vector<std::string_view>&) {
   Track rv;
   if (track->find("artists") != track->end()) {
-    rv.artist = concatenate_artists((*track)["artists"]);
+    rv.artist = NamingFacets::concatenate_artists((*track)["artists"]);
   } else {
     rv.artist = album.album_artist;
   }
@@ -265,7 +264,7 @@ void generate(const nlohmann::json& toplevel,
     album.genre = toplevel["styles"][0].get<std::string>();
   }
   if (toplevel.find("artists") != toplevel.end()) {
-    album.album_artist = concatenate_artists(toplevel["artists"]);
+    album.album_artist = NamingFacets::concatenate_artists(toplevel["artists"]);
   }
 
   Disc d;
