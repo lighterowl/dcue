@@ -57,7 +57,7 @@ add_library(dcue_core OBJECT
   naming.cpp
   string_utility.cpp
   multitrack_strategy.cpp
-  support_types.cpp
+  album.cpp
 )
 target_link_libraries(dcue_core PUBLIC spdlog::spdlog)
 

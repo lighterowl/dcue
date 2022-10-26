@@ -7,7 +7,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#include "support_types.h"
+#include "album.h"
 
 #include <charconv>
 #include <stdexcept>

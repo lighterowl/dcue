@@ -10,8 +10,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef DCUE_SUPPORT_TYPES_H
-#define DCUE_SUPPORT_TYPES_H
+#ifndef DCUE_ALBUM_H
+#define DCUE_ALBUM_H
 
 #include <string>
 #include <string_view>

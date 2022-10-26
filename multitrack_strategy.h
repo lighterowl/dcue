@@ -15,7 +15,7 @@
 
 #include <nlohmann/json.hpp>
 
-#include "support_types.h"
+#include "album.h"
 
 // implements desired behaviour when handling index or medley tracks
 struct multitrack_strategy {

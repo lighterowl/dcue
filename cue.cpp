@@ -12,10 +12,10 @@
 
 #include "cue.h"
 
+#include "album.h"
 #include "defs.h"
 #include "naming.h"
 #include "string_utility.h"
-#include "support_types.h"
 
 #include <algorithm>
 #include <charconv>
