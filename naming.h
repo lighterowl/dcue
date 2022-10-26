@@ -14,7 +14,7 @@
 #define DCUE_NAMING_H
 
 #include <string>
-#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 
 namespace NamingFacets {
 std::string concatenate_artists(const nlohmann::json&);

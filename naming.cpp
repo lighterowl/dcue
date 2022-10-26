@@ -13,6 +13,7 @@
 #include "naming.h"
 
 #include <cctype>
+#include <nlohmann/json.hpp>
 
 namespace {
 void remove_artist_number(std::string& out) {

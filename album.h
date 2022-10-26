@@ -17,6 +17,8 @@
 #include <string_view>
 #include <vector>
 
+#include <nlohmann/json_fwd.hpp>
+
 struct Track {
   std::string artist;
   std::string title;
@@ -44,6 +46,7 @@ struct Album {
   std::string genre;
   std::string title;
   std::string album_artist;
+  Album from_json(const nlohmann::json& toplevel);
 };
 
 #endif

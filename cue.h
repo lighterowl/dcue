@@ -14,7 +14,7 @@
 #define DCUE_CUE_H
 
 #include <filesystem>
-#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 
 void generate(const nlohmann::json& toplevel,
               const std::filesystem::path& fpath);
