@@ -19,12 +19,12 @@
 
 // implements desired behaviour when handling index or medley tracks
 struct multitrack_strategy {
-  virtual std::vector<Track>
-  handle_index(const nlohmann::json& idx_track) const = 0;
+  virtual std::vector<Track> handle_index(const nlohmann::json& idx_track,
+                                          const Album&) const = 0;
 
   virtual std::vector<Track> handle_medley(
-      const std::vector<nlohmann::json::const_iterator>& medley_tracks)
-      const = 0;
+      const std::vector<nlohmann::json::const_iterator>& medley_tracks,
+      const Album&) const = 0;
 
   static std::unique_ptr<multitrack_strategy> single();
   static std::unique_ptr<multitrack_strategy> merge();

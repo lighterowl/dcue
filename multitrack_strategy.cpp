@@ -16,13 +16,13 @@
 namespace {
 struct multitrack_strategy_single : public multitrack_strategy {
 public:
-  std::vector<Track>
-  handle_index(const nlohmann::json& idx_track) const override {
+  std::vector<Track> handle_index(const nlohmann::json& idx_track,
+                                  const Album&) const override {
     return convert(idx_track);
   }
   std::vector<Track> handle_medley(
-      const std::vector<nlohmann::json::const_iterator>& medley_tracks)
-      const override {
+      const std::vector<nlohmann::json::const_iterator>& medley_tracks,
+      const Album&) const override {
     return convert(*(medley_tracks[0]));
   }
 
@@ -35,8 +35,8 @@ public:
 };
 
 struct multitrack_strategy_merge : public multitrack_strategy {
-  std::vector<Track>
-  handle_index(const nlohmann::json& idx_track) const override {
+  std::vector<Track> handle_index(const nlohmann::json& idx_track,
+                                  const Album&) const override {
     auto& subtracks = idx_track["sub_tracks"];
     if (subtracks.empty()) {
       return {};
@@ -58,8 +58,8 @@ struct multitrack_strategy_merge : public multitrack_strategy {
   }
 
   std::vector<Track> handle_medley(
-      const std::vector<nlohmann::json::const_iterator>& medley_tracks)
-      const override {
+      const std::vector<nlohmann::json::const_iterator>& medley_tracks,
+      const Album&) const override {
     Track rv;
     rv.length = Track::Duration{
         medley_tracks.front()->value("duration", std::string())};
@@ -76,12 +76,12 @@ struct multitrack_strategy_merge : public multitrack_strategy {
 };
 
 struct multitrack_strategy_separate : public multitrack_strategy {
-  std::vector<Track>
-  handle_index(const nlohmann::json& idx_track) const override {
+  std::vector<Track> handle_index(const nlohmann::json& idx_track,
+                                  const Album& album) const override {
     auto rv = std::vector<Track>{};
     for (auto& subtrack : idx_track["sub_tracks"]) {
       Track t;
-      // FIXME add album argument so we can do t.artist = album.artist;
+      t.artist = album.album_artist;
       t.title = fmt::format("{} : {}", idx_track.value("title", std::string()),
                             subtrack.value("title", std::string()));
       t.length = Track::Duration{subtrack.value("duration", std::string())};
@@ -90,8 +90,8 @@ struct multitrack_strategy_separate : public multitrack_strategy {
     return rv;
   }
   std::vector<Track>
-  handle_medley(const std::vector<nlohmann::json::const_iterator>& tracks)
-      const override {
+  handle_medley(const std::vector<nlohmann::json::const_iterator>& tracks,
+                const Album&) const override {
     auto rv = std::vector<Track>{};
     for (auto& t : tracks) {
       Track parsed_track;
