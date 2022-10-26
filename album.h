@@ -46,7 +46,7 @@ struct Album {
   std::string genre;
   std::string title;
   std::string album_artist;
-  Album from_json(const nlohmann::json& toplevel);
+  static Album from_json(const nlohmann::json&);
 };
 
 #endif

@@ -16,7 +16,10 @@
 #include <filesystem>
 #include <nlohmann/json_fwd.hpp>
 
-void generate(const nlohmann::json& toplevel,
-              const std::filesystem::path& fpath);
+class Album;
+
+namespace cue {
+void generate(const Album& album, const std::filesystem::path& fpath);
+}
 
 #endif

@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 
+#include "album.h"
 #include "cue.h"
 #include "discogs.h"
 #include "http.h"
@@ -191,7 +192,8 @@ int main(int argc, char* argv[]) {
       return 1;
     }
     const auto discogs_data = nlohmann::json::parse(resp->body);
-    generate(discogs_data, argv[2]);
+    const auto album = Album::from_json(discogs_data);
+    cue::generate(album, argv[2]);
 #ifdef DCUE_OFFICIAL_BUILD
     if (do_cover) {
       get_cover(discogs_data, cover_fname);
