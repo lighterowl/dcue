@@ -187,12 +187,10 @@ int real_main(const std::vector<std::string_view>& args) {
   std::string_view cover_fname = "cover.jpg"sv;
   {
     const auto cover_arg =
-        std::find_if(std::cbegin(args), std::cend(args),
-                     [](auto sv) { return sv == "--cover"sv; });
+        std::find(std::cbegin(args), std::cend(args), "--cover"sv);
     do_cover = (cover_arg != std::cend(args));
     const auto cover_fname_arg =
-        std::find_if(std::cbegin(args), std::cend(args),
-                     [](auto sv) { return sv == "--cover-file"sv; });
+        std::find(std::cbegin(args), std::cend(args), "--cover-file"sv);
     if (cover_fname_arg != std::cend(args)) {
       const auto actual_cover_fname_arg = cover_fname_arg + 1;
       if (actual_cover_fname_arg != std::cend(args)) {
