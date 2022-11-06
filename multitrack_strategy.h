@@ -19,6 +19,8 @@
 
 // implements desired behaviour when handling index or medley tracks
 struct multitrack_strategy {
+  virtual ~multitrack_strategy() = default;
+
   virtual std::vector<Track> handle_index(const nlohmann::json& idx_track,
                                           const Album&) const = 0;
 
