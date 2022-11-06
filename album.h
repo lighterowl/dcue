@@ -40,13 +40,17 @@ struct Disc {
   std::vector<Track> tracks;
 };
 
+struct multitrack_strategy;
+
 struct Album {
   std::vector<Disc> discs;
   std::string year;
   std::string genre;
   std::string title;
   std::string album_artist;
-  static Album from_json(const nlohmann::json&);
+  static Album from_json(const nlohmann::json&,
+                         const multitrack_strategy& index_track_strategy,
+                         const multitrack_strategy& medley_track_strategy);
 };
 
 #endif

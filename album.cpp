@@ -104,7 +104,9 @@ Track::Duration::Duration(std::string_view duration) {
   }
 }
 
-Album Album::from_json(const nlohmann::json& toplevel) {
+Album Album::from_json(const nlohmann::json& toplevel,
+                       const multitrack_strategy& /*index_track_strategy*/,
+                       const multitrack_strategy& /*medley_track_strategy*/) {
   Album album;
   album.title = toplevel.value("title", std::string());
   auto year = toplevel.value("year", -1);

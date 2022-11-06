@@ -16,7 +16,7 @@
 #include "http.h"
 
 namespace DiscogsRequestFactory {
-  HttpGet create(const std::string& dcue_rel_id);
+  HttpGet create(const std::string_view& dcue_rel_id);
 };
 
 #endif
