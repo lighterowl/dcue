@@ -16,7 +16,7 @@
 #include <filesystem>
 #include <nlohmann/json_fwd.hpp>
 
-class Album;
+struct Album;
 
 namespace cue {
 void generate(const Album& album, const std::filesystem::path& fpath);
