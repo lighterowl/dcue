@@ -121,34 +121,29 @@ Album Album::from_json(const nlohmann::json& toplevel,
     album.album_artist = NamingFacets::concatenate_artists(toplevel["artists"]);
   }
 
-  Disc d;
-  album.discs.push_back(d);
-  unsigned disc = 0;
-
   const auto& tracklist = toplevel.at("tracklist");
-  for (auto track = std::begin(tracklist); track != std::end(tracklist);
-       ++track) {
+  auto track = std::cbegin(tracklist);
+  const auto tracks_end = std::cend(tracklist);
+
+  Disc d;
+  unsigned cur_disc = 1;
+  while (track != tracks_end) {
     auto position = track->value("position", std::string());
     if (position.empty()) {
+      ++track;
       continue;
     }
     auto tokens = tokenise_position(position);
     const auto this_disc = get_disc_number(tokens);
-    if (this_disc && *this_disc > disc) {
-      ++disc;
-      Disc nd;
-      album.discs.push_back(nd);
+    if (this_disc && *this_disc > cur_disc) {
+      cur_disc = *this_disc;
+      album.discs.emplace_back(std::move(d));
     }
 
-    album.discs[disc].tracks.emplace_back(
-        read_track(track, tracklist, album, tokens));
+    d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+    ++track;
   }
-
-  // if multidisc album, we have to remove the useless disc we created in the
-  // loop
-  if (album.discs.size() > 1) {
-    album.discs.erase(album.discs.begin());
-  }
+  album.discs.emplace_back(std::move(d));
 
   return album;
 }
