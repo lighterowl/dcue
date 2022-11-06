@@ -19,7 +19,7 @@
 #include <spdlog/fmt/fmt.h>
 
 namespace {
-std::vector<std::string_view> tokenise_position(std::string_view position) {
+std::vector<std::string> tokenise_position(std::string_view position) {
   // tokenise the "position" field to something a bit more workable.
   // this does not try to interpret the meaning of each of the tokenised fields
   // since they are context-dependent, i.e. "2.5" might mean the 5th medley
@@ -29,11 +29,11 @@ std::vector<std::string_view> tokenise_position(std::string_view position) {
   // separator while medley tracks should use '.' but this is hardly enforced so
   // relying on this makes little sense.
 
-  std::vector<std::string_view> rv;
+  std::vector<std::string> rv;
   std::size_t cur_pos = 0;
   while (cur_pos < position.size()) {
     const auto sep_pos = position.find_first_of("-.", cur_pos);
-    if (sep_pos != std::string_view::npos) {
+    if (sep_pos != std::string::npos) {
       // up to but not including the separator
       rv.emplace_back(position.substr(cur_pos, sep_pos - cur_pos));
       cur_pos = sep_pos + 1;
@@ -47,7 +47,7 @@ std::vector<std::string_view> tokenise_position(std::string_view position) {
 }
 
 std::optional<unsigned>
-get_disc_number(const std::vector<std::string_view>& position) {
+get_disc_number(const std::vector<std::string>& position) {
   if (position.size() < 2) {
     return std::nullopt;
   }
@@ -67,7 +67,7 @@ get_disc_number(const std::vector<std::string_view>& position) {
 }
 
 Track read_track(nlohmann::json::const_iterator track, const nlohmann::json&,
-                 const Album& album, const std::vector<std::string_view>&) {
+                 const Album& album, const std::vector<std::string>&) {
   Track rv;
   if (track->find("artists") != track->end()) {
     rv.artist = NamingFacets::concatenate_artists((*track)["artists"]);
@@ -85,13 +85,14 @@ Track read_track(nlohmann::json::const_iterator track, const nlohmann::json&,
   return rv;
 }
 
-std::vector<std::string_view> get_position(const nlohmann::json& entry) {
+std::vector<std::string> get_position(const nlohmann::json& entry) {
   auto position = entry.value("position", std::string{});
 
   if (position.empty()) {
-    auto subtracks = entry["sub_tracks"];
-    if (subtracks.is_array() && !subtracks.empty()) {
-      position = subtracks[0].value("position", std::string{});
+    auto subtracks = entry.find("sub_tracks");
+    if (subtracks != entry.end() && subtracks->is_array() &&
+        !subtracks->empty()) {
+      position = (*subtracks)[0].value("position", std::string{});
     }
   }
 
@@ -102,7 +103,7 @@ std::vector<std::string_view> get_position(const nlohmann::json& entry) {
   }
 }
 
-bool is_medley(const std::vector<std::string_view>& position) {
+bool is_medley(const std::vector<std::string>& position) {
   const auto last_token = position.back().back();
   return (last_token >= 'a' && last_token <= 'z') ||
          (last_token >= 'A' && last_token <= 'Z');
@@ -193,7 +194,7 @@ Album Album::from_json(const nlohmann::json& toplevel,
       std::move(std::begin(tracks), std::end(tracks),
                 std::back_inserter(d.tracks));
       ++track;
-    } else {
+    } else if (type == "track") {
       auto medley = extract_medley(track, tracks_end);
       if (!medley.empty()) {
         auto tracks = medley_track_strategy.handle_medley(medley, album);

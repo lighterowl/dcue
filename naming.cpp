@@ -41,10 +41,6 @@ void artist_facets(std::string& out) {
 }
 
 std::string NamingFacets::concatenate_artists(const nlohmann::json& artists) {
-  if (!artists.is_array()) {
-    return {};
-  }
-
   std::string rv;
   for (auto&& artist_info : artists) {
     auto name = artist_info.value("anv", std::string());
