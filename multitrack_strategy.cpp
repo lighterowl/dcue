@@ -31,7 +31,10 @@ public:
     Track t;
     t.title = json_trk.at("title");
     t.length = Track::Duration{json_trk.value("duration", std::string())};
-    t.artist = album.album_artist;
+    t.artist = NamingFacets::concatenate_artists(json_trk["artists"]);
+    if (t.artist.empty()) {
+      t.artist = album.album_artist;
+    }
     return {std::move(t)};
   }
 };

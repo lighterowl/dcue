@@ -102,6 +102,35 @@ std::vector<std::string_view> get_position(const nlohmann::json& entry) {
   }
 }
 
+bool is_medley(const std::vector<std::string_view>& position) {
+  const auto last_token = position.back().back();
+  return (last_token >= 'a' && last_token <= 'z') ||
+         (last_token >= 'A' && last_token <= 'Z');
+}
+
+std::vector<nlohmann::json::const_iterator>
+extract_medley(nlohmann::json::const_iterator current,
+               nlohmann::json::const_iterator end) {
+  std::vector<nlohmann::json::const_iterator> rv;
+  const auto start_pos = get_position(*current);
+  if (!is_medley(start_pos)) {
+    return {};
+  }
+
+  rv.push_back(current);
+  ++current;
+  while (current != end) {
+    auto cur_pos = get_position(*current);
+    if (is_medley(cur_pos)) {
+      rv.push_back(current);
+    } else {
+      break;
+    }
+    ++current;
+  }
+  return rv;
+}
+
 }
 
 Track::Duration::Duration(std::string_view duration) {
@@ -124,7 +153,7 @@ Track::Duration::Duration(std::string_view duration) {
 
 Album Album::from_json(const nlohmann::json& toplevel,
                        const multitrack_strategy& index_track_strategy,
-                       const multitrack_strategy& /*medley_track_strategy*/) {
+                       const multitrack_strategy& medley_track_strategy) {
   Album album;
   album.title = toplevel.value("title", std::string());
   auto year = toplevel.value("year", -1);
@@ -148,8 +177,8 @@ Album Album::from_json(const nlohmann::json& toplevel,
   while (track != tracks_end) {
     auto tokens = get_position(*track);
     if (tokens.empty()) {
-        ++track;
-        continue;
+      ++track;
+      continue;
     }
 
     const auto this_disc = get_disc_number(tokens);
@@ -163,11 +192,19 @@ Album Album::from_json(const nlohmann::json& toplevel,
       auto tracks = index_track_strategy.handle_index(*track, album);
       std::move(std::begin(tracks), std::end(tracks),
                 std::back_inserter(d.tracks));
+      ++track;
     } else {
-      d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+      auto medley = extract_medley(track, tracks_end);
+      if (!medley.empty()) {
+        auto tracks = medley_track_strategy.handle_medley(medley, album);
+        std::move(std::begin(tracks), std::end(tracks),
+                  std::back_inserter(d.tracks));
+        track = medley.back() + 1;
+      } else {
+        d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+        ++track;
+      }
     }
-
-    ++track;
   }
 
   album.discs.emplace_back(std::move(d));
