@@ -32,7 +32,7 @@ cd "$prevwd"
 if [[ $num_fails -eq 0 ]]; then
   rm -fR "$wd"
 else
-  echo >&2 "${num_fails} tests failed, see results in ${wd}"
+  echo >&2 "${num_fails} test(s) failed, see results in ${wd}"
 fi
 
 exit $num_fails

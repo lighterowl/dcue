@@ -17,19 +17,21 @@ namespace {
 struct multitrack_strategy_single : public multitrack_strategy {
 public:
   std::vector<Track> handle_index(const nlohmann::json& idx_track,
-                                  const Album&) const override {
-    return convert(idx_track);
+                                  const Album& album) const override {
+    return convert(idx_track, album);
   }
   std::vector<Track> handle_medley(
       const std::vector<nlohmann::json::const_iterator>& medley_tracks,
-      const Album&) const override {
-    return convert(*(medley_tracks[0]));
+      const Album& album) const override {
+    return convert(*(medley_tracks[0]), album);
   }
 
-  static std::vector<Track> convert(const nlohmann::json& json_trk) {
+  static std::vector<Track> convert(const nlohmann::json& json_trk,
+                                    const Album& album) {
     Track t;
     t.title = json_trk.at("title");
     t.length = Track::Duration{json_trk.value("duration", std::string())};
+    t.artist = album.album_artist;
     return {std::move(t)};
   }
 };
