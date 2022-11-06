@@ -146,9 +146,29 @@ struct HttpInit {
 };
 
 std::unique_ptr<multitrack_strategy>
-get_strategy(const std::vector<std::string_view>& /*args*/,
-             std::string_view /*option*/) {
-  return multitrack_strategy::single(); // FIXME
+get_strategy(const std::vector<std::string_view>& args,
+             std::string_view option) {
+  auto found_arg_it = std::find(std::cbegin(args), std::cend(args), option);
+  if (found_arg_it == std::cend(args)) {
+    return multitrack_strategy::single();
+  }
+  auto value_it = found_arg_it + 1;
+  if (value_it == std::cend(args)) {
+    return multitrack_strategy::single();
+  }
+
+  using namespace std::string_view_literals;
+  if (*value_it == "single"sv) {
+    return multitrack_strategy::single();
+  } else if (*value_it == "merge"sv) {
+    return multitrack_strategy::merge();
+  } else if (*value_it == "separate"sv) {
+    return multitrack_strategy::separate();
+  } else {
+    SPDLOG_WARN("Unrecognised value {} for option {} : assuming 'single'",
+                *value_it, option);
+    return multitrack_strategy::single();
+  }
 }
 
 int real_main(const std::vector<std::string_view>& args) {
