@@ -8,7 +8,7 @@
 // *******************************************************************
 
 #include "album.h"
-
+#include "multitrack_strategy.h"
 #include "naming.h"
 
 #include <charconv>
@@ -84,6 +84,24 @@ Track read_track(nlohmann::json::const_iterator track, const nlohmann::json&,
   rv.length = Track::Duration{duration};
   return rv;
 }
+
+std::vector<std::string_view> get_position(const nlohmann::json& entry) {
+  auto position = entry.value("position", std::string{});
+
+  if (position.empty()) {
+    auto subtracks = entry["sub_tracks"];
+    if (subtracks.is_array() && !subtracks.empty()) {
+      position = subtracks[0].value("position", std::string{});
+    }
+  }
+
+  if (!position.empty()) {
+    return tokenise_position(position);
+  } else {
+    return {};
+  }
+}
+
 }
 
 Track::Duration::Duration(std::string_view duration) {
@@ -105,7 +123,7 @@ Track::Duration::Duration(std::string_view duration) {
 }
 
 Album Album::from_json(const nlohmann::json& toplevel,
-                       const multitrack_strategy& /*index_track_strategy*/,
+                       const multitrack_strategy& index_track_strategy,
                        const multitrack_strategy& /*medley_track_strategy*/) {
   Album album;
   album.title = toplevel.value("title", std::string());
@@ -128,22 +146,30 @@ Album Album::from_json(const nlohmann::json& toplevel,
   Disc d;
   unsigned cur_disc = 1;
   while (track != tracks_end) {
-    auto position = track->value("position", std::string());
-    if (position.empty()) {
-      ++track;
-      continue;
+    auto tokens = get_position(*track);
+    if (tokens.empty()) {
+        ++track;
+        continue;
     }
-    auto tokens = tokenise_position(position);
+
     const auto this_disc = get_disc_number(tokens);
     if (this_disc && *this_disc > cur_disc) {
       cur_disc = *this_disc;
       album.discs.emplace_back(std::move(d));
     }
 
-    d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+    const auto type = track->value("type_", std::string{});
+    if (type == "index") {
+      auto tracks = index_track_strategy.handle_index(*track, album);
+      std::move(std::begin(tracks), std::end(tracks),
+                std::back_inserter(d.tracks));
+    } else {
+      d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+    }
+
     ++track;
   }
-  album.discs.emplace_back(std::move(d));
 
+  album.discs.emplace_back(std::move(d));
   return album;
 }
