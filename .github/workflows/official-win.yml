@@ -26,7 +26,7 @@ jobs:
         DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
       run: .github/win_official.bat
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: DCue for Windows
         path: build\dcue.7z

@@ -28,7 +28,7 @@ jobs:
         DCUE_APP_XORKEY: ${{ secrets.DCUE_APP_XORKEY }}
       run: .github/lnx_official.sh
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: DCue for Linux
         path: build/dcue-lnx-x86_64.AppImage
