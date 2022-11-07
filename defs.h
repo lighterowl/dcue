@@ -13,7 +13,7 @@
 #ifndef DCUE_DEFS_H
 #define DCUE_DEFS_H
 
-#define VERSION "1.5dev"
+#define VERSION "1.5"
 #define USER_AGENT "DCue/" VERSION " +https://github.com/xavery/dcue"
 #define COMMENT "DCue v" VERSION
 
