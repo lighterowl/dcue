@@ -43,7 +43,7 @@ public:
 
 struct multitrack_strategy_merge : public multitrack_strategy {
   std::vector<Track> handle_index(const nlohmann::json& idx_track,
-                                  const Album&) const override {
+                                  const Album& album) const override {
     auto& subtracks = idx_track["sub_tracks"];
     if (subtracks.empty()) {
       return {};
@@ -61,22 +61,29 @@ struct multitrack_strategy_merge : public multitrack_strategy {
         }
       }
     }
+    rv.artist = album.album_artist;
     return {rv};
   }
 
   std::vector<Track> handle_medley(
       const std::vector<nlohmann::json::const_iterator>& medley_tracks,
-      const Album&) const override {
+      const Album& album) const override {
     Track rv;
     rv.length = Track::Duration{
         medley_tracks.front()->value("duration", std::string())};
     for (auto& t : medley_tracks) {
       rv.title += t->value("title", std::string());
-      rv.artist += NamingFacets::concatenate_artists((*t)["artists"]);
+      auto artists = t->find("artists");
+      if (artists != t->end()) {
+        rv.artist += NamingFacets::concatenate_artists(*artists);
+      }
       if (&t != &medley_tracks.back()) {
         rv.title += " / ";
         rv.artist += " / ";
       }
+    }
+    if (rv.artist.empty()) {
+      rv.artist = album.album_artist;
     }
     return {rv};
   }
