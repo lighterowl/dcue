@@ -1,6 +1,6 @@
 // *******************************************************************
 // DCue (github.com/xavery/dcue)
-// Copyright (c) 2019-2021 Daniel Kamil Kozar
+// Copyright (c) 2019-2022 Daniel Kamil Kozar
 // Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
@@ -14,9 +14,10 @@
 #define DCUE_NAMING_H
 
 #include <string>
+#include <nlohmann/json_fwd.hpp>
 
 namespace NamingFacets {
-void artist_facets(std::string& out);
+std::string concatenate_artists(const nlohmann::json&);
 };
 
 #endif

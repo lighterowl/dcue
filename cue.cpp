@@ -1,6 +1,6 @@
 // *******************************************************************
 // DCue (github.com/xavery/dcue)
-// Copyright (c) 2019-2021 Daniel Kamil Kozar
+// Copyright (c) 2019-2022 Daniel Kamil Kozar
 // Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
@@ -11,13 +11,19 @@
 // *******************************************************************
 
 #include "cue.h"
-#include "filename_utility.h"
-#include "naming.h"
+
+#include "album.h"
+#include "defs.h"
 #include "string_utility.h"
-#include "support_types.h"
 
 #include <algorithm>
+#include <charconv>
 #include <fstream>
+#include <iomanip>
+#include <optional>
+
+#include <nlohmann/json.hpp>
+#include <spdlog/fmt/fmt.h>
 
 namespace {
 std::string sanitise_string(const std::string& str) {
@@ -30,95 +36,54 @@ std::string sanitise_string(const std::string& str) {
   return out;
 }
 
-void open_file(std::ofstream& out, const std::string& filename,
+void open_file(std::ofstream& out, const std::filesystem::path& fpath,
                unsigned disc = 0) {
-  auto cuepath = path(filename) + basename(filename);
-
+  auto cuepath = fpath;
   if (disc != 0) {
-    if (!replace_char(cuepath, '?', numeric_to_string<unsigned>(disc))) {
-      cuepath += "-" + numeric_to_string<unsigned>(disc);
+    const auto disc_str = std::to_string(disc);
+    auto fname = cuepath.stem().string();
+    if (!replace_char(fname, '?', disc_str)) {
+      cuepath.replace_filename(fname + '-' + disc_str);
     }
   }
 
-  cuepath += ".cue";
+  cuepath.replace_extension(".cue");
 
   /* the output stream that the contents of the CUE are written into is opened
    * in binary mode in order to preserve CRLF line endings. */
   out.open(cuepath, std::ios::binary | std::ios::out);
   if (!out.is_open()) {
-    throw std::runtime_error("Cannot open output file! (\"" + filename + "\")");
+    throw std::runtime_error(
+        fmt::format("Cannot open output file! (\"{}\")", cuepath.string()));
   }
-}
-
-std::string concatenate_artists(const nlohmann::json& artists) {
-  std::string rv;
-  for (auto&& artist_info : artists) {
-    auto name = artist_info.value("anv", std::string());
-    if (name.empty()) {
-      name = artist_info.value("name", std::string());
-    }
-    NamingFacets::artist_facets(name);
-    rv += name;
-    if (&artist_info != &artists.back()) {
-      auto join = artist_info.value("join", ",");
-      if (join != ",") {
-        rv += " ";
-      }
-      rv += join;
-      rv += " ";
-    }
-  }
-  return rv;
-}
-
-bool get_disc_number(const std::string& position, unsigned& discno) {
-  auto dotpos = position.find_first_of(".-");
-  if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
-    return false;
-  }
-  discno = string_to_numeric<unsigned>(position.substr(0, dotpos));
-  try {
-    // string_to_numeric has no facility to notify of failure, but we need to be
-    // sure if this is actually a "2.3"-style track position to return true.
-    std::stoul(position.substr(dotpos + 1));
-    return true;
-  } catch (...) {
-  }
-  return false;
 }
 
 class Cue {
   std::ostream& stream;
 
   void add_meta(const std::string& comment) {
-    stream << "REM ";
-    stream << comment;
-    stream << "\r\n";
+    stream << "REM " << comment << "\r\n";
   }
   void add_generic_time(const unsigned minutes, const unsigned seconds,
                         const unsigned frames) {
-    stream << numeric_to_padded_string<unsigned>(minutes, 2);
-    stream << ":";
-    stream << numeric_to_padded_string<unsigned>(seconds, 2);
-    stream << ":";
-    stream << numeric_to_padded_string<unsigned>(frames, 2);
+    stream << std::setfill('0') << std::setw(2) << minutes << ':'
+           << std::setfill('0') << std::setw(2) << seconds << ':'
+           << std::setfill('0') << std::setw(2) << frames;
   }
   void add_index(const char* index, unsigned minutes, unsigned seconds) {
-    stream << "INDEX ";
-    stream << index;
-    stream << " ";
+    stream << "INDEX " << index << ' ';
     /* Discogs timestamps aren't detailed enough to provide CD frame accuracy,
      * so we just go with 0 here. */
     add_generic_time(minutes, seconds, 0);
     stream << "\r\n";
   }
-  void add_type_from_ext(const std::string& ext) {
-    std::string extension = ext;
+  void add_type_from_ext(const std::filesystem::path& fpath) {
+    auto extension = fpath.extension().string();
     std::transform(extension.begin(), extension.end(), extension.begin(),
                    ::tolower);
-    if (extension == "mp3") {
+    if (extension == ".mp3") {
       stream << "MP3";
-    } else if (extension == "aiff") {
+    } else if (extension == ".aiff") {
       stream << "AIFF";
     } else {
       stream << "WAVE";
@@ -136,50 +101,43 @@ public:
     add_meta("COMMENT \"" + comment + "\"");
   }
   void add_artist(const std::string& artist) {
-    stream << "PERFORMER \"";
-    stream << artist;
-    stream << "\"";
-    stream << "\r\n";
+    stream << "PERFORMER " << std::quoted(artist) << "\r\n";
   }
   void add_title(const std::string& title) {
-    stream << "TITLE \"";
-    stream << title;
-    stream << "\"";
-    stream << "\r\n";
+    stream << "TITLE " << std::quoted(title) << "\r\n";
   }
   void add_track(const unsigned num) {
-    stream << "TRACK ";
-    stream << numeric_to_padded_string<unsigned>(num, 2);
-    stream << " AUDIO";
-    stream << "\r\n";
+    stream << "TRACK " << std::setfill('0') << std::setw(2) << num
+           << " AUDIO\r\n";
   }
   void add_track_index(const unsigned minutes, const unsigned seconds) {
     add_index("01", minutes, seconds);
   }
-  void add_filename(const std::string& name) {
-    std::string t = name.substr(name.find_last_of(".") + 1);
-    stream << "FILE \"";
-    stream << name;
-    stream << "\" ";
-    add_type_from_ext(t);
+  void add_filename(const std::filesystem::path& fpath, unsigned discno) {
+    auto name = fpath.string();
+    replace_char(name, '?', std::to_string(discno));
+    stream << "FILE " << std::quoted(name) << ' ';
+    add_type_from_ext(fpath);
     stream << "\r\n";
   }
   void add_indent() {
-    stream << "\t";
+    stream << '\t';
   }
   Cue(std::ostream& os) : stream(os) {
   }
 };
+}
 
-void Cue_build(const Album& album, const std::string& filename) {
+namespace cue {
+void generate(const Album& album, const std::filesystem::path& fpath) {
   for (auto i = 0u; i < album.discs.size(); ++i) {
     auto&& disc = album.discs[i];
     auto discno = i + 1;
     std::ofstream f;
     if (album.discs.size() > 1) {
-      open_file(f, filename, discno);
+      open_file(f, fpath, discno);
     } else {
-      open_file(f, filename);
+      open_file(f, fpath);
     }
     Cue c(f);
     // string sanitisation is really just a way of compensating for the number
@@ -201,15 +159,14 @@ void Cue_build(const Album& album, const std::string& filename) {
     if (!album.title.empty()) {
       c.add_title(sanitise_string(album.title));
     }
-    if (!filename.empty()) {
-      auto fn = basename(filename) + "." + extension(filename);
-      replace_char(fn, '?', numeric_to_string<unsigned>(discno));
-      c.add_filename(fn);
+    if (!fpath.empty()) {
+      c.add_filename(fpath, discno);
     }
     Track::Duration total;
-    for (auto&& track : disc.tracks) {
+    for (unsigned int i = 0; i < disc.tracks.size(); ++i) {
+      auto& track = disc.tracks[i];
       c.add_indent();
-      c.add_track(track.position);
+      c.add_track(i + 1);
       c.add_indent();
       c.add_indent();
       if (!track.title.empty()) {
@@ -227,76 +184,4 @@ void Cue_build(const Album& album, const std::string& filename) {
     }
   }
 }
-
-}
-
-void generate(const nlohmann::json& toplevel, const std::string& filename) {
-  Album a;
-  a.title = toplevel.value("title", std::string());
-  auto year = toplevel.value("year", -1);
-  if (year != -1) {
-    a.year = std::to_string(year);
-  }
-  // style maps to genre better than genre does, in general
-  if (toplevel.find("styles") != toplevel.end()) {
-    a.genre = toplevel["styles"][0].get<std::string>();
-  }
-  if (toplevel.find("artists") != toplevel.end()) {
-    a.album_artist = concatenate_artists(toplevel["artists"]);
-  }
-
-  Disc d;
-  a.discs.push_back(d);
-  unsigned disc = 0;
-  unsigned track_num = 1;
-  for (auto&& track_info : toplevel.at("tracklist")) {
-    auto position = track_info.value("position", std::string());
-    if (position.empty()) {
-      continue;
-    }
-    unsigned this_disc;
-    if (get_disc_number(position, this_disc) && this_disc > disc) {
-      ++disc;
-      Disc nd;
-      a.discs.push_back(nd);
-      track_num = 1;
-    }
-    Track t;
-    t.position = track_num;
-    if (track_info.find("artists") != track_info.end()) {
-      t.artist = concatenate_artists(track_info["artists"]);
-    } else {
-      t.artist = a.album_artist;
-    }
-    t.title = track_info.value("title", std::string());
-    auto duration = track_info.value("duration", std::string());
-    if (duration.empty()) {
-      std::stringstream ss;
-      ss << "Track " << track_num << ", disc " << disc
-         << " has no duration, quitting\n";
-      throw std::runtime_error(ss.str());
-    }
-    std::vector<std::string> time_components;
-    explode(duration, ":", time_components);
-    if (time_components.size() == 2) {
-      trim(time_components[0]);
-      trim(time_components[1]);
-      t.length.min = string_to_numeric<unsigned>(time_components[0]);
-      t.length.sec = string_to_numeric<unsigned>(time_components[1]);
-    } else {
-      std::stringstream ss;
-      ss << "Unrecognised duration " << duration << ", quitting\n";
-      throw std::runtime_error(ss.str());
-    }
-    ++track_num;
-    a.discs[disc].tracks.push_back(t);
-  }
-
-  // if multidisc album, we have to remove the useless disc we created in the
-  // loop
-  if (a.discs.size() > 1) {
-    a.discs.erase(a.discs.begin());
-  }
-
-  Cue_build(a, filename);
 }

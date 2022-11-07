@@ -1,7 +1,7 @@
 #include "http_wininet.h"
 #include "defs.h"
 
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 #include <Windows.h>
 
@@ -50,8 +50,8 @@ void HttpGetWinInet::global_init() {
                                  nullptr, nullptr, 0);
   if (rootInternet == nullptr) {
     DWORD err = ::GetLastError();
-    std::cerr << "Creating root internet handle failed (GetLastError = " << err
-              << '\n';
+    SPDLOG_CRITICAL("Creating root internet handle failed (GetLastError = {})",
+                    err);
     ::exit(1);
   }
 }
@@ -60,18 +60,9 @@ void HttpGetWinInet::global_deinit() {
   ::InternetCloseHandle(rootInternet);
 }
 
-void HttpGetWinInet::add_header(HttpHeader&& header) {
-  headers.emplace_back(header);
-}
-
-void HttpGetWinInet::set_resource(const std::string& res) {
-  resource = res;
-}
-
-bool HttpGetWinInet::send(const std::string& hostname,
-                          HttpResponse& out) const {
+std::optional<HttpResponse> HttpGetWinInet::send() const {
   if (resource.empty()) {
-    return false;
+    return std::nullopt;
   }
 
   auto url = hostname;
@@ -89,9 +80,10 @@ bool HttpGetWinInet::send(const std::string& hostname,
       rootInternet, url.c_str(), requestHeaders.c_str(),
       requestHeaders.length(), INTERNET_FLAG_NO_UI | INTERNET_FLAG_RELOAD, 0)};
   if (handle == nullptr) {
-    return false;
+    return std::nullopt;
   }
 
+  HttpResponse out;
   bool did_read_all = false;
   while (!did_read_all) {
     std::uint8_t buf[4096];
@@ -121,5 +113,5 @@ bool HttpGetWinInet::send(const std::string& hostname,
     }
   }
 
-  return true;
+  return out;
 }

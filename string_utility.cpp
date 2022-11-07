@@ -1,6 +1,6 @@
 // *******************************************************************
 // DCue (github.com/xavery/dcue)
-// Copyright (c) 2019-2021 Daniel Kamil Kozar
+// Copyright (c) 2019-2022 Daniel Kamil Kozar
 // Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
@@ -14,42 +14,27 @@
 
 #include <cctype>
 
-void explode(const std::string& text, const std::string& separator,
-             std::vector<std::string>& results) {
-  std::string::size_type found;
-  std::string copy(text);
-  const std::string::size_type separator_size = separator.length();
-  do {
-    found = copy.find(separator);
-    if (found > 0) {
-      results.push_back(copy.substr(0, found));
-    }
-    copy = copy.substr(found + separator_size);
-  } while (found != std::string::npos);
-
-  return;
-}
-
-void ltrim(std::string& text) {
+namespace {
+std::string_view ltrim(std::string_view text) {
   std::string::size_type i = 0;
   const std::string::size_type text_size = text.size();
   while (i < text_size && std::isspace(text[i])) {
     ++i;
   }
-  text.erase(0, i);
+  return text.substr(i);
 }
 
-void rtrim(std::string& text) {
+std::string_view rtrim(std::string_view text) {
   std::string::size_type i = text.size();
   while (i > 0 && std::isspace(text[i - 1])) {
     --i;
   }
-  text.erase(i);
+  return text.substr(0, i);
+}
 }
 
-void trim(std::string& text) {
-  ltrim(text);
-  rtrim(text);
+std::string_view trim(std::string_view text) {
+  return ltrim(rtrim(text));
 }
 
 bool replace_char(std::string& text, const char candidate,

@@ -37,4 +37,24 @@ struct HttpResponse {
   std::vector<std::uint8_t> body;
 };
 
+namespace http_internal {
+class HttpGetCommon {
+protected:
+  std::vector<HttpHeader> headers;
+  std::string hostname;
+  std::string resource;
+
+public:
+  void add_header(HttpHeader&& header) {
+    headers.emplace_back(header);
+  }
+  void set_resource(std::string_view res) {
+    resource = res;
+  }
+  void set_hostname(std::string_view hname) {
+    hostname = hname;
+  }
+};
+}
+
 #endif

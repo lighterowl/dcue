@@ -1,8 +1,10 @@
 #include <fstream>
 #include <iostream>
 
+#include "../album.h"
 #include "../cue.h"
-#include "../json.hpp"
+#include "../multitrack_strategy.h"
+#include <nlohmann/json.hpp>
 
 int main(int argc, char** argv) {
   if (argc != 3) {
@@ -10,12 +12,9 @@ int main(int argc, char** argv) {
     return 1;
   }
   std::ifstream f(argv[1], std::ios::in);
-  if (!f.is_open()) {
-    std::cerr << "Could not open " << argv[1] << '\n';
-    return 1;
-  }
   nlohmann::json j;
   f >> j;
-  generate(j, argv[2]);
+  const auto strategy = multitrack_strategy::single();
+  cue::generate(Album::from_json(j, *strategy, *strategy), argv[2]);
   return 0;
 }

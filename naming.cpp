@@ -1,6 +1,6 @@
 // *******************************************************************
 // DCue (github.com/xavery/dcue)
-// Copyright (c) 2019-2021 Daniel Kamil Kozar
+// Copyright (c) 2019-2022 Daniel Kamil Kozar
 // Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
@@ -13,6 +13,7 @@
 #include "naming.h"
 
 #include <cctype>
+#include <nlohmann/json.hpp>
 
 namespace {
 void remove_artist_number(std::string& out) {
@@ -32,9 +33,30 @@ void reverse_artist_the(std::string& out) {
     out = "The " + out;
   }
 }
-}
 
-void NamingFacets::artist_facets(std::string& out) {
+void artist_facets(std::string& out) {
   remove_artist_number(out);
   reverse_artist_the(out);
+}
+}
+
+std::string NamingFacets::concatenate_artists(const nlohmann::json& artists) {
+  std::string rv;
+  for (auto&& artist_info : artists) {
+    auto name = artist_info.value("anv", std::string());
+    if (name.empty()) {
+      name = artist_info.value("name", std::string());
+    }
+    artist_facets(name);
+    rv += name;
+    if (&artist_info != &artists.back()) {
+      auto join = artist_info.value("join", ",");
+      if (join != ",") {
+        rv += " ";
+      }
+      rv += join;
+      rv += " ";
+    }
+  }
+  return rv;
 }

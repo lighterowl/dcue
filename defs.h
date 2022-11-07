@@ -1,6 +1,6 @@
 // *******************************************************************
 // DCue (github.com/xavery/dcue)
-// Copyright (c) 2019-2021 Daniel Kamil Kozar
+// Copyright (c) 2019-2022 Daniel Kamil Kozar
 // Original version by :
 // DCue (sourceforge.net/projects/dcue)
 // Copyright (c) 2013 Fluxtion, DCue project
@@ -13,7 +13,7 @@
 #ifndef DCUE_DEFS_H
 #define DCUE_DEFS_H
 
-#define VERSION "1.4"
+#define VERSION "1.5"
 #define USER_AGENT "DCue/" VERSION " +https://github.com/xavery/dcue"
 #define COMMENT "DCue v" VERSION
 
