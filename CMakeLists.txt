@@ -84,6 +84,7 @@ if(WITH_TESTS)
       test/main.cpp)
     target_link_libraries(dcue_test PRIVATE dcue_core)
 
+    set(gtest_force_shared_crt TRUE CACHE BOOL "" FORCE)
     set(INSTALL_GTEST FALSE CACHE BOOL "" FORCE)
     add_subdirectory(googletest)
     add_executable(dcue_gtest $<TARGET_OBJECTS:dcue_core>
