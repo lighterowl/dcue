@@ -27,7 +27,7 @@ void set_discogs_resource(HttpGet& req, std::string_view type,
 }
 }
 
-HttpGet DiscogsRequestFactory::create(const std::string& dcue_id) {
+HttpGet DiscogsRequestFactory::create(const std::string_view &dcue_id) {
   HttpGet req;
   req.set_hostname("https://api.discogs.com");
 #ifdef DCUE_OFFICIAL_BUILD

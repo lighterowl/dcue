@@ -29,5 +29,10 @@ for i in "$data_dir"/*.json; do
 done
 
 cd "$prevwd"
-rm -fR "$wd"
+if [[ $num_fails -eq 0 ]]; then
+  rm -fR "$wd"
+else
+  echo >&2 "${num_fails} test(s) failed, see results in ${wd}"
+fi
+
 exit $num_fails

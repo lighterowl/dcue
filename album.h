@@ -10,16 +10,21 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 // *******************************************************************
 
-#ifndef DCUE_SUPPORT_TYPES_H
-#define DCUE_SUPPORT_TYPES_H
+#ifndef DCUE_ALBUM_H
+#define DCUE_ALBUM_H
 
 #include <string>
+#include <string_view>
 #include <vector>
+
+#include <nlohmann/json_fwd.hpp>
 
 struct Track {
   std::string artist;
   std::string title;
   struct Duration {
+    Duration() = default;
+    Duration(std::string_view);
     unsigned min = 0;
     unsigned sec = 0;
     Duration& operator+=(const Duration& d) {
@@ -29,12 +34,13 @@ struct Track {
       return *this;
     }
   } length;
-  unsigned position = 0;
 };
 
 struct Disc {
   std::vector<Track> tracks;
 };
+
+struct multitrack_strategy;
 
 struct Album {
   std::vector<Disc> discs;
@@ -42,6 +48,9 @@ struct Album {
   std::string genre;
   std::string title;
   std::string album_artist;
+  static Album from_json(const nlohmann::json&,
+                         const multitrack_strategy& index_track_strategy,
+                         const multitrack_strategy& medley_track_strategy);
 };
 
 #endif

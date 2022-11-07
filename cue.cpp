@@ -12,10 +12,9 @@
 
 #include "cue.h"
 
+#include "album.h"
 #include "defs.h"
-#include "naming.h"
 #include "string_utility.h"
-#include "support_types.h"
 
 #include <algorithm>
 #include <charconv>
@@ -23,6 +22,7 @@
 #include <iomanip>
 #include <optional>
 
+#include <nlohmann/json.hpp>
 #include <spdlog/fmt/fmt.h>
 
 namespace {
@@ -55,47 +55,6 @@ void open_file(std::ofstream& out, const std::filesystem::path& fpath,
   if (!out.is_open()) {
     throw std::runtime_error(
         fmt::format("Cannot open output file! (\"{}\")", cuepath.string()));
-  }
-}
-
-std::string concatenate_artists(const nlohmann::json& artists) {
-  std::string rv;
-  for (auto&& artist_info : artists) {
-    auto name = artist_info.value("anv", std::string());
-    if (name.empty()) {
-      name = artist_info.value("name", std::string());
-    }
-    NamingFacets::artist_facets(name);
-    rv += name;
-    if (&artist_info != &artists.back()) {
-      auto join = artist_info.value("join", ",");
-      if (join != ",") {
-        rv += " ";
-      }
-      rv += join;
-      rv += " ";
-    }
-  }
-  return rv;
-}
-
-std::optional<unsigned> get_disc_number(const std::string& position) {
-  auto dotpos = position.find_first_of(".-");
-  if (dotpos == std::string::npos || (dotpos + 1) == position.length()) {
-    return std::nullopt;
-  }
-  auto pre_dot = std::string_view{position}.substr(0, dotpos);
-  auto post_dot = std::string_view{position}.substr(dotpos + 1);
-  unsigned discno;
-  auto pre_dot_result =
-      std::from_chars(pre_dot.data(), pre_dot.data() + pre_dot.size(), discno);
-  unsigned dummy;
-  auto post_dot_result = std::from_chars(
-      post_dot.data(), post_dot.data() + post_dot.size(), dummy);
-  if (pre_dot_result.ec == std::errc{} && post_dot_result.ec == std::errc{}) {
-    return discno;
-  } else {
-    return std::nullopt;
   }
 }
 
@@ -167,8 +126,10 @@ public:
   Cue(std::ostream& os) : stream(os) {
   }
 };
+}
 
-void Cue_build(const Album& album, const std::filesystem::path& fpath) {
+namespace cue {
+void generate(const Album& album, const std::filesystem::path& fpath) {
   for (auto i = 0u; i < album.discs.size(); ++i) {
     auto&& disc = album.discs[i];
     auto discno = i + 1;
@@ -202,9 +163,10 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
       c.add_filename(fpath, discno);
     }
     Track::Duration total;
-    for (auto&& track : disc.tracks) {
+    for (unsigned int i = 0; i < disc.tracks.size(); ++i) {
+      auto& track = disc.tracks[i];
       c.add_indent();
-      c.add_track(track.position);
+      c.add_track(i + 1);
       c.add_indent();
       c.add_indent();
       if (!track.title.empty()) {
@@ -222,83 +184,4 @@ void Cue_build(const Album& album, const std::filesystem::path& fpath) {
     }
   }
 }
-
-Track::Duration parse_duration(std::string_view dur) {
-  const auto colon_pos = dur.find(':');
-  if (colon_pos == std::string_view::npos || colon_pos == dur.length() - 1) {
-    throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting", dur));
-  }
-  unsigned min, sec;
-  auto min_conv_result =
-      std::from_chars(dur.data(), dur.data() + colon_pos, min);
-  auto sec_conv_result = std::from_chars(dur.data() + colon_pos + 1,
-                                         dur.data() + dur.length(), sec);
-  if (min_conv_result.ec == std::errc{} && sec_conv_result.ec == std::errc{}) {
-    return Track::Duration{min, sec};
-  } else {
-    throw std::runtime_error(
-        fmt::format("Unrecognised duration {}, qutting", dur));
-  }
-}
-
-}
-
-void generate(const nlohmann::json& toplevel,
-              const std::filesystem::path& fpath) {
-  Album a;
-  a.title = toplevel.value("title", std::string());
-  auto year = toplevel.value("year", -1);
-  if (year != -1) {
-    a.year = std::to_string(year);
-  }
-  // style maps to genre better than genre does, in general
-  if (toplevel.find("styles") != toplevel.end()) {
-    a.genre = toplevel["styles"][0].get<std::string>();
-  }
-  if (toplevel.find("artists") != toplevel.end()) {
-    a.album_artist = concatenate_artists(toplevel["artists"]);
-  }
-
-  Disc d;
-  a.discs.push_back(d);
-  unsigned disc = 0;
-  unsigned track_num = 1;
-  for (auto&& track_info : toplevel.at("tracklist")) {
-    auto position = track_info.value("position", std::string());
-    if (position.empty()) {
-      continue;
-    }
-    const auto this_disc = get_disc_number(position);
-    if (this_disc && *this_disc > disc) {
-      ++disc;
-      Disc nd;
-      a.discs.push_back(nd);
-      track_num = 1;
-    }
-    Track t;
-    t.position = track_num;
-    if (track_info.find("artists") != track_info.end()) {
-      t.artist = concatenate_artists(track_info["artists"]);
-    } else {
-      t.artist = a.album_artist;
-    }
-    t.title = track_info.value("title", std::string());
-    auto duration = track_info.value("duration", std::string());
-    if (duration.empty()) {
-      throw std::runtime_error(fmt::format(
-          "Track {}, disc {} has no duration : quitting", track_num, disc));
-    }
-    t.length = parse_duration(duration);
-    ++track_num;
-    a.discs[disc].tracks.push_back(t);
-  }
-
-  // if multidisc album, we have to remove the useless disc we created in the
-  // loop
-  if (a.discs.size() > 1) {
-    a.discs.erase(a.discs.begin());
-  }
-
-  Cue_build(a, fpath);
 }
