@@ -22,6 +22,6 @@ jobs:
       with:
         submodules: true
 
-    - name: Build
+    - name: Build and gtest
       shell: cmd
       run: .github/win_build.bat ${{ matrix.buildtype }}
