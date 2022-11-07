@@ -24,6 +24,8 @@ struct Track {
   std::string title;
   struct Duration {
     Duration() = default;
+    Duration(unsigned m, unsigned s) : min(m), sec(s) {
+    }
     Duration(std::string_view);
     unsigned min = 0;
     unsigned sec = 0;
@@ -33,7 +35,14 @@ struct Track {
       sec %= 60;
       return *this;
     }
+    bool operator==(const Duration& d) const {
+      return d.sec == sec && d.min == min;
+    }
   } length;
+
+  bool operator==(const Track& t) const {
+    return t.length == length && t.artist == artist && t.title == title;
+  }
 };
 
 struct Disc {

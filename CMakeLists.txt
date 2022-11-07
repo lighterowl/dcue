@@ -88,8 +88,8 @@ if(WITH_TESTS)
     set(INSTALL_GTEST FALSE CACHE BOOL "" FORCE)
     add_subdirectory(googletest)
     add_executable(dcue_gtest $<TARGET_OBJECTS:dcue_core>
-        test/gtest/album.cpp
-        test/gtest/multitrack.cpp
+        test/gtest/test_album.cpp
+        test/gtest/test_multitrack.cpp
     )
     target_link_libraries(dcue_gtest PRIVATE dcue_core gmock_main)
 endif()
