@@ -1,4 +1,4 @@
-{
+constexpr std::string_view json = R"json({
     "id": 374278,
     "status": "Accepted",
     "year": 1987,
@@ -483,4 +483,34 @@
     "thumb": "",
     "estimated_weight": 85,
     "blocked_from_sale": false
-}
+})json";
+
+const std::array<std::vector<std::string_view>, 1> cue = {
+    {{R"cue(REM GENRE Psychedelic Rock)cue"sv,
+      R"cue(REM DATE 1987)cue"sv,
+      R"cue(REM COMMENT "DCue v1.5dev")cue"sv,
+      R"cue(PERFORMER "Pink Floyd")cue"sv,
+      R"cue(TITLE "Atom Heart Mother")cue"sv,
+      R"cue(FILE "r374278.wav" WAVE)cue"sv,
+      R"cue(	TRACK 01 AUDIO)cue"sv,
+      R"cue(		TITLE "Atom Heart Mother")cue"sv,
+      R"cue(		PERFORMER "Pink Floyd")cue"sv,
+      R"cue(		INDEX 01 00:00:00)cue"sv,
+      R"cue(	TRACK 02 AUDIO)cue"sv,
+      R"cue(		TITLE "If")cue"sv,
+      R"cue(		PERFORMER "Pink Floyd")cue"sv,
+      R"cue(		INDEX 01 23:45:00)cue"sv,
+      R"cue(	TRACK 03 AUDIO)cue"sv,
+      R"cue(		TITLE "Summer '68")cue"sv,
+      R"cue(		PERFORMER "Pink Floyd")cue"sv,
+      R"cue(		INDEX 01 28:16:00)cue"sv,
+      R"cue(	TRACK 04 AUDIO)cue"sv,
+      R"cue(		TITLE "Fat Old Sun")cue"sv,
+      R"cue(		PERFORMER "Pink Floyd")cue"sv,
+      R"cue(		INDEX 01 33:44:00)cue"sv,
+      R"cue(	TRACK 05 AUDIO)cue"sv,
+      R"cue(		TITLE "Alan's Psychedelic Breakfast")cue"sv,
+      R"cue(		PERFORMER "Pink Floyd")cue"sv,
+      R"cue(		INDEX 01 39:07:00)cue"sv}
+
+    }};

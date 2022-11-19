@@ -79,17 +79,13 @@ if(DEFINED ENV{DCUE_APP_KEY} AND DEFINED ENV{DCUE_APP_SECRET} AND
 endif()
 
 if(WITH_TESTS)
-    add_executable(dcue_test
-      $<TARGET_OBJECTS:dcue_core>
-      test/main.cpp)
-    target_link_libraries(dcue_test PRIVATE dcue_core)
-
     set(gtest_force_shared_crt TRUE CACHE BOOL "" FORCE)
     set(INSTALL_GTEST FALSE CACHE BOOL "" FORCE)
     add_subdirectory(googletest)
     add_executable(dcue_gtest $<TARGET_OBJECTS:dcue_core>
-        test/gtest/test_album.cpp
-        test/gtest/test_multitrack.cpp
+        test/test_album.cpp
+        test/test_multitrack.cpp
+        test/test_cue_generation.cpp
     )
     target_link_libraries(dcue_gtest PRIVATE dcue_core gmock_main)
 endif()
