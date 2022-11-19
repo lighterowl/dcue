@@ -36,10 +36,13 @@ std::string sanitise_string(const std::string& str) {
   return out;
 }
 
-void open_file(std::ofstream& out, const std::filesystem::path& fpath,
-               unsigned disc = 0) {
+std::shared_ptr<std::ostream>
+create_stream(const std::filesystem::path& fpath,
+              const std::function<std::shared_ptr<std::ostream>(
+                  const std::filesystem::path&)>& stream_factory,
+              unsigned int disc) {
   auto cuepath = fpath;
-  if (disc != 0) {
+  if (disc) {
     const auto disc_str = std::to_string(disc);
     auto fname = cuepath.stem().string();
     if (!replace_char(fname, '?', disc_str)) {
@@ -49,13 +52,7 @@ void open_file(std::ofstream& out, const std::filesystem::path& fpath,
 
   cuepath.replace_extension(".cue");
 
-  /* the output stream that the contents of the CUE are written into is opened
-   * in binary mode in order to preserve CRLF line endings. */
-  out.open(cuepath, std::ios::binary | std::ios::out);
-  if (!out.is_open()) {
-    throw std::runtime_error(
-        fmt::format("Cannot open output file! (\"{}\")", cuepath.string()));
-  }
+  return stream_factory(cuepath);
 }
 
 class Cue {
@@ -129,17 +126,16 @@ public:
 }
 
 namespace cue {
-void generate(const Album& album, const std::filesystem::path& fpath) {
+void generate(
+    const Album& album, const std::filesystem::path& fpath,
+    std::function<std::shared_ptr<std::ostream>(const std::filesystem::path&)>&&
+        stream_factory) {
   for (auto i = 0u; i < album.discs.size(); ++i) {
     auto&& disc = album.discs[i];
     auto discno = i + 1;
-    std::ofstream f;
-    if (album.discs.size() > 1) {
-      open_file(f, fpath, discno);
-    } else {
-      open_file(f, fpath);
-    }
-    Cue c(f);
+    auto stream = create_stream(fpath, stream_factory,
+                                album.discs.size() > 1 ? discno : 0);
+    Cue c(*stream);
     // string sanitisation is really just a way of compensating for the number
     // of dumb cue tools available, double quotes especially confuse them and
     // Medieval CUE Splitter on Windows practically blows up when confronted

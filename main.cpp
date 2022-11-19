@@ -217,7 +217,10 @@ int real_main(const std::vector<std::string_view>& args) {
     const auto discogs_data = nlohmann::json::parse(resp->body);
     const auto album =
         Album::from_json(discogs_data, *index_strategy, *medley_strategy);
-    cue::generate(album, args[2]);
+    cue::generate(album, args[2], [](auto& path) {
+      return std::make_shared<std::ofstream>(path,
+                                             std::ios::binary | std::ios::out);
+    });
 #ifdef DCUE_OFFICIAL_BUILD
     if (do_cover) {
       get_cover(discogs_data, cover_fname);

@@ -14,12 +14,17 @@
 #define DCUE_CUE_H
 
 #include <filesystem>
-#include <nlohmann/json_fwd.hpp>
+#include <functional>
+#include <iosfwd>
+#include <memory>
 
 struct Album;
 
 namespace cue {
-void generate(const Album& album, const std::filesystem::path& fpath);
+void generate(
+    const Album& album, const std::filesystem::path& fpath,
+    std::function<std::shared_ptr<std::ostream>(const std::filesystem::path&)>&&
+        stream_factory);
 }
 
 #endif

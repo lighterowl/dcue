@@ -15,6 +15,10 @@ int main(int argc, char** argv) {
   nlohmann::json j;
   f >> j;
   const auto strategy = multitrack_strategy::single();
-  cue::generate(Album::from_json(j, *strategy, *strategy), argv[2]);
+  cue::generate(Album::from_json(j, *strategy, *strategy), argv[2],
+                [](auto& path) {
+                  return std::make_shared<std::ofstream>(
+                      path, std::ios::binary | std::ios::out);
+                });
   return 0;
 }
