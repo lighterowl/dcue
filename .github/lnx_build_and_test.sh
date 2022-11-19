@@ -10,6 +10,7 @@ cmake .. -G Ninja "-DCMAKE_BUILD_TYPE=${btype}" \
   -DWITH_TESTS=TRUE
 ninja -v
 
+ln -s ../test
 ./dcue_gtest
 
 exit 0

@@ -4,4 +4,5 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=%1 -G Ninja -DWITH_TESTS=TRUE
 ninja -v
 
-dcue_gtest
+cd ..
+build\dcue_gtest.exe

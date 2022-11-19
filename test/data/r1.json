@@ -1,4 +1,3 @@
-constexpr std::string_view json = R"json(
 {
   "id": 1,
   "status": "Accepted",
@@ -392,36 +391,3 @@ constexpr std::string_view json = R"json(
   "thumb": "",
   "estimated_weight": 460
 }
-)json";
-
-const std::array<std::vector<std::string_view>, 1> cue = {
-    {{R"cue(REM GENRE Deep House)cue"sv,
-      R"cue(REM DATE 1999)cue"sv,
-      R"cue(REM COMMENT "DCue v1.2dev")cue"sv,
-      R"cue(PERFORMER "The Persuader")cue"sv,
-      R"cue(TITLE "Stockholm")cue"sv,
-      R"cue(FILE "r1.wav" WAVE)cue"sv,
-      R"cue(	TRACK 01 AUDIO)cue"sv,
-      R"cue(		TITLE "Östermalm")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 00:00:00)cue"sv,
-      R"cue(	TRACK 02 AUDIO)cue"sv,
-      R"cue(		TITLE "Vasastaden")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 04:45:00)cue"sv,
-      R"cue(	TRACK 03 AUDIO)cue"sv,
-      R"cue(		TITLE "Kungsholmen")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 10:56:00)cue"sv,
-      R"cue(	TRACK 04 AUDIO)cue"sv,
-      R"cue(		TITLE "Södermalm")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 13:45:00)cue"sv,
-      R"cue(	TRACK 05 AUDIO)cue"sv,
-      R"cue(		TITLE "Norrmalm")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 19:23:00)cue"sv,
-      R"cue(	TRACK 06 AUDIO)cue"sv,
-      R"cue(		TITLE "Gamla Stan")cue"sv,
-      R"cue(		PERFORMER "The Persuader")cue"sv,
-      R"cue(		INDEX 01 24:15:00)cue"sv}}};
