@@ -1130,8 +1130,7 @@ TEST(CueGeneration, r9922074) {
   test_cue_generation(cue);
 }
 
-TEST(CueGeneration, r5984091)
-{
+TEST(CueGeneration, r5984091) {
   auto const cue = std::array<std::vector<std::string_view>, 1>{{{
       R"cue(REM GENRE Modern)cue"sv,
       R"cue(REM DATE 1989)cue"sv,
@@ -1174,4 +1173,21 @@ TEST(CueGeneration, r5984091)
   }}};
   auto strategy = multitrack_strategy::separate();
   test_cue_generation(cue, *strategy);
+}
+
+TEST(CueGeneration, QuestionMarkIsReplacedInGeneratedFilename) {
+  auto discs =
+      std::vector{Disc{{Track{"ohai", "thar", Track::Duration{10, 00}}}},
+                  Disc{{Track{"hello", "there", Track::Duration{42, 42}}}}};
+  auto album = Album{discs, "1989", "hardcore psycho dubstep", "i got foobared",
+                     "samantha fox"};
+
+  auto paths = std::vector<std::filesystem::path>{};
+  cue::generate(album, "fox-?.mp3", [&](auto const &path) {
+    paths.push_back(path);
+    return std::make_shared<std::ostringstream>();
+  });
+
+  auto expected_paths = std::vector<std::filesystem::path>{"fox-1.cue", "fox-2.cue"};
+  EXPECT_EQ(paths, expected_paths);
 }

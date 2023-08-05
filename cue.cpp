@@ -37,15 +37,17 @@ std::string sanitise_string(const std::string& str) {
 }
 
 std::shared_ptr<std::ostream>
-create_stream(const std::filesystem::path& fpath,
+create_stream(const std::filesystem::path &fpath,
               const std::function<std::shared_ptr<std::ostream>(
-                  const std::filesystem::path&)>& stream_factory,
+                  const std::filesystem::path &)> &stream_factory,
               unsigned int disc) {
   auto cuepath = fpath;
   if (disc) {
     const auto disc_str = std::to_string(disc);
     auto fname = cuepath.stem().string();
-    if (!replace_char(fname, '?', disc_str)) {
+    if (replace_char(fname, '?', disc_str)) {
+      cuepath.replace_filename(fname);
+    } else {
       cuepath.replace_filename(fname + '-' + disc_str);
     }
   }
