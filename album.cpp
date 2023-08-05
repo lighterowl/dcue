@@ -47,8 +47,12 @@ std::vector<std::string> tokenise_position(std::string_view position) {
 }
 
 std::optional<unsigned>
-get_disc_number(const std::vector<std::string>& position) {
-  if (position.size() < 2) {
+get_disc_number(const std::vector<std::string>& position, bool is_sub_track) {
+  // 4th subtrack of track 3 on disc 2 should have its "position" set as "2-3.4"
+  // which will get tokenised to {2,3,4} by tokenise_position(), take this into
+  // account in order to avoid treating subtracks as new discs.
+  auto const required_num_tokens = is_sub_track ? 3u : 2u;
+  if (position.size() < required_num_tokens) {
     return std::nullopt;
   }
   auto pre_dot = position[0];
@@ -66,8 +70,7 @@ get_disc_number(const std::vector<std::string>& position) {
   }
 }
 
-Track read_track(nlohmann::json::const_iterator track, const nlohmann::json&,
-                 const Album& album, const std::vector<std::string>&) {
+Track read_track(nlohmann::json::const_iterator track, const Album& album) {
   Track rv;
   if (track->find("artists") != track->end()) {
     rv.artist = NamingFacets::concatenate_artists((*track)["artists"]);
@@ -182,7 +185,7 @@ Album Album::from_json(const nlohmann::json& toplevel,
       continue;
     }
 
-    const auto this_disc = get_disc_number(tokens);
+    const auto this_disc = get_disc_number(tokens, track->contains("sub_tracks"));
     if (this_disc && *this_disc > cur_disc) {
       cur_disc = *this_disc;
       album.discs.emplace_back(std::move(d));
@@ -202,7 +205,7 @@ Album Album::from_json(const nlohmann::json& toplevel,
                   std::back_inserter(d.tracks));
         track = medley.back() + 1;
       } else {
-        d.tracks.emplace_back(read_track(track, tracklist, album, tokens));
+        d.tracks.emplace_back(read_track(track, album));
         ++track;
       }
     }

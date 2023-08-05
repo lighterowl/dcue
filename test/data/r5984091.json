@@ -1,0 +1,762 @@
+{
+  "id": 5984091,
+  "status": "Accepted",
+  "year": 1989,
+  "resource_url": "https://api.discogs.com/releases/5984091",
+  "uri": "https://www.discogs.com/release/5984091-Busoni-Garrick-Ohlsson-Christoph-von-Dohn%C3%A1nyiCleveland-Orchestra-Mens-Chorus-Piano-Concerto",
+  "artists": [
+    {
+      "name": "Ferruccio Busoni",
+      "anv": "Busoni",
+      "join": "-",
+      "role": "",
+      "tracks": "",
+      "id": 1032262,
+      "resource_url": "https://api.discogs.com/artists/1032262"
+    },
+    {
+      "name": "Garrick Ohlsson",
+      "anv": "",
+      "join": ",",
+      "role": "",
+      "tracks": "",
+      "id": 393385,
+      "resource_url": "https://api.discogs.com/artists/393385"
+    },
+    {
+      "name": "Christoph von Dohnányi",
+      "anv": "",
+      "join": ",",
+      "role": "",
+      "tracks": "",
+      "id": 834229,
+      "resource_url": "https://api.discogs.com/artists/834229"
+    },
+    {
+      "name": "The Cleveland Orchestra",
+      "anv": "",
+      "join": "&",
+      "role": "",
+      "tracks": "",
+      "id": 547971,
+      "resource_url": "https://api.discogs.com/artists/547971"
+    },
+    {
+      "name": "The Cleveland Orchestra Chorus",
+      "anv": "Men's Chorus",
+      "join": "",
+      "role": "",
+      "tracks": "",
+      "id": 944043,
+      "resource_url": "https://api.discogs.com/artists/944043"
+    }
+  ],
+  "artists_sort": "Ferruccio Busoni - Garrick Ohlsson, Christoph von Dohnányi, Cleveland Orchestra, The & Cleveland Orchestra Chorus, The",
+  "labels": [
+    {
+      "name": "Telarc",
+      "catno": "CD-80207",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 28165,
+      "resource_url": "https://api.discogs.com/labels/28165"
+    },
+    {
+      "name": "Telarc Digital",
+      "catno": "CD-80207",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 262947,
+      "resource_url": "https://api.discogs.com/labels/262947"
+    }
+  ],
+  "series": [],
+  "companies": [
+    {
+      "name": "Telarc",
+      "catno": "",
+      "entity_type": "13",
+      "entity_type_name": "Phonographic Copyright (p)",
+      "id": 28165,
+      "resource_url": "https://api.discogs.com/labels/28165"
+    },
+    {
+      "name": "Telarc",
+      "catno": "",
+      "entity_type": "14",
+      "entity_type_name": "Copyright (c)",
+      "id": 28165,
+      "resource_url": "https://api.discogs.com/labels/28165"
+    },
+    {
+      "name": "Telarc International Corporation",
+      "catno": "",
+      "entity_type": "4",
+      "entity_type_name": "Record Company",
+      "id": 309725,
+      "resource_url": "https://api.discogs.com/labels/309725"
+    },
+    {
+      "name": "Masonic Auditorium, Cleveland",
+      "catno": "",
+      "entity_type": "23",
+      "entity_type_name": "Recorded At",
+      "id": 462634,
+      "resource_url": "https://api.discogs.com/labels/462634"
+    },
+    {
+      "name": "DADC, Terre Haute, Indiana",
+      "catno": "",
+      "entity_type": "10",
+      "entity_type_name": "Manufactured By",
+      "id": 323820,
+      "resource_url": "https://api.discogs.com/labels/323820"
+    },
+    {
+      "name": "DADC",
+      "catno": "DIDX-005536",
+      "entity_type": "31",
+      "entity_type_name": "Glass Mastered At",
+      "id": 264352,
+      "resource_url": "https://api.discogs.com/labels/264352"
+    },
+    {
+      "name": "Digital Audio Disc Corp.",
+      "catno": "",
+      "entity_type": "16",
+      "entity_type_name": "Made By",
+      "id": 275955,
+      "resource_url": "https://api.discogs.com/labels/275955"
+    }
+  ],
+  "formats": [
+    {
+      "name": "CD",
+      "qty": "1",
+      "descriptions": [
+        "Stereo"
+      ]
+    }
+  ],
+  "data_quality": "Needs Vote",
+  "community": {
+    "have": 78,
+    "want": 6,
+    "rating": {
+      "count": 2,
+      "average": 5
+    },
+    "submitter": {
+      "username": "andrew.lisowski.1",
+      "resource_url": "https://api.discogs.com/users/andrew.lisowski.1"
+    },
+    "contributors": [
+      {
+        "username": "andrew.lisowski.1",
+        "resource_url": "https://api.discogs.com/users/andrew.lisowski.1"
+      },
+      {
+        "username": "Internaut",
+        "resource_url": "https://api.discogs.com/users/Internaut"
+      },
+      {
+        "username": "DiscogsUpdateBot",
+        "resource_url": "https://api.discogs.com/users/DiscogsUpdateBot"
+      },
+      {
+        "username": "ChrisEfterklang",
+        "resource_url": "https://api.discogs.com/users/ChrisEfterklang"
+      },
+      {
+        "username": "Cousin_Mosquito",
+        "resource_url": "https://api.discogs.com/users/Cousin_Mosquito"
+      },
+      {
+        "username": "vom",
+        "resource_url": "https://api.discogs.com/users/vom"
+      },
+      {
+        "username": "Myriad",
+        "resource_url": "https://api.discogs.com/users/Myriad"
+      }
+    ],
+    "data_quality": "Needs Vote",
+    "status": "Accepted"
+  },
+  "format_quantity": 1,
+  "date_added": "2014-08-14T17:28:22-07:00",
+  "date_changed": "2020-10-26T17:24:20-07:00",
+  "num_for_sale": 14,
+  "lowest_price": 3,
+  "master_id": 786033,
+  "master_url": "https://api.discogs.com/masters/786033",
+  "title": "Piano Concerto",
+  "country": "US",
+  "released": "1989",
+  "notes": "Total Playing Time [71:49]\n\nTechnical Information:\nRecorded in Masonic Auditorium, Cleveland, Ohio on February 4, 1989.\nMicrophones: Sennheiser MKH-20, MKH-40 & B&K 4006\nDigital Recording Processor: dbx/CTI 18-Bit A/D\nConsole: Neotek, custom-built\nMonitor Speakers: ADS Model 1530\n['Threshold' logo] Power Amplifier: Threshold Model S/500 Stasis, Series II, optical bias\n['Monster Cable' logo] The entire signal path from microphones to digital processors utilized the latest cable technology from Monster Cable, including M1000, Series I Prolink and Series III Prolink bandwidth balanced\nControl Room Acoustic Treatment: Sonex from illbruck/usa, Soundex from Monster Cable, RPG Diffusors\nDigital Editing: Sony DAE 1100\n\nSpecial thanks to Vic Geiger, Vice President, International Division and Lyle Schauf, Keyboard Exports Coordinator, of Kimball World, Jasper, Indiana; and Bill Matlin and Bob Hyde of Matlin - Hyde Piano Co., Cleveland, Ohio.\n\nBösendorfer Piano\n\nPrinted on disc:\n℗ © 1989 Telarc®\nMade in U.S.A.\n\nPrinted on inlay and booklet rear:\n℗ © 1989 Telarc®\nTelarc International Corporation\n23307 Commerce Park Road • Cleveland, OH 44122 U.S.A.\nPrinted in U.S.A.\n\nTelarc logo appears on the spines. Telarc Digital logo appears on cover, inlay rear, disc, and booklet rear.\n\nCD comes packaged in a standard plastic jewel case, and includes a 32-page booklet with notes in English, German, and French.",
+  "released_formatted": "1989",
+  "identifiers": [
+    {
+      "type": "Barcode",
+      "value": "0 89408 02072 8",
+      "description": "Text"
+    },
+    {
+      "type": "Barcode",
+      "value": "089408020728",
+      "description": "Scanned"
+    },
+    {
+      "type": "Matrix / Runout",
+      "value": "DIDX-005536 1 🝊 🝊🝊 🝊🝊🝊🝊🝊"
+    },
+    {
+      "type": "Pressing Plant ID",
+      "value": "Made In USA Digital Audio Disc Corp. [Dadc Logo]®",
+      "description": "Moulded on inner ring, Mirrored"
+    },
+    {
+      "type": "SPARS Code",
+      "value": "DDD"
+    }
+  ],
+  "genres": [
+    "Classical"
+  ],
+  "styles": [
+    "Modern"
+  ],
+  "tracklist": [
+    {
+      "position": "",
+      "type_": "heading",
+      "title": "Concerto In C Major For Piano & Orchestra (With Male Chorus), Op. 39",
+      "duration": ""
+    },
+    {
+      "position": "1",
+      "type_": "track",
+      "title": "I. Prologo E Introito: Allegro, Dolce E Solenne",
+      "duration": "15:24"
+    },
+    {
+      "position": "2",
+      "type_": "track",
+      "title": "II. Pezzo Giocoso: Vivacemente, Ma Senza Fretta",
+      "duration": "9:50"
+    },
+    {
+      "position": "",
+      "type_": "index",
+      "title": "III. Pezza Serioso: Andante Sostenuto, Pensoso",
+      "duration": "22:58",
+      "sub_tracks": [
+        {
+          "position": "3.1",
+          "type_": "track",
+          "title": "Introduction",
+          "duration": "4:08"
+        },
+        {
+          "position": "3.2",
+          "type_": "track",
+          "title": "Prima Pars",
+          "duration": "4:51"
+        },
+        {
+          "position": "3.3",
+          "type_": "track",
+          "title": "Altera Pars",
+          "duration": "10:47"
+        },
+        {
+          "position": "3.4",
+          "type_": "track",
+          "title": "Ultima Pars",
+          "duration": "3:10"
+        }
+      ]
+    },
+    {
+      "position": "4",
+      "type_": "track",
+      "title": "IV. All' Italiana: Vivace",
+      "duration": "12:54"
+    },
+    {
+      "position": "5",
+      "type_": "track",
+      "title": "V. Cantico: Largamente Più Moderato",
+      "extraartists": [
+        {
+          "name": "Adam Oehlenschläger",
+          "anv": "",
+          "join": "",
+          "role": "Text By",
+          "tracks": "",
+          "id": 1019222,
+          "resource_url": "https://api.discogs.com/artists/1019222"
+        }
+      ],
+      "duration": "10:23"
+    }
+  ],
+  "extraartists": [
+    {
+      "name": "Ray Kirschensteiner",
+      "anv": "",
+      "join": "",
+      "role": "Art Direction",
+      "tracks": "",
+      "id": 1851653,
+      "resource_url": "https://api.discogs.com/artists/1851653"
+    },
+    {
+      "name": "The Cleveland Orchestra Chorus",
+      "anv": "Men's Chorus",
+      "join": "",
+      "role": "Chorus",
+      "tracks": "",
+      "id": 944043,
+      "resource_url": "https://api.discogs.com/artists/944043"
+    },
+    {
+      "name": "Robert Page",
+      "anv": "",
+      "join": "",
+      "role": "Chorus Master",
+      "tracks": "",
+      "id": 887523,
+      "resource_url": "https://api.discogs.com/artists/887523"
+    },
+    {
+      "name": "Ferruccio Busoni",
+      "anv": "",
+      "join": "",
+      "role": "Composed By",
+      "tracks": "",
+      "id": 1032262,
+      "resource_url": "https://api.discogs.com/artists/1032262"
+    },
+    {
+      "name": "Christoph von Dohnányi",
+      "anv": "",
+      "join": "",
+      "role": "Conductor",
+      "tracks": "",
+      "id": 834229,
+      "resource_url": "https://api.discogs.com/artists/834229"
+    },
+    {
+      "name": "Amelia Rogers",
+      "anv": "",
+      "join": "",
+      "role": "Edited By",
+      "tracks": "",
+      "id": 373575,
+      "resource_url": "https://api.discogs.com/artists/373575"
+    },
+    {
+      "name": "Jack Renner",
+      "anv": "",
+      "join": "",
+      "role": "Engineer",
+      "tracks": "",
+      "id": 662015,
+      "resource_url": "https://api.discogs.com/artists/662015"
+    },
+    {
+      "name": "Nottingham-Spirk Design Associates, Inc.",
+      "anv": "Nottingham-Spirk Design Inc.",
+      "join": "",
+      "role": "Graphics [Cover Graphics]",
+      "tracks": "",
+      "id": 2038943,
+      "resource_url": "https://api.discogs.com/artists/2038943"
+    },
+    {
+      "name": "Edward J. Dent",
+      "anv": "",
+      "join": "",
+      "role": "Liner Notes [English Translation of Busoni's Notes]",
+      "tracks": "",
+      "id": 1028598,
+      "resource_url": "https://api.discogs.com/artists/1028598"
+    },
+    {
+      "name": "Patricia Dussaux",
+      "anv": "",
+      "join": "",
+      "role": "Liner Notes [French Translation], Text By [Cantico French Translation]",
+      "tracks": "",
+      "id": 1738772,
+      "resource_url": "https://api.discogs.com/artists/1738772"
+    },
+    {
+      "name": "Gila Fox",
+      "anv": "",
+      "join": "",
+      "role": "Liner Notes [German Translation]",
+      "tracks": "",
+      "id": 1738773,
+      "resource_url": "https://api.discogs.com/artists/1738773"
+    },
+    {
+      "name": "Ferruccio Busoni",
+      "anv": "",
+      "join": "",
+      "role": "Liner Notes [Notes Written for the First Performance]",
+      "tracks": "",
+      "id": 1032262,
+      "resource_url": "https://api.discogs.com/artists/1032262"
+    },
+    {
+      "name": "James R. Oestreich",
+      "anv": "",
+      "join": "",
+      "role": "Liner Notes, Text By [Cantico English Translation]",
+      "tracks": "",
+      "id": 2447131,
+      "resource_url": "https://api.discogs.com/artists/2447131"
+    },
+    {
+      "name": "The Cleveland Orchestra",
+      "anv": "",
+      "join": "",
+      "role": "Orchestra",
+      "tracks": "",
+      "id": 547971,
+      "resource_url": "https://api.discogs.com/artists/547971"
+    },
+    {
+      "name": "Andrew Russetti",
+      "anv": "Andy Russetti",
+      "join": "",
+      "role": "Photography By [Cover Photo]",
+      "tracks": "",
+      "id": 2514546,
+      "resource_url": "https://api.discogs.com/artists/2514546"
+    },
+    {
+      "name": "Robert Woods (2)",
+      "anv": "",
+      "join": "",
+      "role": "Producer",
+      "tracks": "",
+      "id": 748966,
+      "resource_url": "https://api.discogs.com/artists/748966"
+    },
+    {
+      "name": "Elaine Martone",
+      "anv": "",
+      "join": "",
+      "role": "Producer [Production Assistance]",
+      "tracks": "",
+      "id": 595770,
+      "resource_url": "https://api.discogs.com/artists/595770"
+    },
+    {
+      "name": "Thomas Knab",
+      "anv": "",
+      "join": "",
+      "role": "Technician [Technical Assistance]",
+      "tracks": "",
+      "id": 692366,
+      "resource_url": "https://api.discogs.com/artists/692366"
+    },
+    {
+      "name": "Michael Bishop",
+      "anv": "",
+      "join": "",
+      "role": "Technician [Tehnical Assistance]",
+      "tracks": "",
+      "id": 580773,
+      "resource_url": "https://api.discogs.com/artists/580773"
+    }
+  ],
+  "images": [
+    {
+      "type": "primary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 593,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 474
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 581
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 576
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 595
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 594
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 601
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 587
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 597
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 591
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 596
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 593
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 601
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 598
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 596
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 598
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 603
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 596
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 594
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 604
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 590
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 596
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 597
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 601
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 606
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 601
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 593
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 597
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 606
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 595
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 596
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 595
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 560,
+      "height": 600
+    },
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 600,
+      "height": 520
+    }
+  ],
+  "thumb": "",
+  "estimated_weight": 85,
+  "blocked_from_sale": false
+}
