@@ -12,11 +12,12 @@
 using namespace std::string_view_literals;
 
 namespace {
-const auto strategy = multitrack_strategy::single();
+const auto default_strategy = multitrack_strategy::single();
 
 template <std::size_t N>
 void test_cue_generation(
-    const std::array<std::vector<std::string_view>, N>& cues) {
+    const std::array<std::vector<std::string_view>, N>& cues,
+    multitrack_strategy const& strategy = *default_strategy) {
   const auto basepath = std::filesystem::path{
       ::testing::UnitTest::GetInstance()->current_test_info()->name()};
 
@@ -27,7 +28,7 @@ void test_cue_generation(
   nlohmann::json j;
   f >> j;
 
-  const auto album = Album::from_json(j, *strategy, *strategy);
+  const auto album = Album::from_json(j, strategy, strategy);
 
   std::vector<std::shared_ptr<std::iostream>> streams;
   streams.reserve(N);
@@ -1127,4 +1128,50 @@ TEST(CueGeneration, r9922074) {
       R"cue(		INDEX 01 56:39:00)cue"sv,
   }}};
   test_cue_generation(cue);
+}
+
+TEST(CueGeneration, r5984091)
+{
+  auto const cue = std::array<std::vector<std::string_view>, 1>{{{
+      R"cue(REM GENRE Modern)cue"sv,
+      R"cue(REM DATE 1989)cue"sv,
+      R"cue(REM COMMENT "DCue v1.6dev")cue"sv,
+      R"cue(PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(TITLE "Piano Concerto")cue"sv,
+      R"cue(FILE "r5984091.wav" WAVE)cue"sv,
+      R"cue(	TRACK 01 AUDIO)cue"sv,
+      R"cue(		TITLE "I. Prologo E Introito: Allegro, Dolce E Solenne")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 00:00:00)cue"sv,
+      R"cue(	TRACK 02 AUDIO)cue"sv,
+      R"cue(		TITLE "II. Pezzo Giocoso: Vivacemente, Ma Senza Fretta")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 15:24:00)cue"sv,
+      R"cue(	TRACK 03 AUDIO)cue"sv,
+      R"cue(		TITLE "III. Pezza Serioso: Andante Sostenuto, Pensoso : Introduction")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 25:14:00)cue"sv,
+      R"cue(	TRACK 04 AUDIO)cue"sv,
+      R"cue(		TITLE "III. Pezza Serioso: Andante Sostenuto, Pensoso : Prima Pars")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 29:22:00)cue"sv,
+      R"cue(	TRACK 05 AUDIO)cue"sv,
+      R"cue(		TITLE "III. Pezza Serioso: Andante Sostenuto, Pensoso : Altera Pars")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 34:13:00)cue"sv,
+      R"cue(	TRACK 06 AUDIO)cue"sv,
+      R"cue(		TITLE "III. Pezza Serioso: Andante Sostenuto, Pensoso : Ultima Pars")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 45:00:00)cue"sv,
+      R"cue(	TRACK 07 AUDIO)cue"sv,
+      R"cue(		TITLE "IV. All' Italiana: Vivace")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 48:10:00)cue"sv,
+      R"cue(	TRACK 08 AUDIO)cue"sv,
+      R"cue(		TITLE "V. Cantico: Largamente Più Moderato")cue"sv,
+      R"cue(		PERFORMER "Busoni - Garrick Ohlsson, Christoph von Dohnányi, The Cleveland Orchestra & Men's Chorus")cue"sv,
+      R"cue(		INDEX 01 61:04:00)cue"sv,
+  }}};
+  auto strategy = multitrack_strategy::separate();
+  test_cue_generation(cue, *strategy);
 }
