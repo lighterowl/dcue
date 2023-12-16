@@ -1175,6 +1175,12 @@ TEST(CueGeneration, r5984091) {
   test_cue_generation(cue, *strategy);
 }
 
+TEST(CueGeneration, r3446241) {
+  auto const cue = std::array<std::vector<std::string_view>, 1>{{{
+      R"cue(REM GENRE Modern)cue"sv,}}};
+  test_cue_generation(cue);
+}
+
 TEST(CueGeneration, QuestionMarkIsReplacedInGeneratedFilename) {
   auto discs =
       std::vector{Disc{{Track{"ohai", "thar", Track::Duration{10, 00}}}},

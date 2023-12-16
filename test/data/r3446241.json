@@ -1,0 +1,1931 @@
+{
+  "id": 3446241,
+  "status": "Accepted",
+  "year": 2000,
+  "resource_url": "https://api.discogs.com/releases/3446241",
+  "uri": "https://www.discogs.com/release/3446241-Various-Studio-33-The-34th-Story",
+  "artists": [
+    {
+      "name": "Various",
+      "anv": "",
+      "join": "",
+      "role": "",
+      "tracks": "",
+      "id": 194,
+      "resource_url": ""
+    }
+  ],
+  "artists_sort": "Various",
+  "labels": [
+    {
+      "name": "Studio 33 Records (2)",
+      "catno": "none",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 185920,
+      "resource_url": "https://api.discogs.com/labels/185920"
+    }
+  ],
+  "series": [],
+  "companies": [],
+  "formats": [
+    {
+      "name": "CD",
+      "qty": "1",
+      "descriptions": [
+        "Mixed",
+        "Unofficial Release"
+      ]
+    }
+  ],
+  "data_quality": "Needs Vote",
+  "community": {
+    "have": 28,
+    "want": 2,
+    "rating": {
+      "count": 1,
+      "average": 5.0
+    },
+    "submitter": {
+      "username": "blue_one",
+      "resource_url": "https://api.discogs.com/users/blue_one"
+    },
+    "contributors": [
+      {
+        "username": "blue_one",
+        "resource_url": "https://api.discogs.com/users/blue_one"
+      },
+      {
+        "username": "Audio_A",
+        "resource_url": "https://api.discogs.com/users/Audio_A"
+      },
+      {
+        "username": "99jackbox99",
+        "resource_url": "https://api.discogs.com/users/99jackbox99"
+      }
+    ],
+    "data_quality": "Needs Vote",
+    "status": "Accepted"
+  },
+  "format_quantity": 1,
+  "date_added": "2012-03-02T08:33:47-08:00",
+  "date_changed": "2022-02-05T22:43:29-08:00",
+  "num_for_sale": 0,
+  "lowest_price": null,
+  "master_id": 1326203,
+  "master_url": "https://api.discogs.com/masters/1326203",
+  "title": "Studio 33 - The 34th Story",
+  "country": "Germany",
+  "released": "2000",
+  "notes": "Mixed, arranged, and performed by Dj Spring!\nMastered and engeneered in the Studio 33 studios.\nAll Logos and trademarks are protected.\nAn original sound recording made by X-records.\nThis compilation © & produced 2000.\n\nDuration: 74:26",
+  "released_formatted": "2000",
+  "identifiers": [
+    {
+      "type": "Barcode",
+      "value": "4 006635 922003"
+    },
+    {
+      "type": "Rights Society",
+      "value": "GEMA"
+    },
+    {
+      "type": "Label Code",
+      "value": "3300"
+    }
+  ],
+  "videos": [
+    {
+      "uri": "https://www.youtube.com/watch?v=2bP5JgGL7kQ",
+      "title": "Studio 33 - The 34th Story (The Phantastic Party Mix) (2000) [HD]",
+      "description": "#dance #music #megamix\nStudio 33 - The 34th Story (The Phantastic Party Mix) (2000) [HD]\nHQ Version. Released 2000. Reuploaded in better quality.\nREMOVED due to copyright:\nAqua - Around The World\nhttp://www.mixkatalog.de/details.php?rid=43\nThe Phantastic ",
+      "duration": 0,
+      "embed": true
+    }
+  ],
+  "genres": [
+    "Electronic",
+    "Hip Hop",
+    "Pop"
+  ],
+  "styles": [
+    "Europop",
+    "Euro House",
+    "Italodance",
+    "Trance",
+    "Hard Trance",
+    "Techno",
+    "Eurodance",
+    "Hard House",
+    "Disco",
+    "House",
+    "RnB/Swing",
+    "Downtempo",
+    "Pop Rap"
+  ],
+  "tracklist": [
+    {
+      "position": "1.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Unknown Artist",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 355,
+          "resource_url": ""
+        }
+      ],
+      "title": "Intro",
+      "duration": "1:01"
+    },
+    {
+      "position": "1.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Zlatko",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 462682,
+          "resource_url": "https://api.discogs.com/artists/462682"
+        }
+      ],
+      "title": "Ich Vermiss Dich.. (Wie Die Hölle)",
+      "duration": ""
+    },
+    {
+      "position": "1.03",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "M-Pac",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 158204,
+          "resource_url": "https://api.discogs.com/artists/158204"
+        }
+      ],
+      "title": "Das Moorhuhn",
+      "duration": ""
+    },
+    {
+      "position": "2.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Hampton The Hampster",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 269580,
+          "resource_url": "https://api.discogs.com/artists/269580"
+        }
+      ],
+      "title": "The Hampsterdance Song",
+      "duration": "0:45"
+    },
+    {
+      "position": "2.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Judy Ross (2)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 1527265,
+          "resource_url": "https://api.discogs.com/artists/1527265"
+        }
+      ],
+      "title": "Feel The Rhythm Of The Night",
+      "duration": ""
+    },
+    {
+      "position": "3.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "A.B.A. 7",
+          "anv": "A.B.A.",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 904398,
+          "resource_url": "https://api.discogs.com/artists/904398"
+        }
+      ],
+      "title": "Like A Butterfly",
+      "duration": "1:23"
+    },
+    {
+      "position": "3.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Lady Violet",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 91242,
+          "resource_url": "https://api.discogs.com/artists/91242"
+        }
+      ],
+      "title": "Beautiful World",
+      "duration": ""
+    },
+    {
+      "position": "3.03",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aquagen",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12773,
+          "resource_url": "https://api.discogs.com/artists/12773"
+        }
+      ],
+      "title": "Partyalarm (Und Ab Geht's)",
+      "duration": ""
+    },
+    {
+      "position": "4.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Modern Talking",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 103010,
+          "resource_url": "https://api.discogs.com/artists/103010"
+        }
+      ],
+      "title": "Don't Take Away My Heart",
+      "duration": "1:15"
+    },
+    {
+      "position": "4.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Houseless",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 721566,
+          "resource_url": "https://api.discogs.com/artists/721566"
+        }
+      ],
+      "title": "Dance Police",
+      "duration": ""
+    },
+    {
+      "position": "5.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Promo (2)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 240231,
+          "resource_url": "https://api.discogs.com/artists/240231"
+        }
+      ],
+      "title": "Feel The Beat (And Jump)",
+      "duration": "1:21"
+    },
+    {
+      "position": "5.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "ATB",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 5797,
+          "resource_url": "https://api.discogs.com/artists/5797"
+        }
+      ],
+      "title": "The Summer",
+      "duration": ""
+    },
+    {
+      "position": "6",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Paps N Skar",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 41801,
+          "resource_url": "https://api.discogs.com/artists/41801"
+        }
+      ],
+      "title": "Turn Around",
+      "duration": "1:12"
+    },
+    {
+      "position": "7",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Mary C.",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 592383,
+          "resource_url": "https://api.discogs.com/artists/592383"
+        }
+      ],
+      "title": "Bang Bang Bang",
+      "duration": "0:59"
+    },
+    {
+      "position": "8.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aquagen",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12773,
+          "resource_url": "https://api.discogs.com/artists/12773"
+        }
+      ],
+      "title": "Partyalarm (Und Ab Geht's)",
+      "duration": "0:41"
+    },
+    {
+      "position": "8.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Gitta",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 19078,
+          "resource_url": "https://api.discogs.com/artists/19078"
+        }
+      ],
+      "title": "No More Turning Back!!",
+      "duration": ""
+    },
+    {
+      "position": "9.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Tantra (6)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 693586,
+          "resource_url": "https://api.discogs.com/artists/693586"
+        }
+      ],
+      "title": "Weekend",
+      "duration": "1:13"
+    },
+    {
+      "position": "9.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Maui",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 130666,
+          "resource_url": "https://api.discogs.com/artists/130666"
+        }
+      ],
+      "title": "Keep On Dancing",
+      "duration": ""
+    },
+    {
+      "position": "10.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Triple 8",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 130664,
+          "resource_url": "https://api.discogs.com/artists/130664"
+        }
+      ],
+      "title": "All U DJs",
+      "duration": "1:05"
+    },
+    {
+      "position": "10.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Alice Deejay",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 7911,
+          "resource_url": "https://api.discogs.com/artists/7911"
+        }
+      ],
+      "title": "Will I Ever",
+      "duration": ""
+    },
+    {
+      "position": "11.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Taylor & Flow",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 51496,
+          "resource_url": "https://api.discogs.com/artists/51496"
+        }
+      ],
+      "title": "Exzess",
+      "duration": "1:37"
+    },
+    {
+      "position": "11.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "X-Treme",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 59520,
+          "resource_url": "https://api.discogs.com/artists/59520"
+        }
+      ],
+      "title": "Sleep",
+      "duration": ""
+    },
+    {
+      "position": "12",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Fragma",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 67356,
+          "resource_url": "https://api.discogs.com/artists/67356"
+        }
+      ],
+      "title": "Toca's Miracle",
+      "duration": "1:07"
+    },
+    {
+      "position": "13",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Web",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12503,
+          "resource_url": "https://api.discogs.com/artists/12503"
+        }
+      ],
+      "title": "Lovin' Times",
+      "duration": "1:10"
+    },
+    {
+      "position": "14",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "William Orbit",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 2728,
+          "resource_url": "https://api.discogs.com/artists/2728"
+        }
+      ],
+      "title": "Ravel's Pavane Pour Une Infante Défunte",
+      "duration": "1:03"
+    },
+    {
+      "position": "15",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Dune (3)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 16821,
+          "resource_url": "https://api.discogs.com/artists/16821"
+        }
+      ],
+      "title": "Heaven",
+      "duration": "0:42"
+    },
+    {
+      "position": "16",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "A Seven",
+          "anv": "A / Seven",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 128126,
+          "resource_url": "https://api.discogs.com/artists/128126"
+        }
+      ],
+      "title": "Piece Of Heaven",
+      "duration": "0:28"
+    },
+    {
+      "position": "17",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Ken Laszlo",
+          "anv": "",
+          "join": "Meets",
+          "role": "",
+          "tracks": "",
+          "id": 19761,
+          "resource_url": "https://api.discogs.com/artists/19761"
+        },
+        {
+          "name": "Morgana (21)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 8095768,
+          "resource_url": "https://api.discogs.com/artists/8095768"
+        }
+      ],
+      "title": "Maybe A Lonely Night",
+      "duration": "1:24"
+    },
+    {
+      "position": "18",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Qu-Zar",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 202118,
+          "resource_url": "https://api.discogs.com/artists/202118"
+        }
+      ],
+      "title": "Hypnotize",
+      "duration": "1:10"
+    },
+    {
+      "position": "19",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Paul van Dyk",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 1049,
+          "resource_url": "https://api.discogs.com/artists/1049"
+        },
+        {
+          "name": "Saint Etienne",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 2807,
+          "resource_url": "https://api.discogs.com/artists/2807"
+        }
+      ],
+      "title": "Tell Me Why (The Riddle)",
+      "duration": "0:55"
+    },
+    {
+      "position": "20",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Hypetraxx",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 17231,
+          "resource_url": "https://api.discogs.com/artists/17231"
+        }
+      ],
+      "title": "The Darkside",
+      "duration": "1:30"
+    },
+    {
+      "position": "21",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Kosmonova",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12780,
+          "resource_url": "https://api.discogs.com/artists/12780"
+        }
+      ],
+      "title": "Danse Avec Moi!",
+      "duration": "0:56"
+    },
+    {
+      "position": "22",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "French Affair",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 7912,
+          "resource_url": "https://api.discogs.com/artists/7912"
+        }
+      ],
+      "title": "Do What You Like",
+      "duration": "1:26"
+    },
+    {
+      "position": "23.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Gigi D'Agostino",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 15228,
+          "resource_url": "https://api.discogs.com/artists/15228"
+        }
+      ],
+      "title": "Another Way",
+      "duration": "1:15"
+    },
+    {
+      "position": "23.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Jump & Joy!",
+          "anv": "Jump'n Joy",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 203645,
+          "resource_url": "https://api.discogs.com/artists/203645"
+        }
+      ],
+      "title": "Vamoz Everybody",
+      "duration": ""
+    },
+    {
+      "position": "24",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "More (2)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 95684,
+          "resource_url": "https://api.discogs.com/artists/95684"
+        }
+      ],
+      "title": "Around The World",
+      "duration": "1:27"
+    },
+    {
+      "position": "25",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Kim Lukas",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 67617,
+          "resource_url": "https://api.discogs.com/artists/67617"
+        }
+      ],
+      "title": "Let It Be The Night",
+      "duration": "1:03"
+    },
+    {
+      "position": "26",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Whigfield",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 14643,
+          "resource_url": "https://api.discogs.com/artists/14643"
+        }
+      ],
+      "title": "Doo-Whop",
+      "duration": "1:15"
+    },
+    {
+      "position": "27",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Dario G",
+          "anv": "Dario G.",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 9561,
+          "resource_url": "https://api.discogs.com/artists/9561"
+        }
+      ],
+      "title": "Voices",
+      "duration": "0:45"
+    },
+    {
+      "position": "28",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "WestBam",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 6092,
+          "resource_url": "https://api.discogs.com/artists/6092"
+        }
+      ],
+      "title": "Love Bass",
+      "duration": "1:02"
+    },
+    {
+      "position": "29",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aqua",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 38862,
+          "resource_url": "https://api.discogs.com/artists/38862"
+        }
+      ],
+      "title": "Around The World",
+      "duration": "1:21"
+    },
+    {
+      "position": "30",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "A*Teens",
+          "anv": "A-Teens",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 81566,
+          "resource_url": "https://api.discogs.com/artists/81566"
+        }
+      ],
+      "title": "Gimme! Gimme! Gimme! (A Man After Midnight)",
+      "duration": "1:18"
+    },
+    {
+      "position": "31",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Eiffel 65",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 11149,
+          "resource_url": "https://api.discogs.com/artists/11149"
+        }
+      ],
+      "title": "My Console",
+      "duration": "1:26"
+    },
+    {
+      "position": "32.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Mumm",
+          "anv": "",
+          "join": "Vs.",
+          "role": "",
+          "tracks": "",
+          "id": 373236,
+          "resource_url": "https://api.discogs.com/artists/373236"
+        },
+        {
+          "name": "Dhany",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 52724,
+          "resource_url": "https://api.discogs.com/artists/52724"
+        }
+      ],
+      "title": "I Wanna Be Free",
+      "duration": "1:28"
+    },
+    {
+      "position": "32.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Block 15",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 386712,
+          "resource_url": "https://api.discogs.com/artists/386712"
+        }
+      ],
+      "title": "Saturday",
+      "duration": ""
+    },
+    {
+      "position": "33",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Quik (2)",
+          "anv": "",
+          "join": " Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 492829,
+          "resource_url": "https://api.discogs.com/artists/492829"
+        },
+        {
+          "name": "Charlotte (3)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 251247,
+          "resource_url": "https://api.discogs.com/artists/251247"
+        }
+      ],
+      "title": "Need You Tonite (La La La)",
+      "duration": "0:52"
+    },
+    {
+      "position": "34.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Asira",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 995042,
+          "resource_url": "https://api.discogs.com/artists/995042"
+        }
+      ],
+      "title": "Mama",
+      "duration": "1:12"
+    },
+    {
+      "position": "34.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "N.Y.C.C.",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 58915,
+          "resource_url": "https://api.discogs.com/artists/58915"
+        }
+      ],
+      "title": "No Sleep",
+      "duration": ""
+    },
+    {
+      "position": "35.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "System F",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 68181,
+          "resource_url": "https://api.discogs.com/artists/68181"
+        }
+      ],
+      "title": "Cry",
+      "duration": "2:09"
+    },
+    {
+      "position": "35.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Nick Beat",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 23744,
+          "resource_url": "https://api.discogs.com/artists/23744"
+        }
+      ],
+      "title": "Technodisco",
+      "duration": ""
+    },
+    {
+      "position": "35.03",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Tyrell Corp.",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 14625,
+          "resource_url": "https://api.discogs.com/artists/14625"
+        }
+      ],
+      "title": "Running 2.0",
+      "duration": ""
+    },
+    {
+      "position": "36.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Woody van Eyden",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 10745,
+          "resource_url": "https://api.discogs.com/artists/10745"
+        }
+      ],
+      "title": "Feels Like Flyin'",
+      "duration": "0:42"
+    },
+    {
+      "position": "36.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Keine Ahnung (3)",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 1879569,
+          "resource_url": "https://api.discogs.com/artists/1879569"
+        },
+        {
+          "name": "The Big Brain",
+          "anv": "Big Brain",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 6345939,
+          "resource_url": "https://api.discogs.com/artists/6345939"
+        }
+      ],
+      "title": "Wer Ist Shakesbier ?",
+      "duration": ""
+    },
+    {
+      "position": "37.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Hooligan",
+          "anv": "Hooligan",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12683,
+          "resource_url": "https://api.discogs.com/artists/12683"
+        }
+      ],
+      "title": "The Culture",
+      "duration": "0:28"
+    },
+    {
+      "position": "37.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Da Hool",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 9173,
+          "resource_url": "https://api.discogs.com/artists/9173"
+        }
+      ],
+      "title": "Eichelrück",
+      "duration": ""
+    },
+    {
+      "position": "37.03",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Taucher",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 66851,
+          "resource_url": "https://api.discogs.com/artists/66851"
+        }
+      ],
+      "title": "Science Fiction",
+      "duration": ""
+    },
+    {
+      "position": "38.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Miss Peppermint",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 44809,
+          "resource_url": "https://api.discogs.com/artists/44809"
+        }
+      ],
+      "title": "Day By Day",
+      "duration": ""
+    },
+    {
+      "position": "38.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Maui",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 130666,
+          "resource_url": "https://api.discogs.com/artists/130666"
+        }
+      ],
+      "title": "Keep On Dancing",
+      "duration": ""
+    },
+    {
+      "position": "39",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Masterboy",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 42429,
+          "resource_url": "https://api.discogs.com/artists/42429"
+        }
+      ],
+      "title": "Feel The Heat 2000",
+      "duration": "1:10"
+    },
+    {
+      "position": "40.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Aligator Project",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 94019,
+          "resource_url": "https://api.discogs.com/artists/94019"
+        }
+      ],
+      "title": "The Whistle Song",
+      "duration": "0:30"
+    },
+    {
+      "position": "40.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Balloon",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 20149,
+          "resource_url": "https://api.discogs.com/artists/20149"
+        }
+      ],
+      "title": "Pussylovers",
+      "duration": ""
+    },
+    {
+      "position": "41",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Hampton The Hampster",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 269580,
+          "resource_url": "https://api.discogs.com/artists/269580"
+        }
+      ],
+      "title": "The Hampsterdance Song",
+      "duration": "1:12"
+    },
+    {
+      "position": "42.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Suco E Sol",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 324605,
+          "resource_url": "https://api.discogs.com/artists/324605"
+        }
+      ],
+      "title": "Ylarie",
+      "duration": "0:57"
+    },
+    {
+      "position": "42.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Triple 8",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 130664,
+          "resource_url": "https://api.discogs.com/artists/130664"
+        }
+      ],
+      "title": "All U DJs",
+      "duration": ""
+    },
+    {
+      "position": "43",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Sigue Sigue Sputnik",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 37784,
+          "resource_url": "https://api.discogs.com/artists/37784"
+        }
+      ],
+      "title": "Love Missile F1-11",
+      "duration": "1:33"
+    },
+    {
+      "position": "44.01",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aquagen",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 12773,
+          "resource_url": "https://api.discogs.com/artists/12773"
+        }
+      ],
+      "title": "Partyalarm (Und Ab Geht's)",
+      "duration": "0:35"
+    },
+    {
+      "position": "44.02",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Storm",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 867,
+          "resource_url": "https://api.discogs.com/artists/867"
+        }
+      ],
+      "title": "Time To Burn",
+      "duration": ""
+    },
+    {
+      "position": "45",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Avancada",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 11684,
+          "resource_url": "https://api.discogs.com/artists/11684"
+        }
+      ],
+      "title": "Dirty Bitch",
+      "duration": "0:14"
+    },
+    {
+      "position": "46",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Sisqo",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 21993,
+          "resource_url": "https://api.discogs.com/artists/21993"
+        }
+      ],
+      "title": "Thong Song",
+      "duration": "1:35"
+    },
+    {
+      "position": "47",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Passion Fruit",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 160358,
+          "resource_url": "https://api.discogs.com/artists/160358"
+        }
+      ],
+      "title": "Wonderland",
+      "duration": "0:51"
+    },
+    {
+      "position": "48",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Moorhuhn",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 1153575,
+          "resource_url": "https://api.discogs.com/artists/1153575"
+        },
+        {
+          "name": "Wigald Boning",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 238936,
+          "resource_url": "https://api.discogs.com/artists/238936"
+        }
+      ],
+      "title": "Gimme More Huhn",
+      "duration": "1:18"
+    },
+    {
+      "position": "49",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Layton & Stone",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 24937,
+          "resource_url": "https://api.discogs.com/artists/24937"
+        }
+      ],
+      "title": "Feel It",
+      "duration": "0:46"
+    },
+    {
+      "position": "50",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Barbara Tucker",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 4687,
+          "resource_url": "https://api.discogs.com/artists/4687"
+        }
+      ],
+      "title": "Stop Playing With My Mind",
+      "duration": "0:30"
+    },
+    {
+      "position": "51",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Superfunk",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 8006,
+          "resource_url": "https://api.discogs.com/artists/8006"
+        },
+        {
+          "name": "Ron Carroll",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 2953,
+          "resource_url": "https://api.discogs.com/artists/2953"
+        }
+      ],
+      "title": "Lucky Star",
+      "duration": "1:00"
+    },
+    {
+      "position": "52",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Giorgio Moroder Project",
+          "anv": "",
+          "join": "Pres.",
+          "role": "",
+          "tracks": "",
+          "id": 128012,
+          "resource_url": "https://api.discogs.com/artists/128012"
+        },
+        {
+          "name": "Gloria Gaynor",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 14683,
+          "resource_url": "https://api.discogs.com/artists/14683"
+        }
+      ],
+      "title": "Last Night",
+      "duration": "0:53"
+    },
+    {
+      "position": "53",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Wisdome",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 22242,
+          "resource_url": "https://api.discogs.com/artists/22242"
+        }
+      ],
+      "title": "Off The Wall (Enjoy Yourself)",
+      "duration": "0:44"
+    },
+    {
+      "position": "54",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "DJ Jean",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 8398,
+          "resource_url": "https://api.discogs.com/artists/8398"
+        }
+      ],
+      "title": "Love Come Home",
+      "duration": "1:00"
+    },
+    {
+      "position": "55",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Lara Fabian",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 85146,
+          "resource_url": "https://api.discogs.com/artists/85146"
+        }
+      ],
+      "title": "I Will Love Again",
+      "duration": "1:21"
+    },
+    {
+      "position": "56",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "John Davies",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 29245,
+          "resource_url": "https://api.discogs.com/artists/29245"
+        }
+      ],
+      "title": "I Promised Myself",
+      "duration": "0:31"
+    },
+    {
+      "position": "57",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "SM-Trax",
+          "anv": "SM Trax",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 10742,
+          "resource_url": "https://api.discogs.com/artists/10742"
+        }
+      ],
+      "title": "At The Club",
+      "duration": "0:45"
+    },
+    {
+      "position": "58",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Bomfunk MC's",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 10828,
+          "resource_url": "https://api.discogs.com/artists/10828"
+        }
+      ],
+      "title": "Freestyler",
+      "duration": "0:47"
+    },
+    {
+      "position": "59",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Manu Chao",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 30773,
+          "resource_url": "https://api.discogs.com/artists/30773"
+        }
+      ],
+      "title": "Bongo Bong",
+      "duration": "0:58"
+    },
+    {
+      "position": "60",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "TQ",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 85141,
+          "resource_url": "https://api.discogs.com/artists/85141"
+        }
+      ],
+      "title": "Daily",
+      "duration": "0:45"
+    },
+    {
+      "position": "61",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Toni Braxton",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 13936,
+          "resource_url": "https://api.discogs.com/artists/13936"
+        }
+      ],
+      "title": "He Wasn't Man Enough",
+      "duration": "1:03"
+    },
+    {
+      "position": "62",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Four Colourz",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 774433,
+          "resource_url": "https://api.discogs.com/artists/774433"
+        }
+      ],
+      "title": "Abcd",
+      "duration": "0:24"
+    },
+    {
+      "position": "63",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Marvin McKay",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 865926,
+          "resource_url": "https://api.discogs.com/artists/865926"
+        },
+        {
+          "name": "T Seven",
+          "anv": "Seven",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 273761,
+          "resource_url": "https://api.discogs.com/artists/273761"
+        }
+      ],
+      "title": "Ohne Dich (Schlaf' Ich Heut Nacht Nicht Ein)",
+      "duration": "0:26"
+    },
+    {
+      "position": "64",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Aleksey",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 215458,
+          "resource_url": "https://api.discogs.com/artists/215458"
+        }
+      ],
+      "title": "Wen Soll Ich Fürchten",
+      "duration": "0:21"
+    },
+    {
+      "position": "65",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Lil' Cease",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 173998,
+          "resource_url": "https://api.discogs.com/artists/173998"
+        }
+      ],
+      "title": "Play Around",
+      "duration": "0:20"
+    },
+    {
+      "position": "66",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Britney Spears",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 15687,
+          "resource_url": "https://api.discogs.com/artists/15687"
+        }
+      ],
+      "title": "Oops!...I Did It Again",
+      "duration": "1:01"
+    },
+    {
+      "position": "67",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "En Vogue",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 21295,
+          "resource_url": "https://api.discogs.com/artists/21295"
+        }
+      ],
+      "title": "Riddle",
+      "duration": "0:20"
+    },
+    {
+      "position": "68",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Sasha (5)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 164150,
+          "resource_url": "https://api.discogs.com/artists/164150"
+        }
+      ],
+      "title": "Let Me Be The One",
+      "duration": "1:01"
+    },
+    {
+      "position": "69",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "T-One (2)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 742504,
+          "resource_url": "https://api.discogs.com/artists/742504"
+        }
+      ],
+      "title": "Tom's Diner 2000 (Do My Thang)",
+      "duration": "0:29"
+    },
+    {
+      "position": "70",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Montell Jordan",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 39833,
+          "resource_url": "https://api.discogs.com/artists/39833"
+        }
+      ],
+      "title": "Get It On Tonite",
+      "duration": "0:39"
+    },
+    {
+      "position": "71",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Mandy Moore",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 124763,
+          "resource_url": "https://api.discogs.com/artists/124763"
+        }
+      ],
+      "title": "Candy",
+      "duration": "0:39"
+    },
+    {
+      "position": "72",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Die 3. Generation",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 360682,
+          "resource_url": "https://api.discogs.com/artists/360682"
+        }
+      ],
+      "title": "Leb!",
+      "duration": "0:43"
+    },
+    {
+      "position": "73",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Sonny Jones (2)",
+          "anv": "",
+          "join": "Feat.",
+          "role": "",
+          "tracks": "",
+          "id": 906171,
+          "resource_url": "https://api.discogs.com/artists/906171"
+        },
+        {
+          "name": "Tara Chase",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 150920,
+          "resource_url": "https://api.discogs.com/artists/150920"
+        }
+      ],
+      "title": "Follow You Follow Me",
+      "duration": "0:56"
+    },
+    {
+      "position": "74",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Jon Secada",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 79019,
+          "resource_url": "https://api.discogs.com/artists/79019"
+        }
+      ],
+      "title": "Stop",
+      "duration": "0:36"
+    },
+    {
+      "position": "75",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Snap!",
+          "anv": "Snap",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 7698,
+          "resource_url": "https://api.discogs.com/artists/7698"
+        }
+      ],
+      "title": "Gimme A Thrill",
+      "duration": "0:27"
+    },
+    {
+      "position": "76",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Backstreet Boys",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 11002,
+          "resource_url": "https://api.discogs.com/artists/11002"
+        }
+      ],
+      "title": "The One",
+      "duration": "0:57"
+    },
+    {
+      "position": "77",
+      "type_": "track",
+      "artists": [
+        {
+          "name": "Touché (3)",
+          "anv": "",
+          "join": "",
+          "role": "",
+          "tracks": "",
+          "id": 163345,
+          "resource_url": "https://api.discogs.com/artists/163345"
+        }
+      ],
+      "title": "Heaven Is For Everyone",
+      "duration": "0:46"
+    }
+  ],
+  "extraartists": [],
+  "images": [
+    {
+      "type": "secondary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 200,
+      "height": 200
+    }
+  ],
+  "thumb": "",
+  "estimated_weight": 85,
+  "blocked_from_sale": true
+}
