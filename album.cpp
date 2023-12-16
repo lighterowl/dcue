@@ -106,36 +106,75 @@ std::vector<std::string> get_position(const nlohmann::json& entry) {
   }
 }
 
-bool is_medley(const std::vector<std::string>& position) {
-  const auto last_token = position.back().back();
-  return (last_token >= 'a' && last_token <= 'z') ||
-         (last_token >= 'A' && last_token <= 'Z');
+bool is_medley(const std::vector<std::string>& position, bool has_duration) {
+  if (position.size() == 2 || position.size() == 3)
+  {
+    // position is either (disc,track) or (track,subtrack) or (disc,track,subtrack)
+    // at this point. medley tracks should have no duration set so use this to
+    // differentiate.
+    return !has_duration;
+  }
+  else
+  {
+    const auto last_pos_token = position.back();
+    const auto last_char = last_pos_token.back();
+    return last_pos_token.size() > 1 &&
+           ((last_char >= 'a' && last_char <= 'z') ||
+            (last_char >= 'A' && last_char <= 'Z'));
+  }
 }
 
 std::vector<nlohmann::json::const_iterator>
 extract_medley(nlohmann::json::const_iterator current,
                nlohmann::json::const_iterator end) {
   std::vector<nlohmann::json::const_iterator> rv;
-  const auto start_pos = get_position(*current);
-  if (!is_medley(start_pos)) {
-    return {};
-  }
-
   rv.push_back(current);
   ++current;
   while (current != end) {
+    const auto type = current->value("type_", std::string{});
+    if (type != "track") {
+      break;
+    }
+
     auto cur_pos = get_position(*current);
-    if (is_medley(cur_pos)) {
+    auto duration = current->value("duration", std::string{});
+    if (is_medley(cur_pos, !duration.empty())) {
       rv.push_back(current);
     } else {
       break;
     }
     ++current;
   }
-  return rv;
+
+  if (rv.size() > 1) {
+    return rv;
+  } else {
+    return {};
+  }
 }
 
+unsigned get_min_position_tokens(nlohmann::json const &tracklist) {
+  // the minimum number of tokens that appears in the tracks' positions is
+  // useful for determining ambiguous cases when it comes to the interpretation
+  // of these tokens as if it's equal to 1, we can be quite sure it's a single
+  // disc and any 2-token forms will be medley tracks.
+  auto rv = std::numeric_limits<unsigned>::max();
+  for (auto &trk : tracklist) {
+    if (trk.value("type_", std::string{}) == "track") {
+      auto const position = trk.value("position", std::string{});
+      if (!position.empty()) {
+        auto const num_tokens =
+            static_cast<unsigned>(tokenise_position(position).size());
+        rv = std::min(rv, num_tokens);
+        if (rv == 1) {
+          break; // no point in looking further
+        }
+      }
+    }
+  }
+  return rv;
 }
+} // namespace
 
 Track::Duration::Duration(std::string_view duration) {
   const auto colon_pos = duration.find(':');
@@ -178,6 +217,7 @@ Album Album::from_json(const nlohmann::json& toplevel,
 
   Disc d;
   unsigned cur_disc = 1;
+  auto const min_position_length = get_min_position_tokens(tracklist);
   while (track != tracks_end) {
     auto tokens = get_position(*track);
     if (tokens.empty()) {
@@ -186,7 +226,7 @@ Album Album::from_json(const nlohmann::json& toplevel,
     }
 
     const auto this_disc = get_disc_number(tokens, track->contains("sub_tracks"));
-    if (this_disc && *this_disc > cur_disc) {
+    if (min_position_length != 1 && this_disc && *this_disc > cur_disc) {
       cur_disc = *this_disc;
       album.discs.emplace_back(std::move(d));
     }
